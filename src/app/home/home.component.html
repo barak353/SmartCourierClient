@@ -1,0 +1,154 @@
+﻿<!-- <div class="col-md-6 col-md-offset-3">
+    <h1>Hi {{currentUser.firstName}}!</h1>
+    <p>You're logged in with Angular 2/5 and Angular CLI!!</p>
+    <h3>All registered users:</h3>
+    <ul>
+        <li *ngFor="let agent of agents" >
+            {{agent.id}} {{agent.email}} {{agent.po}}
+            - <a (click)="deleteUser(user.id)">Delete</a>
+        </li>
+    </ul>
+    <p><a [routerLink]="['/login']">Logout</a></p>
+</div> -->
+
+
+<p><a [routerLink]="['/login']">Logout</a></p>
+<div class="container">
+  <div class="reglist">
+
+   <div *ngIf="showTable =='Agents'">
+
+
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNewAgent()">New</button>
+    </div>
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Agent ID</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>PO</th>
+          <th>Deliveries</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agent of agents; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ agent.id }}</td>
+          <td>{{ agent.email }}</td>
+          <td>{{ agent.phone }}</td>
+          <td>{{ agent.po }}</td>
+          <td>  <div *ngIf="agent.delivery.length > 0"><a  (click)="showDeliveries(agent.delivery)">Deliveries</a></div><div *ngIf="agent.delivery.length <= 0">No deliveries</div></td>
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+   <div *ngIf="showTable =='Deliveries'">
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNewDelivery()">New</button>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Delivery ID</th>
+          <th>Address</th>
+          <th>Preferred area</th>
+          <th>Price</th>
+          <th>State</th>
+          <th>Phone</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let delivery of deliveries; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ delivery.id }}</td>
+          <td>{{ delivery.address }}</td>
+          <td>{{ delivery.preferredArea }}</td>
+          <td>{{ delivery.price }}</td>
+          <td>{{ delivery.state }}</td>
+          <td>{{ delivery.phone }}</td>
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="showTable = 'Agents'">< Back</button>
+    </div>
+
+  </div>
+
+
+  </div>
+  <br>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="firstname-input" class="col-2 col-form-label">First Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.firstName" name="firstName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="lastname-input" class="col-2 col-form-label">Last Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dob-input" class="col-2 col-form-label">DOB</label>
+        <!-- <div class="col-3 input-group">
+          <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker">
+          <button class="input-group-addon" (click)="dob.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+        </div> -->
+      </div>
+      <div class="form-group row">
+        <label for="example-email-input" class="col-2 col-form-label">Email</label>
+        <div class="col-10">
+          <input class="form-control" type="email" [(ngModel)]="regModel.email" name="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-password-input" class="col-2 col-form-label">Password</label>
+        <div class="col-10">
+          <input class="form-control" type="password" [(ngModel)]="regModel.password" name="password">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="city-input" class="col-2 col-form-label">Country</label>
+        <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+          <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country" ngbDropdownToggle>{{regModel.country}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button type="button" class="dropdown-item" *ngFor="let country of countries" (click)="onChangeCountry(country)">{{country}}</button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>
