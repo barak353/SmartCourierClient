@@ -22,24 +22,62 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this.loadAllUsers();
         this.loadAllAgents();
     }
 
-    showDeliveries(delivieris: Delivery[]) {
-      this.deliveries = delivieris;
-      this.showTable = 'Deliveries';
+
+    // Agents functions
+    createNewAgent(){
+      this.agentService.create(Agent agent).subscribe(() => { this.loadAllAgents() });
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
+    updateAgent(id : number){
+      this.agentService.update(id).subscribe(() => { this.loadAllAgents() });
+    }
+
+    deleteAgent(id: number) {
+        this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
     }
 
     private loadAllAgents() {
         this.agentService.getAll().subscribe(agents => { this.agents = agents; });
     }
 
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
+
+    // Deliveries functions
+    showDeliveries(delivieris: Delivery[]) {
+      this.deliveries = delivieris;
+      this.showTable = 'Deliveries';
     }
+
+    createNewDelivery(){
+      this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });
+    }
+
+    updateDelivery(id : number){
+      this.deliveryService.update(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
+    }
+
+    deleteDelivery(id: number) {
+        this.deliveryService.delete(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
+    }
+
+    // private loadAllDeliveries() {
+    //     this.deliveryService.getAll().subscribe(deliveries => { this.deliveries = deliveries; });
+    // }
+
+
+    // Users functions (example for register page)
+    // updateUser(id : number){
+    //   this.userService.update(id).subscribe(() => { this.loadAllUsers() });
+    // }
+    //
+    // deleteUser(id: number) {
+    //     this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
+    // }
+    //
+    // private loadAllUsers() {
+    //     this.userService.getAll().subscribe(users => { this.users = users; });
+    // }
+
 }

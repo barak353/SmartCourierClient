@@ -46,10 +46,10 @@
           <td>{{ agent.po }}</td>
           <td>  <div *ngIf="agent.delivery.length > 0"><a  (click)="showDeliveries(agent.delivery)">Deliveries</a></div><div *ngIf="agent.delivery.length <= 0">No deliveries</div></td>
           <td>
-            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+            <button type="button" class="btn btn-info" (click)="updateAgent(agent.id)">Edit</button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="deleteAgent(agent.id)">Delete</button>
           </td>
         </tr>
       </tbody>

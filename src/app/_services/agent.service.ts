@@ -7,27 +7,30 @@ import { Agent } from '../_models/index';
 export class AgentService {
     constructor(private http: HttpClient) { }
 
+    baseUrl = 'http://localhost:8080';
+
     // getAll() {
     //     return this.http.get<Agent[]>('/api/agents');
     // }
 
     getAll() {
-        return this.http.get<Agent[]>('http://localhost:8080/agent/getAll');
+        return this.http.get<Agent[]>(baseUrl + '/agent/getAll');
     }
 
     getById(id: number) {
-        return this.http.get('/api/agents/' + id);
+        return this.http.get(baseUrl + '/agent/' + agent.id);
     }
 
     create(agent: Agent) {
-        return this.http.post('/api/agents', agent);
+        return this.http.post(baseUrl + '/agent/getAll', agent);
     }
 
     update(agent: Agent) {
-        return this.http.put('/api/agents/' + agent.id, agent);
+        return this.http.put(baseUrl + '/agent/update/' + agent.id, agent);
     }
 
     delete(id: number) {
-        return this.http.delete('/api/agents/' + id);
+        //return this.http.delete(baseUrl + '/agent/getAll' + id);
+
     }
 }
