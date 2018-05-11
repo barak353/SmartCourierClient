@@ -1,4 +1,4 @@
-﻿export class Delivey {
+﻿export class Delivery {
     id: number;
     adress: string;
     preferredArea : string;

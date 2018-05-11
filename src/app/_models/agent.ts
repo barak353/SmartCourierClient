@@ -1,4 +1,4 @@
-import { Delivery } from '../_models/index';
+import { Delivery } from './index';
 
 export class Agent {
     id: number;

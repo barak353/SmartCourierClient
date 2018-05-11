@@ -1,4 +1,4 @@
-import { Agent } from '../_models/index';
+import { Agent } from './index';
 
 export class User {
     id: number;
