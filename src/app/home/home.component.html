@@ -29,27 +29,35 @@
         <tr>
           <th>#</th>
           <th>Agent ID</th>
+          <th>First name</th>
+          <th>Last name</th>
           <th>Email</th>
           <th>Phone</th>
+          <th>Preferred area</th>
           <th>PO</th>
+          <th>Total paid</th>
           <th>Deliveries</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let agent of agents; let i = index">
+        <tr *ngFor="let user of users; let i = index">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ agent.id }}</td>
-          <td>{{ agent.email }}</td>
-          <td>{{ agent.phone }}</td>
-          <td>{{ agent.po }}</td>
-          <td>  <div *ngIf="agent.delivery.length > 0"><a  (click)="showDeliveries(agent.delivery)">Deliveries</a></div><div *ngIf="agent.delivery.length <= 0">No deliveries</div></td>
+          <td>{{ user.agent.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.agent.email }}</td>
+          <td>{{ user.agent.phone }}</td>
+          <td>{{ user.agent.preferredArea }}</td>
+          <td>{{ user.agent.po }}</td>
+          <td>{{ user.agent.totalPaid }}</td>
+          <td>  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">Deliveries</a></div><div *ngIf="user.agent.delivery.length <= 0">No deliveries</div></td>
           <td>
-            <button type="button" class="btn btn-info" (click)="updateAgent(agent.id)">Edit</button>
+            <button type="button" class="btn btn-info" (click)="updateAgent(user.agent.id)">Edit</button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="deleteAgent(agent.id)">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="deleteAgent(user.agent.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -67,7 +75,6 @@
           <th>#</th>
           <th>Delivery ID</th>
           <th>Address</th>
-          <th>Preferred area</th>
           <th>Price</th>
           <th>State</th>
           <th>Phone</th>
@@ -80,7 +87,6 @@
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ delivery.id }}</td>
           <td>{{ delivery.address }}</td>
-          <td>{{ delivery.preferredArea }}</td>
           <td>{{ delivery.price }}</td>
           <td>{{ delivery.state }}</td>
           <td>{{ delivery.phone }}</td>

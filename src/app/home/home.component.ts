@@ -11,7 +11,7 @@ import { UserService, AgentService, DeliveryService } from '../_services/index';
 export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
-    agents: Agent[] = [];
+    //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
 
@@ -27,20 +27,28 @@ export class HomeComponent implements OnInit {
 
 
     // Agents functions
-    createNewAgent(){
-      this.agentService.create(Agent agent).subscribe(() => { this.loadAllAgents() });
-    }
+    // createNewAgent(){
+    //   this.userService.create(Agent agent).subscribe(() => { this.loadAllAgents() });
+    // }
 
-    updateAgent(id : number){
-      this.agentService.update(id).subscribe(() => { this.loadAllAgents() });
-    }
+    // updateAgent(id : number){
+    //   this.ugentService.update(id).subscribe(() => { this.loadAllAgents() });
+    // }
 
-    deleteAgent(id: number) {
-        this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
-    }
+    // deleteAgent(id: number) {
+    //     this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
+    // }
 
     private loadAllAgents() {
-        this.agentService.getAll().subscribe(agents => { this.agents = agents; });
+        this.userService.getAll().subscribe(users => {
+          var usersWithAgent = [];
+          for(var i = 0; i < users.length; i++){
+            if(users[i].agent){
+              usersWithAgent.push(users[i]);
+            }
+          }
+          this.users = usersWithAgent;
+        });
     }
 
 
@@ -50,17 +58,17 @@ export class HomeComponent implements OnInit {
       this.showTable = 'Deliveries';
     }
 
-    createNewDelivery(){
-      this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });
-    }
-
-    updateDelivery(id : number){
-      this.deliveryService.update(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
-    }
-
-    deleteDelivery(id: number) {
-        this.deliveryService.delete(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
-    }
+    // createNewDelivery(){
+    //   this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });
+    // }
+    //
+    // updateDelivery(id : number){
+    //   this.deliveryService.update(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
+    // }
+    //
+    // deleteDelivery(id: number) {
+    //     this.deliveryService.delete(id).subscribe(() => { /*this.loadAllDeliveries()*/ });
+    // }
 
     // private loadAllDeliveries() {
     //     this.deliveryService.getAll().subscribe(deliveries => { this.deliveries = deliveries; });
