@@ -14,23 +14,22 @@ export class AgentService {
     // }
 
     getAll() {
-        return this.http.get<Agent[]>(baseUrl + '/agent/getAll');
+        return this.http.get<Agent[]>(this.baseUrl + '/agent/getAll');
     }
 
     getById(id: number) {
-        return this.http.get(baseUrl + '/agent/' + agent.id);
+        return this.http.get(this.baseUrl + '/agent/' + id);
     }
 
     create(agent: Agent) {
-        return this.http.post(baseUrl + '/agent/getAll', agent);
+        return this.http.post(this.baseUrl + '/agent/getAll', agent);
     }
 
     update(agent: Agent) {
-        return this.http.put(baseUrl + '/agent/update/' + agent.id, agent);
+        return this.http.put(this.baseUrl + '/agent/update/' + agent.id, agent);
     }
 
     delete(id: number) {
-        //return this.http.delete(baseUrl + '/agent/getAll' + id);
-
+      return this.http.delete(this.baseUrl + '/agent/delete/' + id);
     }
 }
