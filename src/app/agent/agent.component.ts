@@ -1,6 +1,5 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { User, Agent } from '../_models/index';
 import { AlertService, UserService } from '../_services/index';
 
@@ -10,7 +9,7 @@ import { AlertService, UserService } from '../_services/index';
 })
 
 export class AgentComponent {
-    model: User = {agent : Agent};
+    model: any = {agent : Agent };
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
 

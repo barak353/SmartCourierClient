@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, RequestOptions, Request} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
 import { User, Agent } from '../_models/index';
 
