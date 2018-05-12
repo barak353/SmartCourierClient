@@ -21,9 +21,9 @@ export class AgentService {
         return this.http.get(this.baseUrl + '/agent/' + id);
     }
 
-    create(agent: Agent) {
+    /*create(agent: Agent) {
         return this.http.post(this.baseUrl + '/agent/getAll', agent);
-    }
+    }Not exist yet..*/
 
     update(agent: Agent) {
         return this.http.put(this.baseUrl + '/agent/update/' + agent.id, agent);
