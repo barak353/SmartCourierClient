@@ -48,6 +48,20 @@ export class AgentComponent implements OnInit {
                 });
     }
 
+    updateAgent() {
+        this.loading = true;
+        this.userService.create(this.model)
+            .subscribe(
+                data => {
+                    this.alertService.success('Registration successful', true);
+                    this.router.navigate(['/']);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+
     updateDropdownAreas(area){
       document.getElementById('areas-dropdown').innerHTML = area;
       this.model.agent.preferredArea = area;
