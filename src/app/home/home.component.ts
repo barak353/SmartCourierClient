@@ -35,9 +35,9 @@ export class HomeComponent implements OnInit {
     //   this.ugentService.update(id).subscribe(() => { this.loadAllAgents() });
     // }
 
-    // deleteAgent(id: number) {
-    //     this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
-    // }
+    deleteAgent(id: number) {
+       this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
+    }
 
     private loadAllAgents() {
         this.userService.getAll().subscribe(users => {
@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
       this.deliveries = delivieris;
       this.showTable = 'Deliveries';
     }
+
+
 
     // createNewDelivery(){
     //   this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });

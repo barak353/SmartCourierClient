@@ -33,26 +33,15 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="preferredArea">Preferred area</label>
-            <input type="text" class="form-control" name="preferredArea" [(ngModel)]="model.agent.preferredArea" #preferredArea="ngModel"  />
-            <!-- <select [(ngModel)]="model.agent.preferredArea">
-              <option [ngValue]="None">None</option>
-              <option [ngValue]="North">North</option>
-              <option [ngValue]="South">South</option>
-              <option [ngValue]="Center">Center</option>
-            </select> -->
-            <!-- <select>
-              <option [(ngModel)]="model.agent.preferredArea" *ngFor="let area of areas" value= 'aaa' name="preferredAreaSelection" >{{area}}</option>
-            </select> -->
-            <!-- <dropdown [values]="dropdownValues" [(value)]="value"></dropdown> -->
             <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
-</div>
+              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >None</div><span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a (click)="updateDropdownAreas('None')" >None</a></li>
+                <li><a (click)="updateDropdownAreas('North')" >North</a></li>
+                <li><a (click)="updateDropdownAreas('South')" >South</a></li>
+                <li><a (click)="updateDropdownAreas('Center')" >Center</a></li>
+              </ul>
+            </div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="po">Po</label>
@@ -67,5 +56,8 @@
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
         </div>
+
+        <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.agent.preferredArea" #preferredArea="ngModel"  />
+        
     </form>
 </div>

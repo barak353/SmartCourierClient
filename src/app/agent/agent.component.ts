@@ -18,7 +18,11 @@ export class AgentComponent {
         private userService: UserService,
         private alertService: AlertService) {
           //this.model.agent = {};
-        }
+    }
+
+    ngOnInit() {
+        this.model.agent.preferredArea = 'None';
+    }
 
     createAgent() {
         this.loading = true;
@@ -32,6 +36,11 @@ export class AgentComponent {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    updateDropdownAreas(area){
+      document.getElementById('areas-dropdown').innerHTML = area;
+      this.model.agent.preferredArea = area;
     }
 
     // updateAgent(id: number) {
