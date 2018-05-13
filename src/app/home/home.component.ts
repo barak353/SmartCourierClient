@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
-    HomeComponent.window = "";
 
     constructor(private userService: UserService,
                 private agentService: AgentService,
