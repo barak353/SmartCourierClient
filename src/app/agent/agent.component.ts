@@ -1,19 +1,23 @@
 ﻿import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User, Agent } from '../_models/index';
 import { AlertService, UserService } from '../_services/index';
+import { HomeComponent } from '../index';
 
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'agent.component.html'
 })
 
-export class AgentComponent {
+export class AgentComponent implements OnInit {
     model: any = {agent : Agent };
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
+    id: number;//Agent id to be editing.
+    private sub: any;
 
     constructor(
+        private route: ActivatedRoute,
         private router: Router,
         private userService: UserService,
         private alertService: AlertService) {
@@ -21,6 +25,12 @@ export class AgentComponent {
     }
 
     ngOnInit() {
+      this.sub = this.route.params.subscribe(params => {
+      if(params['id'] != null)
+        this.id = params['id']; //Edit button of agent number 'id' was pressed.
+      else
+        this.id = -1; //Assume that 'new' button was pressed.
+      });
         this.model.agent.preferredArea = 'None';
     }
 

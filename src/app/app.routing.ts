@@ -11,6 +11,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'agent', component: AgentComponent },
+    { path: 'agent/:id', component: AgentComponent, pathMatch: 'full' },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
