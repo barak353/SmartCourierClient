@@ -2,6 +2,7 @@
 
 import { User, Agent, Delivery } from '../_models/index';
 import { UserService, AgentService, DeliveryService } from '../_services/index';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id.toString(),
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private agentService: AgentService,
-                private deliveryService: DeliveryService) {
+                private deliveryService: DeliveryService,
+                private router: Router,) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -37,6 +39,11 @@ export class HomeComponent implements OnInit {
 
     deleteAgent(id: number) {
        this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
+    }
+
+    showEditScreen(user: User){
+        localStorage.setItem('choosedUser', JSON.stringify(user));
+        this.router.navigate(['/agent', user.id]);
     }
 
     private loadAllAgents() {

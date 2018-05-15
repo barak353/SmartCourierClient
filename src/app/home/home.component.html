@@ -54,7 +54,7 @@
           <td>{{ user.agent.totalPaid }}</td>
           <td>  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">Deliveries</a></div><div  *ngIf="user.agent.delivery.length <= 0"> <a  (click)="showDeliveries(user.agent.delivery)">No deliveries</a></div></td>
           <td>
-            <button type="submit" class="btn btn-info" [routerLink]="['/agent',user]">Edit</button>
+            <button type="submit" class="btn btn-info" (click)="showEditScreen(user)" >Edit</button>
           </td>
           <td>
             <button type="button" class="btn btn-danger" (click)="deleteAgent(user.agent.id)">Delete</button>

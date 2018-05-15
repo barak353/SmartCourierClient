@@ -27,12 +27,25 @@ export class AgentComponent{
 
     ngOnInit() {
       this.sub = this.route.params.subscribe(params => {
-        if(params['id'] != null)
-          this.choosedUserId = params['id']; //Edit button of agent number 'id' was pressed.
+        let user = JSON.parse(localStorage.getItem('choosedUser'))
+        let url = this.router.url;
+        let userId = url.split('/')[2];
+        if(userId != null){
+          this.choosedUserId = parseInt(userId);
+          this.model.firstName = user.firstName;
+          this.model.lastName = user.lastName;
+          this.model.username = user.username;
+          this.model.password = user.password;
+          this.model.Email = user.Email;
+          this.model.Phone = user.Phone;
+          this.model.preferredArea = user.preferredArea;
+          this.model.totalPaid = user.Phone;
+          this.model.agent = user.agent;
+        }
         else
           this.choosedUserId = -1; //'new' button was pressed because we don't have user id..
         });
-          this.model.agent.preferredArea = 'None';
+
         }
 
     createAgent() {
@@ -40,7 +53,7 @@ export class AgentComponent{
         this.userService.create(this.model)
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
+                    this.alertService.success('הוספת סוכן בוצעה בהצלחה', true);
                     this.router.navigate(['/']);
                 },
                 error => {
@@ -51,10 +64,10 @@ export class AgentComponent{
 
     updateAgent() {
         this.loading = true;
-        this.userService.create(this.model)
+        this.userService.update(this.model)
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
+                    this.alertService.success('עידכון נתוני סוכן הסתיים בהצלחה', true);
                     this.router.navigate(['/']);
                 },
                 error => {

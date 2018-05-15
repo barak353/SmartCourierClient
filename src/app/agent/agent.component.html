@@ -64,47 +64,51 @@
     </form>
 
     <!-- Form for update agent -->
-    <h2 *ngIf="choosedUserId > 0">Update new agent</h2>
+    <h2 *ngIf="choosedUserId > 0">עדכן נתוני שליח</h2>
     <form *ngIf="choosedUserId > 0" name="form" (ngSubmit)="f.form.valid && updateAgent()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="firstName">First Name</label>
+            <label for="firstName">:שם פרטי</label>
             <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
             <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">:שם משפחה</label>
             <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
             <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
+            <label for="username">:שם משתמש</label>
             <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
             <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
+            <label for="password">:סיסמא</label>
             <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
             <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
+            <label for="email">:Email</label>
             <input type="text" class="form-control" name="email" [(ngModel)]="model.agent.email" #email="ngModel" required />
             <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="phone">Phone</label>
+            <label for="phone">:מספר טלפון</label>
             <input type="text" class="form-control" name="phone" [(ngModel)]="model.agent.phone" #phone="ngModel" />
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="preferredArea">Preferred area</label>
+            <label for="preferredArea">:אזור מועדף</label>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >None</div><span class="caret"></span></button>
+              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >אין</div><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a (click)="updateDropdownAreas('None')" >None</a></li>
-                <li><a (click)="updateDropdownAreas('North')" >North</a></li>
-                <li><a (click)="updateDropdownAreas('South')" >South</a></li>
-                <li><a (click)="updateDropdownAreas('Center')" >Center</a></li>
+                <li><a (click)="updateDropdownAreas('None')" >מחוז הצפון</a></li>
+                <li><a (click)="updateDropdownAreas('North')" >מחוז חיפה</a></li>
+                <li><a (click)="updateDropdownAreas('South')" >מחוז תל אביב</a></li>
+                <li><a (click)="updateDropdownAreas('South')" >מחוז המרכז</a></li>
+                <li><a (click)="updateDropdownAreas('South')" >מחוז ירושלים</a></li>
+                <li><a (click)="updateDropdownAreas('South')" >מחוז הדרום</a></li>
+
+                <li><a (click)="updateDropdownAreas('Center')" ></a></li>
               </ul>
             </div>
         </div>
@@ -113,14 +117,14 @@
             <input type="text" class="form-control" name="po" [(ngModel)]="model.agent.po" #po="ngModel" />
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="totalPaid">Total paid</label>
+            <label for="totalPaid">:תשלום חודשי</label>
             <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.agent.totalPaid" #totalPaid="ngModel" />
         </div>
         <div class="form-group">
-            <button *ngIf="choosedUserId < 0" [disabled]="loading" class="btn btn-primary">Create</button>
-            <button *ngIf="choosedUserId > 0" [disabled]="loading" class="btn btn-primary">Update</button>
+            <button *ngIf="choosedUserId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
+            <button *ngIf="choosedUserId > 0" [disabled]="loading" class="btn btn-primary">עדכן</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
+            <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
         </div>
 
         <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.agent.preferredArea" #preferredArea="ngModel"  />
