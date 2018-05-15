@@ -30,7 +30,10 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put( this.baseUrl + '/app/user/update/' + user.id, user);
+        return this.http.put( this.baseUrl + '/app/user/update/' + user.id, {
+          "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
+          "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po, "totalPaid":user.agent.totalPaid
+        });
     }
 
     delete(id: number) {
