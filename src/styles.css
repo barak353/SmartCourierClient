@@ -31,3 +31,6 @@
 .dropdown-input {
   visibility: hidden;
 }
+div {
+  text-align: right;
+}

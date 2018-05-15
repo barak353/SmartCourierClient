@@ -77,8 +77,32 @@ export class AgentComponent{
     }
 
     updateDropdownAreas(area){
-      document.getElementById('areas-dropdown').innerHTML = area;
-      this.model.agent.preferredArea = area;
+        switch (area) {
+      case 'A':
+        this.model.agent.preferredArea = "אין";
+          break;
+      case 'B':
+        this.model.agent.preferredArea = "מחוז הצפון";
+        break;
+      case 'C':
+        this.model.agent.preferredArea = "מחוז חיפה";
+        break;
+      case 'D':
+        this.model.agent.preferredArea = "מחוז תל אביב";
+        break;
+      case 'E':
+        this.model.agent.preferredArea = "מחוז המרכז";
+          break;
+      case 'F':
+        this.model.agent.preferredArea = "מחוז ירושלים";
+          break;
+      case 'G':
+        this.model.agent.preferredArea = "מחוז הדרום";
+          break;
+      default:
+      this.model.agent.preferredArea = "אין";
+  }
+      document.getElementById('areas-dropdown').innerHTML = this.model.agent.preferredArea;
     }
 
     // updateAgent(id: number) {

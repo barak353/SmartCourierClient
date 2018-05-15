@@ -12,7 +12,7 @@
 </div> -->
 
 
-<p><a [routerLink]="['/login']">Logout</a></p>
+<p><a [routerLink]="['/login']">התנתקות</a></p>
 <div class="container">
   <div class="reglist">
 
@@ -20,7 +20,7 @@
 
 
     <div class="text-right">
-      <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">New</button>
+      <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
     </div>
 
 
@@ -28,15 +28,15 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Agent ID</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Preferred area</th>
+          <th>מספר סוכן</th>
+          <th>שם פרטי</th>
+          <th>שם משפחה</th>
+          <th>אימייל</th>
+          <th>טלפון</th>
+          <th>מחוז מועדף</th>
           <th>PO</th>
-          <th>Total paid</th>
-          <th>Deliveries</th>
+          <th>משכורת חודשית</th>
+          <th>שליחויות</th>
           <th></th>
           <th></th>
         </tr>
@@ -52,12 +52,12 @@
           <td>{{ user.agent.preferredArea }}</td>
           <td>{{ user.agent.po }}</td>
           <td>{{ user.agent.totalPaid }}</td>
-          <td>  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">Deliveries</a></div><div  *ngIf="user.agent.delivery.length <= 0"> <a  (click)="showDeliveries(user.agent.delivery)">No deliveries</a></div></td>
+          <td>  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">שליחויות</a></div><div  *ngIf="user.agent.delivery.length <= 0"> <a  (click)="showDeliveries(user.agent.delivery)">אין שליחויות</a></div></td>
           <td>
-            <button type="submit" class="btn btn-info" (click)="showEditScreen(user)" >Edit</button>
+            <button type="submit" class="btn btn-info" (click)="showEditScreen(user)" >עריכה</button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="deleteAgent(user.agent.id)">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="deleteAgent(user.agent.id)">מחיקה</button>
           </td>
         </tr>
       </tbody>
@@ -66,18 +66,18 @@
 
    <div *ngIf="showTable =='Deliveries'">
     <div class="text-right">
-      <button type="submit" class="btn btn-primary" (click)="onNewDelivery()">New</button>
+      <button type="submit" class="btn btn-primary" (click)="onNewDelivery()">משלוח חדש</button>
     </div>
 
     <table class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
-          <th>Delivery ID</th>
-          <th>Address</th>
-          <th>Price</th>
-          <th>State</th>
-          <th>Phone</th>
+          <th>מספר סוכן</th>
+          <th>כתובת</th>
+          <th>עלות</th>
+          <th>מצב</th>
+          <th>טלפון</th>
           <th></th>
           <th></th>
         </tr>
@@ -91,17 +91,17 @@
           <td>{{ delivery.state }}</td>
           <td>{{ delivery.phone }}</td>
           <td>
-            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div class="text-right">
-      <button type="submit" class="btn btn-primary" (click)="showTable = 'Agents'">< Back</button>
+      <button type="submit" class="btn btn-primary" (click)="showTable = 'Agents'">< חזור</button>
     </div>
 
   </div>
@@ -112,13 +112,13 @@
   <div class="regentry" *ngIf="showNew">
     <form (ngSubmit)="onSave()">
       <div class="form-group row">
-        <label for="firstname-input" class="col-2 col-form-label">First Name</label>
+        <label for="firstname-input" class="col-2 col-form-label">שם פרטי</label>
         <div class="col-10">
           <input class="form-control" type="text" [(ngModel)]="regModel.firstName" name="firstName">
         </div>
       </div>
       <div class="form-group row">
-        <label for="lastname-input" class="col-2 col-form-label">Last Name</label>
+        <label for="lastname-input" class="col-2 col-form-label">שם משפחה</label>
         <div class="col-10">
           <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName">
         </div>
@@ -133,19 +133,19 @@
         </div> -->
       </div>
       <div class="form-group row">
-        <label for="example-email-input" class="col-2 col-form-label">Email</label>
+        <label for="example-email-input" class="col-2 col-form-label">אימייל</label>
         <div class="col-10">
           <input class="form-control" type="email" [(ngModel)]="regModel.email" name="email">
         </div>
       </div>
       <div class="form-group row">
-        <label for="example-password-input" class="col-2 col-form-label">Password</label>
+        <label for="example-password-input" class="col-2 col-form-label">סיסמא</label>
         <div class="col-10">
           <input class="form-control" type="password" [(ngModel)]="regModel.password" name="password">
         </div>
       </div>
       <div class="form-group row">
-        <label for="city-input" class="col-2 col-form-label">Country</label>
+        <label for="city-input" class="col-2 col-form-label">מדינה</label>
         <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
           <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country" ngbDropdownToggle>{{regModel.country}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownManual">
@@ -154,7 +154,7 @@
         </div>
       </div>
       <button type="submit" class="btn btn-success">{{submitType}}</button>
-      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">ביטול</button>
     </form>
   </div>
 </div>
