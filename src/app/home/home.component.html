@@ -10,60 +10,58 @@
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div> -->
-
+<img class="float-left" src="assets\img\logo.png">
 
 <p><a [routerLink]="['/login']">התנתקות</a></p>
+<button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
+<p></p>
+<p></p>
+
 <div class="container">
-  <div class="reglist">
 
    <div *ngIf="showTable =='Agents'">
 
 
-    <div class="text-right">
-      <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
-    </div>
 
 
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th>מספר סוכן</th>
-          <th>שם פרטי</th>
-          <th>שם משפחה</th>
-          <th>אימייל</th>
-          <th>טלפון</th>
-          <th>מחוז מועדף</th>
-          <th>PO</th>
-          <th>משכורת חודשית</th>
-          <th>שליחויות</th>
-          <th></th>
-          <th></th>
+          <th class="table-column"></th>
+          <th class="table-column"></th>
+          <th class="table-column">שליחויות</th>
+          <th class="table-column">משכורת חודשית</th>
+          <th class="table-column">מחוז מועדף</th>
+          <th class="table-column">PO</th>
+          <th class="table-column">טלפון</th>
+          <th class="table-column">אימייל</th>
+          <th class="table-column">שם משפחה</th>
+          <th class="table-column">שם פרטי</th>
+          <th class="table-column">מספר סוכן</th>
+          <th class="table-column">#</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>{{ user.agent.id }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.agent.email }}</td>
-          <td>{{ user.agent.phone }}</td>
-          <td>{{ user.agent.preferredArea }}</td>
-          <td>{{ user.agent.po }}</td>
-          <td>{{ user.agent.totalPaid }}</td>
-          <td>  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">שליחויות</a></div><div  *ngIf="user.agent.delivery.length <= 0"> <a  (click)="showDeliveries(user.agent.delivery)">אין שליחויות</a></div></td>
-          <td>
-            <button type="submit" class="btn btn-info" (click)="showEditScreen(user)" >עריכה</button>
-          </td>
-          <td>
+          <td class="table-column">
             <button type="button" class="btn btn-danger" (click)="deleteAgent(user.agent.id)">מחיקה</button>
           </td>
+          <td class="table-column">
+            <button type="submit" class="btn btn-info" (click)="showEditScreen(user)" >עריכה</button>
+          </td>
+          <td class="table-column">  <div *ngIf="user.agent.delivery.length > 0"><a  (click)="showDeliveries(user.agent.delivery)">שליחויות</a></div><div  *ngIf="user.agent.delivery.length <= 0"> <a  (click)="showDeliveries(user.agent.delivery)">אין שליחויות</a></div></td>
+          <td class="table-column">{{ user.agent.totalPaid }}</td>
+          <td class="table-column">{{ user.agent.preferredArea }}</td>
+          <td class="table-column">{{ user.agent.po }}</td>
+          <td class="table-column">{{ user.agent.phone }}</td>
+          <td class="table-column">{{ user.agent.email }}</td>
+          <td class="table-column">{{ user.lastName }}</td>
+          <td class="table-column">{{ user.firstName }}</td>
+          <td class="table-column">{{ user.agent.id }}</td>
+          <th class="table-column" scope="row">{{ i + 1 }}</th>
         </tr>
       </tbody>
     </table>
-  </div>
-
    <div *ngIf="showTable =='Deliveries'">
     <div class="text-right">
       <button type="submit" class="btn btn-primary" (click)="onNewDelivery()">משלוח חדש</button>
@@ -72,30 +70,30 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th>מספר סוכן</th>
-          <th>כתובת</th>
-          <th>עלות</th>
-          <th>מצב</th>
-          <th>טלפון</th>
-          <th></th>
-          <th></th>
+          <th class="table-column"></th>
+          <th class="table-column"></th>
+          <th class="table-column">מספר סוכן</th>
+          <th class="table-column">כתובת</th>
+          <th class="table-column">עלות</th>
+          <th class="table-column">מצב</th>
+          <th class="table-column">טלפון</th>
+          <th class="table-column">#</th>
         </tr>
       </thead>
       <tbody>
+        <td class="table-column">
+          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+        </td>
         <tr *ngFor="let delivery of deliveries; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>{{ delivery.id }}</td>
-          <td>{{ delivery.address }}</td>
-          <td>{{ delivery.price }}</td>
-          <td>{{ delivery.state }}</td>
-          <td>{{ delivery.phone }}</td>
-          <td>
+          <td class="table-column">
             <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
           </td>
-          <td>
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
-          </td>
+          <td class="table-column">{{ delivery.id }}</td>
+          <td class="table-column">{{ delivery.address }}</td>
+          <td class="table-column">{{ delivery.price }}</td>
+          <td class="table-column">{{ delivery.state }}</td>
+          <td class="table-column">{{ delivery.phone }}</td>
+          <th scope="row">{{ i + 1 }}</th>
         </tr>
       </tbody>
     </table>

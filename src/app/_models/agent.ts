@@ -1,4 +1,4 @@
-import { Delivery } from './index';
+import { Delivery} from './index';
 
 export class Agent {
     id: number;
