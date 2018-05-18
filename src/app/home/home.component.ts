@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
     months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-    years: String[] = ['h','h2'];
+    years: String[] = [];
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
@@ -27,7 +27,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllAgents();
-        option ='hey'
+        this.years[0] = (new Date()).getFullYear();
+        for(var i=1;i<11;i++) {
+          this.years[i] = Number(parseInt(this.years[0]) - i);
+        }
     }
 
 
