@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
     users: User[] = [];
     months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
     years: Number[] = [];
+    yearSelected: Number;
+    monthSelected: Number;
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
@@ -32,16 +34,6 @@ export class HomeComponent implements OnInit {
           this.years[i] = Number(this.years[0]) - i;
         }
     }
-
-
-    // Agents functions
-    // createNewAgent(){
-    //   this.userService.create(Agent agent).subscribe(() => { this.loadAllAgents() });
-    // }
-
-    // updateAgent(id : number){
-    //   this.ugentService.update(id).subscribe(() => { this.loadAllAgents() });
-    // }
 
     deleteAgent(id: number) {
        this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
@@ -70,7 +62,20 @@ export class HomeComponent implements OnInit {
       this.showTable = 'Deliveries';
     }
 
+    yearSelect(yearSelected: number){
+      this.yearSelected = yearSelected;
+      if(this.monthSelected != null){
 
+      }
+
+    }
+
+    monthSelect(monthSelected: number){
+      this.monthSelected = monthSelected;
+      if(this.yearSelected != null){
+        let str = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
+      }
+    }
 
     // createNewDelivery(){
     //   this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });

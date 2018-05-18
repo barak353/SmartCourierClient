@@ -14,13 +14,13 @@
 <div class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
-  <select class="select" id="ddlViewBy">
+  <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
   <option value="-1" selected="selected">חודש</option>
   <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
   </select>
-  <select class="select" id="ddlViewBy">
+  <select class="select" id="yearSelectId" (change)="yearSelect($event.target.value)">
   <option value="-1" selected="selected">שנה</option>
-  <option *ngFor="let c of years" [ngValue]="c">{{c}}</option>
+  <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
   </select>
     <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
 </div>
