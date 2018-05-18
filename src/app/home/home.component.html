@@ -10,7 +10,7 @@
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div> -->
-<div class="main-dropdown">
+<div class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
     <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
@@ -28,16 +28,10 @@
       <li><a href="#">JavaScript</a></li>
     </ul>
     <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
-
 </div>
 
-<div class="container other-main-dropdown">
-
+<div class="container">
    <div *ngIf="showTable =='Agents'">
-
-
-
-
     <table class="table table-striped">
       <thead>
         <tr>

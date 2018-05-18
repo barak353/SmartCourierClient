@@ -61,12 +61,12 @@ div {
   float: left;
 }
 
-.other-main-dropdown{
+.main-behind{
   position: relative;
     z-index:10;
 }
 
-.main-dropdown{
+.main-header{
   position: relative;
     z-index:100;
 }
