@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+    months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+    years: String[] = ['h','h2'];
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllAgents();
+        option ='hey'
     }
 
 
@@ -57,7 +60,6 @@ export class HomeComponent implements OnInit {
           this.users = usersWithAgent;
         });
     }
-
 
     // Deliveries functions
     showDeliveries(delivieris: Delivery[]) {

@@ -10,23 +10,18 @@
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div> -->
+
 <div class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
-    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li><a href="#">HTML</a></li>
-      <li><a href="#">CSS</a></li>
-      <li><a href="#">JavaScript</a></li>
-    </ul>
-    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li><a href="#">HTML</a></li>
-      <li><a href="#">CSS</a></li>
-      <li><a href="#">JavaScript</a></li>
-    </ul>
+  <select class="select" id="ddlViewBy">
+  <option value="-1" selected="selected">חודש</option>
+  <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
+  </select>
+  <select class="select" id="ddlViewBy">
+  <option value="-1" selected="selected">שנה</option>
+  <option *ngFor="let c of years" [ngValue]="c">{{c}}</option>
+  </select>
     <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
 </div>
 

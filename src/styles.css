@@ -42,6 +42,10 @@ div {
   text-align: center;
 }
 
+.to_right {
+  text-align: right;
+}
+
 .to_left {
   text-align: left;
 }
@@ -73,4 +77,12 @@ div {
 
 .float-right{
   float: right;
+}
+
+.dropdown-menu-left{
+  position: relative;
+}
+.select{
+  width: 10%;
+  height: 33px;
 }
