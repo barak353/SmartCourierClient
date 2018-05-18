@@ -10,14 +10,28 @@
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div> -->
-<img class="float-left" src="assets\img\logo.png">
+<div class="main-dropdown">
+  <img class="float-left" src="assets\img\logo.png">
+  <p><a [routerLink]="['/login']">התנתקות</a></p>
+    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+    <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
 
-<p><a [routerLink]="['/login']">התנתקות</a></p>
-<button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
-<p></p>
-<p></p>
+</div>
 
-<div class="container">
+<div class="container other-main-dropdown">
 
    <div *ngIf="showTable =='Agents'">
 

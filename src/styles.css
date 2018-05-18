@@ -61,6 +61,16 @@ div {
   float: left;
 }
 
+.other-main-dropdown{
+  position: relative;
+    z-index:10;
+}
+
+.main-dropdown{
+  position: relative;
+    z-index:100;
+}
+
 .float-right{
   float: right;
 }
