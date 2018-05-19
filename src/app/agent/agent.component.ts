@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, Agent } from '../_models/index';
+import { User, Agent, Month } from '../_models/index';
 import { AlertService, UserService, AgentService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
@@ -17,6 +17,8 @@ export class AgentComponent{
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
     choosedUserId: number;//agent id of the user that choosed.
+    currentMonthInYear: String;
+    text: String;
     private sub: any;
 
     constructor(
@@ -30,6 +32,8 @@ export class AgentComponent{
 
 
     ngOnInit() {
+      this.currentMonthInYear = Month.currentMonthInYear;
+      this.text ='hello world!';
       this.sub = this.route.params.subscribe(params => {
         let user = JSON.parse(localStorage.getItem('choosedUser'))
         let url = this.router.url;

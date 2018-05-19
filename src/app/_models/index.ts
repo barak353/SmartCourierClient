@@ -2,3 +2,4 @@
 ﻿export * from './agent';
 ﻿export * from './delivery';
 export * from './salary';
+export * from './month';

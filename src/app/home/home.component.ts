@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Agent, Delivery } from '../_models/index';
+import { User, Agent, Delivery, Month} from '../_models/index';
 import { UserService, AgentService, DeliveryService, SalaryService } from '../_services/index';
 import { Router } from '@angular/router';
-import { TSMap } from "typescript-map"
 
 @Component({
     moduleId: module.id.toString(),
@@ -16,8 +15,7 @@ export class HomeComponent implements OnInit {
     years: Number[] = [];
     yearSelected: String;
     monthSelected: String;
-    monthMap: TSMap<string,string>;//Installed using angular-cli/
-    //agents: Agent[] = [];
+    month: Month;
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
 
@@ -30,20 +28,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.monthMap = new TSMap<string,string>();
-        this.monthMap.set('ינואר','january');
-        this.monthMap.set('פברואר','february');
-        this.monthMap.set('מרץ','march');
-        this.monthMap.set('אפריל','april');
-        this.monthMap.set('מאי','may');
-        this.monthMap.set('יוני','june');
-        this.monthMap.set('יולי','july');
-        this.monthMap.set('אוגוסט','august');
-        this.monthMap.set('ספטמבר','september');
-        this.monthMap.set('אוקטובר','october');
-        this.monthMap.set('נובמבר','november');
-        this.monthMap.set('דצמבר','december');
-
+        this.month = Month.get_Instance();
         //monthDic['ינואר'] = 'january';
         this.loadAllAgents();
         this.years[0] = (new Date()).getFullYear();
@@ -82,21 +67,22 @@ export class HomeComponent implements OnInit {
     yearSelect(yearSelected: number){
       this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
-        this.updateTotalPaid(this.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
+        this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
       }
 
     }
 
     updateTotalPaid(selectedMonthInYear: String){
+        Month.currentMonthInYear = selectedMonthInYear;
         let salaries = this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salaries => {
-          console.log(salaries[0].agent.email);
+          console.log(salaries[0]);
         });
     }
 
     monthSelect(monthSelected: number){
       this.monthSelected = monthSelected.toString();
       if(this.yearSelected != null){
-        this.updateTotalPaid(this.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
+        this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
       }
     }
 
