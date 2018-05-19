@@ -4,5 +4,5 @@ import { Agent} from './index';
   id: number;
   monthInYear: string;
   totalPaid: string;
-  agent: Agent;
+  agent: number;
 }

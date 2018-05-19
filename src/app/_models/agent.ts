@@ -6,6 +6,7 @@ export class Agent {
     phone: string;
     preferredArea: string;
     po: string;
+    totalPaid: string;
     delivery: Delivery[];
     salary: Salary[];
 }
