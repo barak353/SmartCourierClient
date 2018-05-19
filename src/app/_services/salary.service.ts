@@ -6,7 +6,7 @@ import { Salary } from '../_models/index';
 @Injectable()
 export class SalaryService {
     constructor(private http: HttpClient) { }
-
+    baseUrl = 'http://localhost:8080';
     // getAll() {
     //     return this.http.get<Salary[]>('/api/deliveries');
     // }
@@ -15,11 +15,11 @@ export class SalaryService {
         return this.http.get<Salary[]>('http://localhost:8080/salary/getAll');
     }
 
-    getById(id: number) {
-        return this.http.get('/api/deliveries/' + id);
+    getByMonthInYear(monthInYear: String) {
+        return this.http.get(this.baseUrl + '/salary/getByMonthInYear/' + monthInYear);
     }
 
-    create(salary: Salary) {
+    /*create(salary: Salary) {
         return this.http.post('/api/deliveries', salary);
     }
 
@@ -29,5 +29,5 @@ export class SalaryService {
 
     delete(id: number) {
         return this.http.delete('/api/deliveries/' + id);
-    }
+    }*/
 }

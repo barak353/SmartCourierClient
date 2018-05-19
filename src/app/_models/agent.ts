@@ -1,4 +1,4 @@
-import { Delivery} from './index';
+import { Delivery, Salary} from './index';
 
 export class Agent {
     id: number;
@@ -6,6 +6,6 @@ export class Agent {
     phone: string;
     preferredArea: string;
     po: string;
-    totalPaid: string;
     delivery: Delivery[];
+    salary: Salary[];
 }

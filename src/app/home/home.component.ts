@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User, Agent, Delivery } from '../_models/index';
-import { UserService, AgentService, DeliveryService } from '../_services/index';
+import { UserService, AgentService, DeliveryService, SalaryService } from '../_services/index';
 import { Router } from '@angular/router';
 import { TSMap } from "typescript-map"
 
@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
     years: Number[] = [];
     yearSelected: String;
     monthSelected: String;
-    monthInYear: String;
     monthMap: TSMap<string,string>;//Installed using angular-cli/
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
@@ -25,6 +24,7 @@ export class HomeComponent implements OnInit {
     constructor(private userService: UserService,
                 private agentService: AgentService,
                 private deliveryService: DeliveryService,
+                private salaryService: SalaryService,
                 private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -82,21 +82,21 @@ export class HomeComponent implements OnInit {
     yearSelect(yearSelected: number){
       this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
-        this.monthInYear = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
-        this.updateTotalPaid();
+        this.updateTotalPaid(this.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
       }
 
     }
 
-    updateTotalPaid(){
-
-
+    updateTotalPaid(selectedMonthInYear: String){
+        let salaries = this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salaries => {
+          console.log(salaries[0].agent.email);
+        });
     }
 
     monthSelect(monthSelected: number){
       this.monthSelected = monthSelected.toString();
       if(this.yearSelected != null){
-        this.monthInYear = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
+        this.updateTotalPaid(this.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
       }
     }
 

@@ -1,7 +1,8 @@
+import { Agent} from './index';
+
 ﻿export class Salary {
-    id: number;
-    adress: string;
-    price: string;
-    state: string;
-    phone: string;
+  id: number;
+  monthInYear: string;
+  totalPaid: string;
+  agent: Agent;
 }

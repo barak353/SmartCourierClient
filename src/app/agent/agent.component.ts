@@ -87,10 +87,10 @@ export class AgentComponent{
           user.agent.phone = this.model.agent.phone;
           user.agent.preferredArea = this.model.agent.preferredArea;
           user.agent.po = this.model.agent.po;
-          user.agent.totalPaid = this.model.agent.totalPaid;
-          console.log(JSON.stringify(this.model) );
+          //user.agent.totalPaid = this.model.agent.totalPaid;
+          /*console.log(JSON.stringify(this.model) );
           console.log(JSON.stringify(user) );
-          console.log(JSON.stringify(user.agent) );
+          console.log(JSON.stringify(user.agent) );*/
 
           this.userService.create(user)
               .subscribe(
