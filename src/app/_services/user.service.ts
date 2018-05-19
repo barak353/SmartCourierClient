@@ -1,6 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-
 import { User, Agent } from '../_models/index';
 
 @Injectable()
@@ -22,18 +21,18 @@ export class UserService {
 
     create(user: User) {
 
-        return this.http.post( this.baseUrl + '/app/user/create/', {
+        return this.http. post( this.baseUrl + '/app/user/create/', user);/*{
           "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
           "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
-        });
+        });*/
         // return this.ExecutePost('/app/user/create/', user);
     }
 
     update(user: User) {
-        return this.http.put( this.baseUrl + '/app/user/update/' + user.id, {
+        return this.http.put( this.baseUrl + '/app/user/update/' + user.id, user);/*{
           "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
           "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
-        });
+        });*/
     }
 
     delete(id: number) {
