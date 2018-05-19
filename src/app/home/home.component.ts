@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
 import { User, Agent, Delivery } from '../_models/index';
 import { UserService, AgentService, DeliveryService } from '../_services/index';
 import { Router } from '@angular/router';
+import { TSMap } from "typescript-map"
 
 @Component({
     moduleId: module.id.toString(),
@@ -14,8 +14,10 @@ export class HomeComponent implements OnInit {
     users: User[] = [];
     months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
     years: Number[] = [];
-    yearSelected: Number;
-    monthSelected: Number;
+    yearSelected: String;
+    monthSelected: String;
+    monthInYear: String;
+    monthMap: TSMap<string,string>;//Installed using angular-cli/
     //agents: Agent[] = [];
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
@@ -23,11 +25,26 @@ export class HomeComponent implements OnInit {
     constructor(private userService: UserService,
                 private agentService: AgentService,
                 private deliveryService: DeliveryService,
-                private router: Router,) {
+                private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
+        this.monthMap = new TSMap<string,string>();
+        this.monthMap.set('ינואר','january');
+        this.monthMap.set('פברואר','february');
+        this.monthMap.set('מרץ','march');
+        this.monthMap.set('אפריל','april');
+        this.monthMap.set('מאי','may');
+        this.monthMap.set('יוני','june');
+        this.monthMap.set('יולי','july');
+        this.monthMap.set('אוגוסט','august');
+        this.monthMap.set('ספטמבר','september');
+        this.monthMap.set('אוקטובר','october');
+        this.monthMap.set('נובמבר','november');
+        this.monthMap.set('דצמבר','december');
+
+        //monthDic['ינואר'] = 'january';
         this.loadAllAgents();
         this.years[0] = (new Date()).getFullYear();
         for(var i=1;i<11;i++) {
@@ -63,17 +80,23 @@ export class HomeComponent implements OnInit {
     }
 
     yearSelect(yearSelected: number){
-      this.yearSelected = yearSelected;
+      this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
-
+        this.monthInYear = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
+        this.updateTotalPaid();
       }
 
     }
 
+    updateTotalPaid(){
+
+
+    }
+
     monthSelect(monthSelected: number){
-      this.monthSelected = monthSelected;
+      this.monthSelected = monthSelected.toString();
       if(this.yearSelected != null){
-        let str = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
+        this.monthInYear = this.monthSelected.toString() + '/' +  this.yearSelected.toString();
       }
     }
 
