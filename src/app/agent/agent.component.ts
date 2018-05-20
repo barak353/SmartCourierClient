@@ -11,8 +11,6 @@ import { HomeComponent } from '../home/index';
 
 export class AgentComponent{
     model: any = {agent : Agent };
-    //model: any = {};
-    //user: User;
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
@@ -69,29 +67,6 @@ export class AgentComponent{
       }});
     }
 
-    /*ngOnInit() {
-      this.sub = this.route.params.subscribe(params => {
-        let user = JSON.parse(localStorage.getItem('choosedUser'))
-        let url = this.router.url;
-        let userId = url.split('/')[2];
-        if(userId != null){
-          this.choosedUserId = parseInt(userId);
-          this.model.firstName = user.firstName;
-          this.model.lastName = user.lastName;
-          this.model.username = user.username;
-          this.model.password = user.password;
-          this.model.Email = user.Email;
-          this.model.Phone = user.Phone;
-          this.model.preferredArea = user.preferredArea;
-          this.model.totalPaid = user.Phone;
-          this.model.agent = user.agent;
-        }
-        else
-          this.choosedUserId = -1; //'new' button was pressed because we don't have user id..
-        });
-
-      }*/
-
       createAgent() {
           let user = new User()
           this.loading = true;
@@ -112,10 +87,6 @@ export class AgentComponent{
             salaries[0] = salary;
             user.agent.salary = salaries;
           }
-          //user.agent.totalPaid = this.model.agent.totalPaid;
-          /*console.log(JSON.stringify(this.model) );
-          console.log(JSON.stringify(user) );
-          console.log(JSON.stringify(user.agent) );*/
 
           this.userService.create(user)
               .subscribe(
@@ -128,22 +99,6 @@ export class AgentComponent{
                       this.loading = false;
                   });
       }
-
-
-    /*createAgent() {
-        this.loading = true;
-
-        this.agentService.create(this.model)
-            .subscribe(
-                data => {
-                    this.alertService.success('הוספת סוכן בוצעה בהצלחה', true);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }*/
 
     updateAgent() {
       let user = new User()
@@ -165,10 +120,6 @@ export class AgentComponent{
         salaries[0] = salary;
         user.agent.salary = salaries;
       }
-      //user.agent.totalPaid = this.model.agent.totalPaid;
-      /*console.log(JSON.stringify(this.model) );
-      console.log(JSON.stringify(user) );
-      console.log(JSON.stringify(user.agent) );*/
 
       this.userService.update(user)
           .subscribe(
@@ -180,35 +131,6 @@ export class AgentComponent{
                   this.alertService.error(error);
                   this.loading = false;
               });
-        /*this.loading = true;
-        let user = new User()
-        user.agent = new Agent();
-        user.firstName = this.model.firstName;
-        user.lastName = this.model.lastName;
-        user.username = this.model.username;
-        user.password = this.model.password;
-        user.agent.email = this.model.agent.email;
-        user.agent.phone = this.model.agent.phone;
-        //user.agent.preferredArea = this.model.agent.preferredArea;
-        user.agent.po = this.model.agent.po;
-        if(this.currentMonthInYear != null){
-          let salary = new Salary();
-          salary.monthInYear = this.currentMonthInYear;
-          salary.totalPaid = this.model.agent.currentTotalPaid;
-          let salaries = new Array<Salary>();
-          salaries[0] = salary;
-          user.agent.salary = salaries;
-        }
-        this.userService.update(this.model)
-            .subscribe(
-                data => {
-                    this.alertService.success('עידכון נתוני סוכן הסתיים בהצלחה', true);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });*/
     }
 
     updateDropdownAreas(area){
@@ -239,18 +161,4 @@ export class AgentComponent{
   }
       document.getElementById('areas-dropdown').innerHTML = this.model.agent.preferredArea;
     }
-
-    // updateAgent(id: number) {
-    //     this.loading = true;
-    //     this.agentService.create(this.model)
-    //         .subscribe(
-    //             data => {
-    //                 this.alertService.success('Registration successful', true);
-    //                 this.router.navigate(['/login']);
-    //             },
-    //             error => {
-    //                 this.alertService.error(error);
-    //                 this.loading = false;
-    //             });
-    // }
 }

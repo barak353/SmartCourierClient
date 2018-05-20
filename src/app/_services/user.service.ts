@@ -7,10 +7,6 @@ export class UserService {
     constructor(private http: HttpClient) { }
     baseUrl = 'http://localhost:8080';
 
-    // getAll() {
-    //     return this.http.get<User[]>('/api/users');
-    // }
-
     getAll() {
         return this.http.get<User[]>( this.baseUrl + '/app/user/getAll/');
     }
@@ -20,37 +16,14 @@ export class UserService {
     }
 
     create(user: User) {
-
-        return this.http.post( this.baseUrl + '/app/user/create/', user);/*{
-          "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
-          "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
-        });*/
-        // return this.ExecutePost('/app/user/create/', user);
+        return this.http.put( this.baseUrl + '/app/user/create/', user);
     }
 
     update(user: User) {
-        return this.http.post( this.baseUrl + '/app/user/update/', user);/*{
-          "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
-          "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
-        });*/
+        return this.http.put( this.baseUrl + '/app/user/update/', user);
     }
 
     delete(id: number) {
         return this.http.delete( this.baseUrl + '/app/user/delete/' + id);
     }
-
-    // protected ExecutePost(path: string, data: any) {
-    //     let body = JSON.stringify(data);
-    //     let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-    //
-    //     let requestoptions: RequestOptions = new RequestOptions({
-    //         method: 'POST',
-    //         url: this.baseUrl + path,
-    //         headers: headers,
-    //         body: body
-    //     });
-    //
-    //     return this.http.request(new Request(requestoptions))
-    //         .map((res: Response) => { return res.json(); });
-    // }
 }
