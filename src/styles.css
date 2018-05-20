@@ -21,8 +21,13 @@
 .btn-primary-custom div {
    text-align: left;
 }
+input {
+  text-align: right;
+}
 
-
+.dropdown-menu{
+  text-align: right;
+}
 
 .btn-primary-custom span {
    float: right;
@@ -34,7 +39,6 @@
   visibility: hidden;
 }
 div {
-
   text-align: right;
 }
 

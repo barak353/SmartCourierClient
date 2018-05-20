@@ -68,8 +68,11 @@ export class HomeComponent implements OnInit {
       this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
+      }else{
+        for(let user of this.users){
+          user.agent.totalPaid = "";//clear previous input;
+        }
       }
-
     }
 
     updateTotalPaid(selectedMonthInYear: String){
@@ -96,6 +99,10 @@ export class HomeComponent implements OnInit {
       this.monthSelected = monthSelected.toString();
       if(this.yearSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
+      }else{
+        for(let user of this.users){
+          user.agent.totalPaid = "";//clear previous input;
+        }
       }
     }
 
