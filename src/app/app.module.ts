@@ -17,6 +17,7 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { AgentComponent } from './agent/index';
+import { DeliveryComponent } from './delivery/index';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { AgentComponent } from './agent/index';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        AgentComponent
+        AgentComponent,
+        DeliveryComponent
     ],
     providers: [
         AuthGuard,

@@ -4,6 +4,7 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { AgentComponent } from './agent/index';
+import { DeliveryComponent } from './delivery/index';
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
@@ -12,6 +13,9 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'agent', component: AgentComponent },
     { path: 'agent/:user', component: AgentComponent, pathMatch: 'full' },
+    { path: 'delivery', component: DeliveryComponent },
+    { path: 'delivery/:delivery', component: DeliveryComponent, pathMatch: 'full' },
+
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
