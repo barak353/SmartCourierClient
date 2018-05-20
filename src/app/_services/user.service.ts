@@ -21,7 +21,7 @@ export class UserService {
 
     create(user: User) {
 
-        return this.http. post( this.baseUrl + '/app/user/create/', user);/*{
+        return this.http.post( this.baseUrl + '/app/user/create/', user);/*{
           "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
           "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
         });*/
@@ -29,7 +29,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put( this.baseUrl + '/app/user/update/', user);/*{
+        return this.http.post( this.baseUrl + '/app/user/update/', user);/*{
           "username":user.username, "password":user.password, "firstName":user.firstName, "lastName": user.lastName, "agent":user.agent,
           "email":user.agent.email, "phone":user.agent.phone, "preferredArea":user.agent.preferredArea, "po":user.agent.po
         });*/

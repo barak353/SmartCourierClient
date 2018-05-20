@@ -146,7 +146,41 @@ export class AgentComponent{
     }*/
 
     updateAgent() {
-        this.loading = true;
+      let user = new User()
+      this.loading = true;
+      user.agent = new Agent();
+      user.firstName = this.model.firstName;
+      user.lastName = this.model.lastName;
+      user.username = this.model.username;
+      user.password = this.model.password;
+      user.agent.email = this.model.agent.email;
+      user.agent.phone = this.model.agent.phone;
+      user.agent.preferredArea = this.model.agent.preferredArea;
+      user.agent.po = this.model.agent.po;
+      if(this.currentMonthInYear != null){
+        let salary = new Salary();
+        salary.monthInYear = this.currentMonthInYear;
+        salary.totalPaid = this.model.agent.currentTotalPaid;
+        let salaries = new Array<Salary>();
+        salaries[0] = salary;
+        user.agent.salary = salaries;
+      }
+      //user.agent.totalPaid = this.model.agent.totalPaid;
+      /*console.log(JSON.stringify(this.model) );
+      console.log(JSON.stringify(user) );
+      console.log(JSON.stringify(user.agent) );*/
+
+      this.userService.update(user)
+          .subscribe(
+              data => {
+                  this.alertService.success('הוספת סוכן בוצעה בהצלחה', true);
+                  this.router.navigate(['/']);
+              },
+              error => {
+                  this.alertService.error(error);
+                  this.loading = false;
+              });
+        /*this.loading = true;
         let user = new User()
         user.agent = new Agent();
         user.firstName = this.model.firstName;
@@ -155,7 +189,7 @@ export class AgentComponent{
         user.password = this.model.password;
         user.agent.email = this.model.agent.email;
         user.agent.phone = this.model.agent.phone;
-        user.agent.preferredArea = this.model.agent.preferredArea;
+        //user.agent.preferredArea = this.model.agent.preferredArea;
         user.agent.po = this.model.agent.po;
         if(this.currentMonthInYear != null){
           let salary = new Salary();
@@ -174,7 +208,7 @@ export class AgentComponent{
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
-                });
+                });*/
     }
 
     updateDropdownAreas(area){
