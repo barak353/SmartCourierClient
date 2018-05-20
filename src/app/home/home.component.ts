@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Agent, Delivery, Month} from '../_models/index';
+import { User, Agent, Delivery, Month, Salary} from '../_models/index';
 import { UserService, AgentService, DeliveryService, SalaryService } from '../_services/index';
 import { Router } from '@angular/router';
 
@@ -74,7 +74,8 @@ export class HomeComponent implements OnInit {
 
     updateTotalPaid(selectedMonthInYear: String){
       Month.currentMonthInYear = selectedMonthInYear;
-      let salaries = this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salaries => {
+      this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salariesPacked => {
+        let salaries : any = salariesPacked;
         if(salaries != null && this.users != null){
           for(let user of this.users){
             user.agent.totalPaid = "";//clear previous input;
