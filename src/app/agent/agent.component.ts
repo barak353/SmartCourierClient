@@ -50,10 +50,10 @@ export class AgentComponent{
           this.model.lastName = user.lastName;
           this.model.username = user.username;
           this.model.password = user.password;
-          this.model.Email = user.Email;
-          this.model.Phone = user.Phone;
-          this.model.preferredArea = user.preferredArea;
-          this.model.totalPaid = user.totalPaid;
+          this.model.agent.Email = user.agent.Email;
+          this.model.agent.Phone = user.agent.Phone;
+          this.model.agent.preferredArea = user.agent.preferredArea;
+          this.model.agent.currentTotalPaid = user.agent.currentTotalPaid;
           this.model.agent = user.agent;
         }
         else
@@ -98,7 +98,7 @@ export class AgentComponent{
           user.agent.preferredArea = this.model.agent.preferredArea;
           user.agent.po = this.model.agent.po;
           if(this.currentMonthInYear != null){
-            user.agent.totalPaid = null;//agent dont have totalPaid field in data base. 
+            user.agent.totalPaid = null;//agent dont have totalPaid field in data base.
             let salary = new Salary();
             salary.monthInYear = this.currentMonthInYear;
             salary.totalPaid = this.model.agent.totalPaid;
