@@ -78,15 +78,17 @@ export class HomeComponent implements OnInit {
         if(salaries != null && this.users != null){
           for(let user of this.users){
             user.agent.totalPaid = "";//clear previous input;
-          for(let salary of salaries) {
-            for(let user of this.users){
-              if(user.agent != null && user.agent.id == salary.agent){//If user have agent.
-                user.agent.totalPaid = salary.totalPaid;
+          if(salaries.length > 0){
+            for(let salary of salaries) {
+              for(let user of this.users){
+                if(user.agent != null && user.agent.id == salary.agent){//If user have agent.
+                  user.agent.totalPaid = salary.totalPaid;
+                }
               }
             }
           }
         }
-      });
+      }});
     }
 
     monthSelect(monthSelected: number){
