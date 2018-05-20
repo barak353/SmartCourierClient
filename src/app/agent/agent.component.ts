@@ -44,7 +44,7 @@ export class AgentComponent{
         let user = JSON.parse(localStorage.getItem('choosedUser'))
         let url = this.router.url;
         let userId = url.split('/')[2];
-        if(userId != null){
+        if(userId != null){//it's update screen.
           this.choosedUserId = parseInt(userId);
           this.model.firstName = user.firstName;
           this.model.lastName = user.lastName;
@@ -55,12 +55,19 @@ export class AgentComponent{
           this.model.agent.preferredArea = user.agent.preferredArea;
           this.model.agent.currentTotalPaid = user.agent.currentTotalPaid;
           this.model.agent = user.agent;
-        }
-        else
-          this.choosedUserId = -1; //'create' button was pressed because we don't have user id..
-        });
-
-      }
+        }else{//it's create screen.
+        this.model.agent = new Agent();
+        this.model.firstName = null;
+        this.model.lastName =  null;
+        this.model.username = null;
+        this.model.password = null;
+        this.model.agent.Email = null;
+        this.model.agent.Phone = null;
+        this.model.agent.preferredArea = null;
+        this.model.agent.currentTotalPaid = null;
+        this.choosedUserId = -1; //'create' button was pressed because we don't have user id..
+      }});
+    }
 
     /*ngOnInit() {
       this.sub = this.route.params.subscribe(params => {
@@ -139,7 +146,6 @@ export class AgentComponent{
     }*/
 
     updateAgent() {
-        this.model = null;
         this.loading = true;
         let user = new User()
         user.agent = new Agent();
