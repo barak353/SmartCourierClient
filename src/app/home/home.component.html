@@ -1,17 +1,5 @@
-﻿<!-- <div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.firstName}}!</h1>
-    <p>You're logged in with Angular 2/5 and Angular CLI!!</p>
-    <h3>All registered users:</h3>
-    <ul>
-        <li *ngFor="let agent of agents" >
-            {{agent.id}} {{agent.email}} {{agent.po}}
-            - <a (click)="deleteUser(user.id)">Delete</a>
-        </li>
-    </ul>
-    <p><a [routerLink]="['/login']">Logout</a></p>
-</div> -->
-
-<div class="main-header">
+<!--Agents header-->
+<div *ngIf="showTable =='Agents'" class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
   <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
@@ -23,9 +11,11 @@
   <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
   </select>
     <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">סוכן חדש</button>
-</div>
+  </div>
 
+<!--Tables section-->
 <div class="container">
+  <!--Agents table-->
    <div *ngIf="showTable =='Agents'">
     <table class="table table-striped table-bordered" style="width:100%">
       <thead>
@@ -65,12 +55,27 @@
         </tr>
       </tbody>
     </table>
-   <div *ngIf="showTable =='Deliveries'">
-    <div class="text-right">
-      <button type="submit" class="btn btn-primary" (click)="onNewDelivery()">משלוח חדש</button>
-    </div>
+  </div>
 
-    <table class="table table-striped">
+<!--###################-Deliveries Section-##########################-->
+  <!--Deliveries header-->
+  <div *ngIf="showTable =='Deliveries'" class="main-header">
+    <img class="float-left" src="assets\img\logo.png">
+    <p><a [routerLink]="['/login']">התנתקות</a></p>
+    <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
+    <option value="" selected="selected">חודש</option>
+    <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
+    </select>
+    <select class="select" id="yearSelectId" (change)="yearSelect($event.target.value)">
+    <option value="" selected="selected">שנה</option>
+    <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
+    </select>
+      <button type="submit" class="btn btn-primary" [routerLink]="['/agent']">משלוח חדש</button>
+  </div>
+
+    <!--Deliveries table-->
+   <div *ngIf="showTable =='Deliveries'">
+    <table class="table table-striped table-bordered" style="width:100%">
       <thead>
         <tr>
           <th class="table-column"></th>
@@ -84,10 +89,10 @@
         </tr>
       </thead>
       <tbody>
-        <td class="table-column">
-          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
-        </td>
         <tr *ngFor="let delivery of deliveries; let i = index">
+          <td class="table-column">
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+          </td>
           <td class="table-column">
             <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
           </td>
@@ -104,58 +109,4 @@
     <div class="text-right">
       <button type="submit" class="btn btn-primary" (click)="showTable = 'Agents'">< חזור</button>
     </div>
-
   </div>
-
-
-  </div>
-  <br>
-  <div class="regentry" *ngIf="showNew">
-    <form (ngSubmit)="onSave()">
-      <div class="form-group row">
-        <label for="firstname-input" class="col-2 col-form-label">שם פרטי</label>
-        <div class="col-10">
-          <input class="form-control" type="text" [(ngModel)]="regModel.firstName" name="firstName">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="lastname-input" class="col-2 col-form-label">שם משפחה</label>
-        <div class="col-10">
-          <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="dob-input" class="col-2 col-form-label">DOB</label>
-        <!-- <div class="col-3 input-group">
-          <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker">
-          <button class="input-group-addon" (click)="dob.toggle()" type="button">
-            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
-          </button>
-        </div> -->
-      </div>
-      <div class="form-group row">
-        <label for="example-email-input" class="col-2 col-form-label">אימייל</label>
-        <div class="col-10">
-          <input class="form-control" type="email" [(ngModel)]="regModel.email" name="email">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="example-password-input" class="col-2 col-form-label">סיסמא</label>
-        <div class="col-10">
-          <input class="form-control" type="password" [(ngModel)]="regModel.password" name="password">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="city-input" class="col-2 col-form-label">מדינה</label>
-        <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-          <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country" ngbDropdownToggle>{{regModel.country}}</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownManual">
-            <button type="button" class="dropdown-item" *ngFor="let country of countries" (click)="onChangeCountry(country)">{{country}}</button>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-success">{{submitType}}</button>
-      <button type="submit" class="btn btn-primary" (click)="onCancel()">ביטול</button>
-    </form>
-  </div>
-</div>
