@@ -4,7 +4,7 @@ export class Month
 {
     private static _instance: Month;//Singelton.
     static monthMap: TSMap<string,string>;//Installed using angular-cli.
-    static currentMonthInYear: String; //Null if not choosed.
+    static currentMonthInYear: string; //Null if not choosed.
     static monthMapInver: TSMap<string,string>;//Installed using angular-cli.
 
     private constructor()

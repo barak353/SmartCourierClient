@@ -1,6 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { Salary } from '../_models/index';
 
 @Injectable()
@@ -14,6 +13,10 @@ export class SalaryService {
 
     getByMonthInYear(monthInYear: String) {
         return this.http.get(this.baseUrl + '/salary/getByMonthInYear/' + monthInYear);
+    }
+
+    create(salary: Salary, agentId : Number) {
+        return this.http.post(this.baseUrl + '/salary/create/' + agentId, Salary);
     }
 
 }

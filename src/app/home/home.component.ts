@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    updateTotalPaid(selectedMonthInYear: String){
+    updateTotalPaid(selectedMonthInYear: string){
       Month.currentMonthInYear = selectedMonthInYear;
       this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salariesPacked => {
         let salaries : any = salariesPacked;

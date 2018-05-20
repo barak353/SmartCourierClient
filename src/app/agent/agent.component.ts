@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, Agent, Month } from '../_models/index';
-import { AlertService, UserService, AgentService } from '../_services/index';
+import { User, Agent, Month, Salary } from '../_models/index';
+import { AlertService, UserService, AgentService, SalaryService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
 @Component({
@@ -17,14 +17,15 @@ export class AgentComponent{
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
     choosedUserId: number;//agent id of the user that choosed.
-    currentMonthInYear: String;
-    text: String;
+    currentMonthInYear: string;
+    text: string;
     private sub: any;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private userService: UserService,
+        private salaryService: SalaryService,
         private agentService: AgentService,
         private alertService: AlertService) {
     }
@@ -52,7 +53,7 @@ export class AgentComponent{
           this.model.Email = user.Email;
           this.model.Phone = user.Phone;
           this.model.preferredArea = user.preferredArea;
-          this.model.totalPaid = user.Phone;
+          this.model.totalPaid = user.totalPaid;
           this.model.agent = user.agent;
         }
         else
@@ -96,6 +97,15 @@ export class AgentComponent{
           user.agent.phone = this.model.agent.phone;
           user.agent.preferredArea = this.model.agent.preferredArea;
           user.agent.po = this.model.agent.po;
+          if(this.currentMonthInYear != null){
+            user.agent.totalPaid = this.model.agent.totalPaid;
+            let salary = new Salary();
+            salary.monthInYear = this.currentMonthInYear;
+            salary.totalPaid = this.model.agent.totalPaid;
+            let salaries = new Array<Salary>();
+            salaries[0] = salary;
+            user.agent.salary = salaries;
+          }
           //user.agent.totalPaid = this.model.agent.totalPaid;
           /*console.log(JSON.stringify(this.model) );
           console.log(JSON.stringify(user) );
