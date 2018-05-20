@@ -27,7 +27,6 @@ export class AgentComponent{
         private userService: UserService,
         private agentService: AgentService,
         private alertService: AlertService) {
-          //this.model.agent = {};
     }
 
 
@@ -38,7 +37,7 @@ export class AgentComponent{
         let month = this.currentMonthInYear.substring(0, this.currentMonthInYear.length-4);
         month = Month.monthMapInver.get(month);
         this.text =month + 'וחודש ' + year + ' הכנס משכורת עבור שנת';
-        this.text =  'הכנסת משכורת עבור שנת ' + year + ' וחודש ' + month;  
+        this.text =  'הכנסת משכורת עבור שנת ' + year + ' וחודש ' + month;
       }
       this.sub = this.route.params.subscribe(params => {
         let user = JSON.parse(localStorage.getItem('choosedUser'))

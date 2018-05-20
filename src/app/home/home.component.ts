@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
     years: Number[] = [];
     yearSelected: String;
     monthSelected: String;
-    month: Month;
     deliveries: Delivery[] = [];
     showTable: string = 'Agents';
 
@@ -28,9 +27,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.month = Month.get_Instance();
-        //monthDic['ינואר'] = 'january';
+        Month.get_Instance(); //Singelton instance.
         this.loadAllAgents();
+        Month.currentMonthInYear = null;
         this.years[0] = (new Date()).getFullYear();
         for(var i=1;i<11;i++) {
           this.years[i] = Number(this.years[0]) - i;
