@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       }else{
         Month.currentMonthInYear = "";
         for(let user of this.users){
-          user.agent.totalPaid = "";//clear previous input;
+          user.agent.currentTotalPaid = "";//clear previous input;
         }
       }
     }
@@ -81,12 +81,12 @@ export class HomeComponent implements OnInit {
         let salaries : any = salariesPacked;
         if(salaries != null && this.users != null){
           for(let user of this.users){
-            user.agent.totalPaid = "";//clear previous input;
+            user.agent.currentTotalPaid = "";//clear previous input;
           if(salaries.length > 0){
             for(let salary of salaries) {
               for(let user of this.users){
                 if(user.agent != null && user.agent.id == salary.agent){//If user have agent.
-                  user.agent.totalPaid = salary.totalPaid;
+                  user.agent.currentTotalPaid = salary.totalPaid;
                 }
               }
             }
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
       }else{
         Month.currentMonthInYear = "";
         for(let user of this.users){
-          user.agent.totalPaid = "";//clear previous input;
+          user.agent.currentTotalPaid = "";//clear previous input;
         }
       }
     }

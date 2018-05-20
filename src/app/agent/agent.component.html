@@ -68,7 +68,7 @@
     </form>
 
     <!-- Form for update agent -->
-    <h2 *ngIf="choosedUserId > 0">עדכן נתוני שליח</h2>
+    <h2 *ngIf="choosedUserId > 0">עדכן נתוני סוכן</h2>
     <form *ngIf="choosedUserId > 0" name="form" (ngSubmit)="f.form.valid && updateAgent()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="firstName">:שם פרטי</label>
@@ -119,7 +119,7 @@
             <label for="po">Po</label>
             <input type="text" class="form-control" name="po" [(ngModel)]="model.agent.po" #po="ngModel" />
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+        <div *ngIf="currentMonthInYear != null"  class="form-group" [ngClass]="{ 'has-error': f.submitted }">
               <label for="totalPaid">משכורת חודשית</label>
             <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.agent.totalPaid" #totalPaid="ngModel" />
         </div>

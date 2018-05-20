@@ -98,7 +98,7 @@ export class AgentComponent{
           user.agent.preferredArea = this.model.agent.preferredArea;
           user.agent.po = this.model.agent.po;
           if(this.currentMonthInYear != null){
-            user.agent.totalPaid = this.model.agent.totalPaid;
+            user.agent.totalPaid = null;//agent dont have totalPaid field in data base. 
             let salary = new Salary();
             salary.monthInYear = this.currentMonthInYear;
             salary.totalPaid = this.model.agent.totalPaid;
@@ -139,8 +139,28 @@ export class AgentComponent{
                 });
     }*/
 
-    /*updateAgent() {
+    updateAgent() {
         this.loading = true;
+        let user = new User()
+        user.agent = new Agent();
+        user.id =null;//clear, lelt server set the id.
+        user.firstName = this.model.firstName;
+        user.lastName = this.model.lastName;
+        user.username = this.model.username;
+        user.password = this.model.password;
+        user.agent.email = this.model.agent.email;
+        user.agent.phone = this.model.agent.phone;
+        user.agent.preferredArea = this.model.agent.preferredArea;
+        user.agent.po = this.model.agent.po;
+        if(this.currentMonthInYear != null){
+          user.agent.totalPaid = this.model.agent.totalPaid;
+          let salary = new Salary();
+          salary.monthInYear = this.currentMonthInYear;
+          salary.totalPaid = this.model.agent.totalPaid;
+          let salaries = new Array<Salary>();
+          salaries[0] = salary;
+          user.agent.salary = salaries;
+        }
         this.userService.update(this.model)
             .subscribe(
                 data => {
@@ -151,7 +171,7 @@ export class AgentComponent{
                     this.alertService.error(error);
                     this.loading = false;
                 });
-    }*/
+    }
 
     updateDropdownAreas(area){
         switch (area) {
