@@ -33,7 +33,13 @@ export class AgentComponent{
 
     ngOnInit() {
       this.currentMonthInYear = Month.currentMonthInYear;
-      this.text ='hello world!';
+      if(this.currentMonthInYear != null){
+        let year = this.currentMonthInYear.substring(this.currentMonthInYear.length-4, this.currentMonthInYear.length);
+        let month = this.currentMonthInYear.substring(0, this.currentMonthInYear.length-4);
+        month = Month.monthMapInver.get(month);
+        this.text =month + 'וחודש ' + year + ' הכנס משכורת עבור שנת';
+        this.text =  'הכנסת משכורת עבור שנת ' + year + ' וחודש ' + month;  
+      }
       this.sub = this.route.params.subscribe(params => {
         let user = JSON.parse(localStorage.getItem('choosedUser'))
         let url = this.router.url;

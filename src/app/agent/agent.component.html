@@ -51,8 +51,8 @@
             <label for="po">Po</label>
             <input type="text" class="form-control" name="po" [(ngModel)]="model.agent.po" #po="ngModel" />
         </div>
-        <div *ngIf="isMonthInYearChoosed" class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-          <p>{{text}}</p>
+        <div *ngIf="currentMonthInYear != null" class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+          <p class="to_right"><font size="3">{{text}}</font></p>
             <label for="totalPaid">משכורת חודשית</label>
             <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.agent.totalPaid" #totalPaid="ngModel" />
         </div>
