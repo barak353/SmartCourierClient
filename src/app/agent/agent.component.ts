@@ -98,10 +98,9 @@ export class AgentComponent{
           user.agent.preferredArea = this.model.agent.preferredArea;
           user.agent.po = this.model.agent.po;
           if(this.currentMonthInYear != null){
-            user.agent.totalPaid = null;//agent dont have totalPaid field in data base.
             let salary = new Salary();
             salary.monthInYear = this.currentMonthInYear;
-            salary.totalPaid = this.model.agent.totalPaid;
+            salary.totalPaid = this.model.agent.currentTotalPaid;
             let salaries = new Array<Salary>();
             salaries[0] = salary;
             user.agent.salary = salaries;
@@ -140,10 +139,10 @@ export class AgentComponent{
     }*/
 
     updateAgent() {
+        this.model = null;
         this.loading = true;
         let user = new User()
         user.agent = new Agent();
-        user.id =null;//clear, lelt server set the id.
         user.firstName = this.model.firstName;
         user.lastName = this.model.lastName;
         user.username = this.model.username;
@@ -153,10 +152,9 @@ export class AgentComponent{
         user.agent.preferredArea = this.model.agent.preferredArea;
         user.agent.po = this.model.agent.po;
         if(this.currentMonthInYear != null){
-          user.agent.totalPaid = this.model.agent.totalPaid;
           let salary = new Salary();
           salary.monthInYear = this.currentMonthInYear;
-          salary.totalPaid = this.model.agent.totalPaid;
+          salary.totalPaid = this.model.agent.currentTotalPaid;
           let salaries = new Array<Salary>();
           salaries[0] = salary;
           user.agent.salary = salaries;
