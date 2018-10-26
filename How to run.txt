@@ -23,6 +23,8 @@ For more information about Angular CLI check out the official website at https:/
  
 7.Maybe i added more packages that need to be install such as boost. So, if something is not working well consider install those package. Pleasae install the right version of those package by looking at file that does all the imports in the project. Search on google on how to install them if needed.
 
+8. If bootsstrap is missing install it by: npm install bootstrap-select@1.13.1
+
 Full tutrial: http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
 
 
