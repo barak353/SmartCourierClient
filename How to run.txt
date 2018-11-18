@@ -17,7 +17,9 @@ For more information about Angular CLI check out the official website at https:/
  
 4.Install all required npm packages by running npm install from the command line in the project root folder (where the package.json is located).
  
-5.Start the application by running ng serve from the command line in the project root folder.
+5.Start the application by running 
+ng serve —-ssl true
+from the command line in the project root folder.
  
 6.Browse to http://localhost:4200 to test your application.
  
