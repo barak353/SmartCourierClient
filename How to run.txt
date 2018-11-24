@@ -21,7 +21,7 @@ For more information about Angular CLI check out the official website at https:/
 ng serve —-ssl true
 from the command line in the project root folder.
  
-6.Browse to http://localhost:4200 to test your application.
+6.Browse to https://localhost:4200 to test your application.
  
 7.Maybe i added more packages that need to be install such as boost. So, if something is not working well consider install those package. Pleasae install the right version of those package by looking at file that does all the imports in the project. Search on google on how to install them if needed.
 
