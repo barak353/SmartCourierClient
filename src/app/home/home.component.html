@@ -35,7 +35,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let courier of courier; let i = index">
+        <tr *ngFor="let courier of couriers; let i = index">
           <td class="table-column">
             <button type="button" class="btn btn-danger" (click)="deleteCourier(courier.id)">מחיקה</button>
           </td>
@@ -43,11 +43,11 @@
             <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
           </td>
           <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.delivery)">שליחויות</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.delivery)">אין שליחויות</a></div></td>
-          <td class="table-column">{{ couriers.po }}</td>
-          <td class="table-column">{{ couriers.preferredArea }}</td>
-          <td class="table-column">{{ couriers.phone }}</td>
-          <td class="table-column">{{ couriers.email }}</td>
-          <td class="table-column">{{ couriers.id }}</td>
+          <td class="table-column">{{ courier.po }}</td>
+          <td class="table-column">{{ courier.preferredArea }}</td>
+          <td class="table-column">{{ courier.phone }}</td>
+          <td class="table-column">{{ courier.email }}</td>
+          <td class="table-column">{{ courier.id }}</td>
           <th class="table-column" scope="row">{{ i + 1 }}</th>
         </tr>
       </tbody>

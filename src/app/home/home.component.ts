@@ -27,13 +27,13 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        Month.get_Instance(); //Singelton instance.
+        //Month.get_Instance(); //Singelton instance.
         this.loadAllCouriers();
-        Month.currentMonthInYear = null;
-        this.years[0] = (new Date()).getFullYear();
-        for(var i=1;i<11;i++) {
-          this.years[i] = Number(this.years[0]) - i;
-        }
+        //Month.currentMonthInYear = null;
+        //this.years[0] = (new Date()).getFullYear();
+        //for(var i=1;i<11;i++) {
+        //  this.years[i] = Number(this.years[0]) - i;
+        //}
     }
 
     deleteCourier(id: number) {
@@ -53,7 +53,11 @@ export class HomeComponent implements OnInit {
           //    allCouriers.push(users[i]);
             //}
         //  }
-          this.couriers = couriers;
+        var allCouriers = [];
+        for(var i = 0; i < couriers.length; i++){
+          allCouriers.push(couriers[i]);
+      }
+          this.couriers = allCouriers;
         });
     }
 
