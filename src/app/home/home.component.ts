@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Courier, Delivery, Month, Salary} from '../_models/index';
-import { UserService, CourierService, DeliveryService, SalaryService } from '../_services/index';
+import { UserService, CourierService, DeliveryService, SalaryService, RegionService } from '../_services/index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,12 +18,13 @@ export class HomeComponent implements OnInit {
     deliveries: Delivery[] = [];
     showTable: string = 'Couriers';
     regionSelected: String;
-    regions: String[] = [];
+    regions: Region[] = [];
 
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
                 private salaryService: SalaryService,
+                private regionService: RegionService,
                 private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -64,11 +65,14 @@ export class HomeComponent implements OnInit {
     }
 
     // Deliveries functions
-    showDeliveries(delivieris: Delivery[]) {
+    showDeliveries(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showTable = 'Deliveries';
       ///Load all courier's regions
+      this.regionService.getRegionsByCourierId(courierId).subscribe(regions => {
+        this.regions = regions;
 
+      });
     }
 
     regionSelect(regionSelected: number){

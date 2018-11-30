@@ -42,7 +42,7 @@
           <td class="table-column">
             <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
           </td>
-          <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.delivery)">שליחויות</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.delivery)">אין שליחויות</a></div></td>
+          <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.id, courier.delivery)">אין משלוחים</a></div></td>
           <td class="table-column">{{ courier.po }}</td>
           <td class="table-column">{{ courier.phone }}</td>
           <td class="table-column">{{ courier.email }}</td>
@@ -68,7 +68,7 @@
   </select>-->
   <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
-    <option *ngFor="let c of regions" [ngValue]="c">{{c}}</option>
+    <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
     </select>
       <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
   </div>
