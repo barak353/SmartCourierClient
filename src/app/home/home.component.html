@@ -11,6 +11,7 @@
   <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
   </select>-->
     <button type="submit" class="btn btn-primary" [routerLink]="['/courier']">סוכן חדש</button>
+    <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
   </div>
 <!---->
 <!--Tables section-->
@@ -24,7 +25,6 @@
           <th class="table-column"></th>
           <th class="table-column">שליחויות</th>
         <!--  <th class="table-column">משכורת חודשית</th>-->
-          <th class="table-column">מחוזות מועדפים</th>
           <th class="table-column">PO</th>
           <th class="table-column">טלפון</th>
           <th class="table-column">אימייל</th>
@@ -70,7 +70,6 @@
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
     </select>
-      <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
   </div>
 
     <!--Deliveries table-->
