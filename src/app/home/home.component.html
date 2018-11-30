@@ -43,7 +43,6 @@
             <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
           </td>
           <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.delivery)">שליחויות</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.delivery)">אין שליחויות</a></div></td>
-          <td class="table-column">{{ courier.preferredArea }}</td>
           <td class="table-column">{{ courier.po }}</td>
           <td class="table-column">{{ courier.phone }}</td>
           <td class="table-column">{{ courier.email }}</td>
@@ -67,6 +66,10 @@
     <option value="" selected="selected">שנה</option>
     <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
   </select>-->
+  <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
+    <option value="" selected="selected">כל האזורים</option>
+    <option *ngFor="let c of regions" [ngValue]="c">{{c}}</option>
+    </select>
       <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
   </div>
 

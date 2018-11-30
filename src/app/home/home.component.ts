@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
     currentUser: User;
     couriers: Courier[] = [];
-    months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  //  months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
     years: Number[] = [];
-    yearSelected: String;
-    monthSelected: String;
+  //  yearSelected: String;
+    //monthSelected: String;
     deliveries: Delivery[] = [];
     showTable: string = 'Couriers';
+    regionSelected: String;
+    regions: String[] = [];
 
     constructor(private userService: UserService,
                 private courierService: CourierService,
@@ -65,8 +67,21 @@ export class HomeComponent implements OnInit {
     showDeliveries(delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showTable = 'Deliveries';
+      ///Load all courier's regions
+
     }
 
+    regionSelect(regionSelected: number){
+      this.regionSelected = regionSelected.toString();
+    /*  if(this.yearSelected != null){
+        this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
+      }else{
+        Month.currentMonthInYear = "";
+        for(let user of this.users){
+          user.courier.currentTotalPaid = "";//clear previous input;
+        }
+      }*/
+    }
     /*yearSelect(yearSelected: number){
       this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
