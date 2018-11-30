@@ -1,8 +1,7 @@
 ﻿export class Delivery {
     id: number;
-    monthInYear: string;
-    adress: string;
-    price: string;
-    state: string;
-    phone: string;
+    name: string;
+    isUrgent: string;
+    latitude: string;
+    longitude: string;
 }

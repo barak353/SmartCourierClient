@@ -59,14 +59,14 @@
   <div *ngIf="showTable =='Deliveries'" class="main-header">
     <img class="float-left" src="assets\img\logo.png">
     <p><a [routerLink]="['/login']">התנתקות</a></p>
-    <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
+  <!--  <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
     <option value="" selected="selected">חודש</option>
     <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
     </select>
     <select class="select" id="yearSelectId" (change)="yearSelect($event.target.value)">
     <option value="" selected="selected">שנה</option>
     <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
-    </select>
+  </select>-->
       <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
   </div>
 
@@ -78,10 +78,10 @@
           <th class="table-column"></th>
           <th class="table-column"></th>
           <th class="table-column">מספר סוכן</th>
-          <th class="table-column">כתובת</th>
-          <th class="table-column">עלות</th>
-          <th class="table-column">מצב</th>
-          <th class="table-column">טלפון</th>
+          <th class="table-column">שם</th>
+          <th class="table-column">האם דחוף</th>
+          <th class="table-column">latitude</th>
+          <th class="table-column">longtitude</th>
           <th class="table-column">#</th>
         </tr>
       </thead>
@@ -94,10 +94,10 @@
             <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
           </td>
           <td class="table-column">{{ delivery.id }}</td>
-          <td class="table-column">{{ delivery.address }}</td>
-          <td class="table-column">{{ delivery.price }}</td>
-          <td class="table-column">{{ delivery.state }}</td>
-          <td class="table-column">{{ delivery.phone }}</td>
+          <td class="table-column">{{ delivery.name }}</td>
+          <td class="table-column">{{ delivery.isUrgent }}</td>
+          <td class="table-column">{{ delivery.latitude }}</td>
+          <td class="table-column">{{ delivery.longitude }}</td>
           <th scope="row">{{ i + 1 }}</th>
         </tr>
       </tbody>
