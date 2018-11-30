@@ -1,8 +1,8 @@
-import { Agent} from './index';
+import { Courier} from './index';
 
 ﻿export class Salary {
   id: number;
   monthInYear: string;
   totalPaid: string;
-  agent: number;
+  courier: number;
 }

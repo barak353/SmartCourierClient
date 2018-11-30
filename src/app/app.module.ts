@@ -12,11 +12,11 @@ import { routing }        from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { JwtInterceptor } from './_helpers/index';
-import { AlertService, AuthenticationService, UserService, AgentService, DeliveryService, SalaryService} from './_services/index';
+import { AlertService, AuthenticationService, UserService, CourierService, DeliveryService, SalaryService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
-import { AgentComponent } from './agent/index';
+import { CourierComponent } from './courier/index';
 import { DeliveryComponent } from './delivery/index';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { DeliveryComponent } from './delivery/index';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        AgentComponent,
+        CourierComponent,
         DeliveryComponent
     ],
     providers: [
@@ -40,7 +40,7 @@ import { DeliveryComponent } from './delivery/index';
         AlertService,
         AuthenticationService,
         UserService,
-        AgentService,
+        CourierService,
         DeliveryService,
         SalaryService,
         {

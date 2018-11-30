@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-//import { User, Agent, Month, Salary } from '../_models/index';
+//import { User, Courier, Month, Salary } from '../_models/index';
 import { AlertService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
@@ -16,11 +16,11 @@ import { HomeComponent } from '../home/index';
 * אז קיבלנו שני אפשרויות לשייוך שליחויות לסוכנים, אחד ידנית על ידי המזכירה והשני במסך אחר שנעשה על ידי הכנסת שליחויות באופן כללי ואז שהסרבר יריץ על כל השליחויות שבסרבר שלא משוייכים לסוכן וישייך את השליחויות שיצאו לסוכן שעליו הופעל האלגוריתם וזה יעשה על פי בקשה מהמזכירה להפעיל את האלגוריתם על סוכן מסויים.
 */
 export class DeliveryComponent{
-    /*model: any = {agent : Agent };
+    /*model: any = {courier : Courier };
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
-    choosedUserId: number;//agent id of the user that choosed.
+    choosedUserId: number;//courier id of the user that choosed.
     currentMonthInYear: string;
     text: string;
     private sub: any;*/
@@ -30,7 +30,7 @@ export class DeliveryComponent{
         private router: Router,
         //private userService: UserService,
         //private salaryService: SalaryService,
-        //private agentService: AgentService,
+        //private courierService: CourierService,
         private alertService: AlertService) {
     }
 
@@ -54,44 +54,44 @@ export class DeliveryComponent{
           this.model.lastName = user.lastName;
           this.model.username = user.username;
           this.model.password = user.password;
-          this.model.agent.Email = user.agent.Email;
-          this.model.agent.Phone = user.agent.Phone;
-          this.model.agent.preferredArea = user.agent.preferredArea;
-          this.model.agent.currentTotalPaid = user.agent.currentTotalPaid;
-          this.model.agent = user.agent;
+          this.model.courier.Email = user.courier.Email;
+          this.model.courier.Phone = user.courier.Phone;
+          this.model.courier.preferredArea = user.courier.preferredArea;
+          this.model.courier.currentTotalPaid = user.courier.currentTotalPaid;
+          this.model.courier = user.courier;
         }else{//it's create screen.
-        this.model.agent = new Agent();
+        this.model.courier = new Courier();
         this.model.firstName = null;
         this.model.lastName =  null;
         this.model.username = null;
         this.model.password = null;
-        this.model.agent.Email = null;
-        this.model.agent.Phone = null;
-        this.model.agent.preferredArea = null;
-        this.model.agent.currentTotalPaid = null;
+        this.model.courier.Email = null;
+        this.model.courier.Phone = null;
+        this.model.courier.preferredArea = null;
+        this.model.courier.currentTotalPaid = null;
         this.choosedUserId = -1; //'create' button was pressed because we don't have user id..
       }});
     }
 
-      createAgent() {
+      createCourier() {
           let user = new User()
           this.loading = true;
-          user.agent = new Agent();
+          user.courier = new Courier();
           user.firstName = this.model.firstName;
           user.lastName = this.model.lastName;
           user.username = this.model.username;
           user.password = this.model.password;
-          user.agent.email = this.model.agent.email;
-          user.agent.phone = this.model.agent.phone;
-          user.agent.preferredArea = this.model.agent.preferredArea;
-          user.agent.po = this.model.agent.po;
+          user.courier.email = this.model.courier.email;
+          user.courier.phone = this.model.courier.phone;
+          user.courier.preferredArea = this.model.courier.preferredArea;
+          user.courier.po = this.model.courier.po;
           if(this.currentMonthInYear != null){
             let salary = new Salary();
             salary.monthInYear = this.currentMonthInYear;
-            salary.totalPaid = this.model.agent.currentTotalPaid;
+            salary.totalPaid = this.model.courier.currentTotalPaid;
             let salaries = new Array<Salary>();
             salaries[0] = salary;
-            user.agent.salary = salaries;
+            user.courier.salary = salaries;
           }
 
           this.userService.create(user)
@@ -106,25 +106,25 @@ export class DeliveryComponent{
                   });
       }
 
-    updateAgent() {
+    updateCourier() {
       let user = new User()
       this.loading = true;
-      user.agent = new Agent();
+      user.courier = new Courier();
       user.firstName = this.model.firstName;
       user.lastName = this.model.lastName;
       user.username = this.model.username;
       user.password = this.model.password;
-      user.agent.email = this.model.agent.email;
-      user.agent.phone = this.model.agent.phone;
-      user.agent.preferredArea = this.model.agent.preferredArea;
-      user.agent.po = this.model.agent.po;
+      user.courier.email = this.model.courier.email;
+      user.courier.phone = this.model.courier.phone;
+      user.courier.preferredArea = this.model.courier.preferredArea;
+      user.courier.po = this.model.courier.po;
       if(this.currentMonthInYear != null){
         let salary = new Salary();
         salary.monthInYear = this.currentMonthInYear;
-        salary.totalPaid = this.model.agent.currentTotalPaid;
+        salary.totalPaid = this.model.courier.currentTotalPaid;
         let salaries = new Array<Salary>();
         salaries[0] = salary;
-        user.agent.salary = salaries;
+        user.courier.salary = salaries;
       }
 
       this.userService.update(user)
@@ -142,29 +142,29 @@ export class DeliveryComponent{
     updateDropdownAreas(area){
         switch (area) {
       case 'A':
-        this.model.agent.preferredArea = "אין";
+        this.model.courier.preferredArea = "אין";
           break;
       case 'B':
-        this.model.agent.preferredArea = "מחוז הצפון";
+        this.model.courier.preferredArea = "מחוז הצפון";
         break;
       case 'C':
-        this.model.agent.preferredArea = "מחוז חיפה";
+        this.model.courier.preferredArea = "מחוז חיפה";
         break;
       case 'D':
-        this.model.agent.preferredArea = "מחוז תל אביב";
+        this.model.courier.preferredArea = "מחוז תל אביב";
         break;
       case 'E':
-        this.model.agent.preferredArea = "מחוז המרכז";
+        this.model.courier.preferredArea = "מחוז המרכז";
           break;
       case 'F':
-        this.model.agent.preferredArea = "מחוז ירושלים";
+        this.model.courier.preferredArea = "מחוז ירושלים";
           break;
       case 'G':
-        this.model.agent.preferredArea = "מחוז הדרום";
+        this.model.courier.preferredArea = "מחוז הדרום";
           break;
       default:
-      this.model.agent.preferredArea = "אין";
+      this.model.courier.preferredArea = "אין";
   }
-      document.getElementById('areas-dropdown').innerHTML = this.model.agent.preferredArea;
+      document.getElementById('areas-dropdown').innerHTML = this.model.courier.preferredArea;
     }*/
 }

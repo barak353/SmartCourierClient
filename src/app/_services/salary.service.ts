@@ -15,8 +15,8 @@ export class SalaryService {
         return this.http.get(this.baseUrl + '/salary/getByMonthInYear/' + monthInYear);
     }
 
-    create(salary: Salary, agentId : Number) {
-        return this.http.post(this.baseUrl + '/salary/create/' + agentId, Salary);
+    create(salary: Salary, courierId : Number) {
+        return this.http.post(this.baseUrl + '/salary/create/' + courierId, Salary);
     }
 
 }

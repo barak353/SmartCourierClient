@@ -1,4 +1,4 @@
-import { Agent } from './index';
+import { Courier } from './index';
 
 export class User {
     id: number;
@@ -6,5 +6,5 @@ export class User {
     password: string;
     firstName: string;
     lastName: string;
-    agent: Agent;
+    courier: Courier;
 }

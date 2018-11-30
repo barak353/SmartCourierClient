@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Agent, Delivery, Month, Salary} from '../_models/index';
-import { UserService, AgentService, DeliveryService, SalaryService } from '../_services/index';
+import { User, Courier, Delivery, Month, Salary} from '../_models/index';
+import { UserService, CourierService, DeliveryService, SalaryService } from '../_services/index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,16 +10,16 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
     currentUser: User;
-    users: User[] = [];
+    couriers: Courier[] = [];
     months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
     years: Number[] = [];
     yearSelected: String;
     monthSelected: String;
     deliveries: Delivery[] = [];
-    showTable: string = 'Agents';
+    showTable: string = 'Couriers';
 
     constructor(private userService: UserService,
-                private agentService: AgentService,
+                private courierService: CourierService,
                 private deliveryService: DeliveryService,
                 private salaryService: SalaryService,
                 private router: Router) {
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         Month.get_Instance(); //Singelton instance.
-        this.loadAllAgents();
+        this.loadAllCouriers();
         Month.currentMonthInYear = null;
         this.years[0] = (new Date()).getFullYear();
         for(var i=1;i<11;i++) {
@@ -36,24 +36,24 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    deleteAgent(id: number) {
-       this.agentService.delete(id).subscribe(() => { this.loadAllAgents() });
+    deleteCourier(id: number) {
+       this.courierService.delete(id).subscribe(() => { this.loadAllCouriers() });
     }
 
     showEditScreen(user: User){
         localStorage.setItem('choosedUser', JSON.stringify(user));
-        this.router.navigate(['/agent', user.id]);
+        this.router.navigate(['/courier', user.id]);
     }
 
-    private loadAllAgents() {
-        this.userService.getAll().subscribe(users => {
-          var usersWithAgent = [];
-          for(var i = 0; i < users.length; i++){
-            if(users[i].agent){
-              usersWithAgent.push(users[i]);
-            }
-          }
-          this.users = usersWithAgent;
+    private loadAllCouriers() {
+        this.courierService.getAll().subscribe(couriers => {
+        //  var allCouriers = [];
+          //for(var i = 0; i < users.length; i++){
+            //if(users[i].courier){
+          //    allCouriers.push(users[i]);
+            //}
+        //  }
+          this.couriers = couriers;
         });
     }
 
@@ -63,14 +63,14 @@ export class HomeComponent implements OnInit {
       this.showTable = 'Deliveries';
     }
 
-    yearSelect(yearSelected: number){
+    /*yearSelect(yearSelected: number){
       this.yearSelected = yearSelected.toString();
       if(this.monthSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) +  this.yearSelected.toString());
       }else{
         Month.currentMonthInYear = "";
-        for(let user of this.users){
-          user.agent.currentTotalPaid = "";//clear previous input;
+        for(let courier of this.couriers){
+           courier.currentTotalPaid = "";//clear previous input;
         }
       }
     }
@@ -79,14 +79,14 @@ export class HomeComponent implements OnInit {
       Month.currentMonthInYear = selectedMonthInYear;
       this.salaryService.getByMonthInYear(selectedMonthInYear).subscribe(salariesPacked => {
         let salaries : any = salariesPacked;
-        if(salaries != null && this.users != null){
-          for(let user of this.users){
-            user.agent.currentTotalPaid = "";//clear previous input;
+        if(salaries != null && this.couriers != null){
+          for(let courier of this.couriers){
+          courier.currentTotalPaid = "";//clear previous input;
           if(salaries.length > 0){
             for(let salary of salaries) {
-              for(let user of this.users){
-                if(user.agent != null && user.agent.id == salary.agent){//If user have agent.
-                  user.agent.currentTotalPaid = salary.totalPaid;
+              for(let user of this.courier){
+                if(courier != null && courier.id == salary.courier){//If user have courier.
+                  courier.currentTotalPaid = salary.totalPaid;
                 }
               }
             }
@@ -102,10 +102,10 @@ export class HomeComponent implements OnInit {
       }else{
         Month.currentMonthInYear = "";
         for(let user of this.users){
-          user.agent.currentTotalPaid = "";//clear previous input;
+          user.courier.currentTotalPaid = "";//clear previous input;
         }
       }
-    }
+    }*/
 
     // createNewDelivery(){
     //   this.deliveryService.create(Delivery delivery).subscribe(() => { /*this.loadAllDelivery()*/ });
