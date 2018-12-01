@@ -42,10 +42,10 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+  <button (click)="showScreen = 'Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
-<!--Deliveries screen-->
-<div *ngIf="showScreen=='Delivery'">
+<!--Delivery screen-->
+<div *ngIf="showScreen == 'Delivery' || showScreen == 'DeliveryOfCourier'">
   <button type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
   <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
@@ -81,7 +81,7 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+  <button *ngIf="showScreen == 'DeliveryOfCourier'" (click)="showScreen ='Courier'" type="submit" class="btn btn-primary"><חזרה</button>
 </div>
     <!--Regions table-->
 <div *ngIf="showScreen =='Region'">

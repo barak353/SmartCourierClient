@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
     // Clicking on show courier's deliveries.
     showDeliveries(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
-      this.showScreen = 'Deliveries';
+      this.showScreen = 'DeliveryOfCourier';
       this.courierId = courierId;
       ///Load all courier's regions
       this.regionService.getRegionsByCourierId(courierId).subscribe(regions => {
