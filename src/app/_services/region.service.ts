@@ -7,6 +7,10 @@ export class RegionService {
     constructor(private http: HttpClient) { }
     baseUrl = 'http://localhost:8080';
 
+    getAll(){
+      return this.http.get<Region[]>( this.baseUrl + '/region/getAll');
+    }
+
     getRegionsByCourierId(courierId : Number) {
         return this.http.get<Region[]>( this.baseUrl + '/region/getRegions/' + courierId);
     }

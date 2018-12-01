@@ -1,154 +1,115 @@
-<!--Menu header-->
-<div *ngIf="showTable =='Menu'" class="main-header">
-  <button (click)="showTable ='Couriers'" type="submit" class="btn btn-primary">שליחים</button>
-  <button (click)="showTable ='Regions'" type="submit" class="btn btn-primary">אזורים</button>
-  <button (click)="showTable ='Deliveries'" type="submit" class="btn btn-primary">משלוחים</button>
-</div>
-<!--Couriers header-->
-<div *ngIf="showTable =='Couriers'" class="main-header">
+<!--Global header-->
+<div class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
-
-  <!--<select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
-  <option value="" selected="selected">חודש</option>
-  <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
-  </select>
-  <select class="select" id="yearSelectId" (change)="yearSelect($event.target.value)">
-  <option value="" selected="selected">שנה</option>
-  <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
-  </select>-->
-    <button type="submit" class="btn btn-primary" [routerLink]="['/courier']">סוכן חדש</button>
-    <button type="submit" class="btn btn-primary" [routerLink]="['/delivery']">משלוח חדש</button>
-  </div>
-<!---->
-<!--Tables section-->
-<div class="container">
-  <!--Couriers table-->
-   <div *ngIf="showTable =='Couriers'">
-    <table class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th class="table-column"></th>
-          <th class="table-column"></th>
-          <th class="table-column">משלוחים</th>
-        <!--  <th class="table-column">משכורת חודשית</th>-->
-          <th class="table-column">PO</th>
-          <th class="table-column">טלפון</th>
-          <th class="table-column">אימייל</th>
-          <!--<th class="table-column">שם משפחה</th>
-          <th class="table-column">שם פרטי</th>-->
-          <th class="table-column">מספר סוכן</th>
-          <th class="table-column">#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let courier of couriers; let i = index">
-          <td class="table-column">
-            <button type="button" class="btn btn-danger" (click)="deleteCourier(courier.id)">מחיקה</button>
-          </td>
-          <td class="table-column">
-            <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
-          </td>
-          <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.id, courier.delivery)">אין משלוחים</a></div></td>
-          <td class="table-column">{{ courier.po }}</td>
-          <td class="table-column">{{ courier.phone }}</td>
-          <td class="table-column">{{ courier.email }}</td>
-          <td class="table-column">{{ courier.id }}</td>
-          <th class="table-column" scope="row">{{ i + 1 }}</th>
-        </tr>
-      </tbody>
-    </table>
-    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
-  </div>
-
-<!--###################-Deliveries Section-##########################-->
-  <!--Deliveries header-->
-  <div *ngIf="showTable =='Deliveries'" class="main-header">
-    <img class="float-left" src="assets\img\logo.png">
-    <p><a [routerLink]="['/login']">התנתקות</a></p>
-  <!--  <select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
-    <option value="" selected="selected">חודש</option>
-    <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
-    </select>
-    <select class="select" id="yearSelectId" (change)="yearSelect($event.target.value)">
-    <option value="" selected="selected">שנה</option>
-    <option (click)="showTotalPaid()" *ngFor="let c of years" [ngValue]="c.value">{{c}}</option>
-  </select>-->
+</div>
+<!--Menu screen-->
+<div *ngIf="showScreen =='Menu'" class="main-header">
+  <button (click)="showScreen ='Courier'" type="submit" class="btn btn-primary">שליחים</button>
+  <button (click)="showScreen ='Region'" type="submit" class="btn btn-primary">אזורים</button>
+  <button (click)="showScreen ='Delivery'" type="submit" class="btn btn-primary">משלוחים</button>
+</div>
+<!--Courier screen-->
+<div *ngIf="showScreen =='Courier'">
+  <button type="submit" class="btn btn-primary" [routerLink]="['/courier']">סוכן חדש</button>
+  <table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th class="table-column"></th>
+        <th class="table-column"></th>
+        <th class="table-column">משלוחים</th>
+        <th class="table-column">PO</th>
+        <th class="table-column">טלפון</th>
+        <th class="table-column">אימייל</th>
+        <th class="table-column">מספר סוכן</th>
+        <th class="table-column">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let courier of couriers; let i = index">
+        <td class="table-column">
+          <button type="button" class="btn btn-danger" (click)="deleteCourier(courier.id)">מחיקה</button>
+        </td>
+        <td class="table-column">
+          <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
+        </td>
+        <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.id, courier.delivery)">אין משלוחים</a></div></td>
+        <td class="table-column">{{ courier.po }}</td>
+        <td class="table-column">{{ courier.phone }}</td>
+        <td class="table-column">{{ courier.email }}</td>
+        <td class="table-column">{{ courier.id }}</td>
+        <th class="table-column" scope="row">{{ i + 1 }}</th>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+</div>
+<!--Deliveries screen-->
+<div *ngIf="showScreen=='Delivery'">
+  <button type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
   <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
-    </select>
-  </div>
-
-    <!--Deliveries table-->
-<div align="right">
+  </select>
+  <table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th class="table-column"></th>
+        <th class="table-column"></th>
+        <th class="table-column">האם דחוף</th>
+        <th class="table-column">latitude</th>
+        <th class="table-column">longtitude</th>
+        <th class="table-column">שם</th>
+        <th class="table-column">מספר משלוח</th>
+        <th class="table-column">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delivery of deliveries; let i = index">
+        <td class="table-column">
+          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+        </td>
+        <td class="table-column">
+          <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
+        </td>
+        <td class="table-column">{{ delivery.isUrgent }}</td>
+        <td class="table-column">{{ delivery.latitude }}</td>
+        <td class="table-column">{{ delivery.longitude }}</td>
+        <td class="table-column">{{ delivery.name }}</td>
+        <td class="table-column">{{ delivery.id }}</td>
+        <th scope="row">{{ i + 1 }}</th>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
-   <div *ngIf="showTable =='Deliveries'">
-    <table class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th class="table-column"></th>
-          <th class="table-column"></th>
-
-          <th class="table-column">האם דחוף</th>
-          <th class="table-column">latitude</th>
-          <th class="table-column">longtitude</th>
-          <th class="table-column">שם</th>
-          <th class="table-column">מספר משלוח</th>
-          <th class="table-column">#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let delivery of deliveries; let i = index">
-          <td class="table-column">
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
-          </td>
-          <td class="table-column">
-            <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
-          </td>
-          <td class="table-column">{{ delivery.isUrgent }}</td>
-          <td class="table-column">{{ delivery.latitude }}</td>
-          <td class="table-column">{{ delivery.longitude }}</td>
-          <td class="table-column">{{ delivery.name }}</td>
-          <td class="table-column">{{ delivery.id }}</td>
-          <th scope="row">{{ i + 1 }}</th>
-        </tr>
-      </tbody>
-    </table>
-    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
     <!--Regions table-->
-<div align="right">
+<div *ngIf="showScreen =='Region'">
+  <table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th class="table-column"></th>
+        <th class="table-column"></th>
+        <th class="table-column">threshold</th>
+        <th class="table-column">שם אזור</th>
+        <th class="table-column">מספר אזור</th>
+        <th class="table-column">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delivery of deliveries; let i = index">
+        <td class="table-column">
+          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+        </td>
+        <td class="table-column">
+          <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
+        </td>
+        <td class="table-column">{{ regions.threshold }}</td>
+        <td class="table-column">{{ regions.regionName }}</td>
+        <td class="table-column">{{ regions.id }}</td>
+        <th scope="row">{{ i + 1 }}</th>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
-   <div *ngIf="showTable =='Regions'">
-    <table class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th class="table-column"></th>
-          <th class="table-column"></th>
-          <th class="table-column">threshold</th>
-          <th class="table-column">שם אזור</th>
-          <th class="table-column">מספר אזור</th>
-          <th class="table-column">#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let delivery of deliveries; let i = index">
-          <td class="table-column">
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
-          </td>
-          <td class="table-column">
-            <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
-          </td>
-          <td class="table-column">{{ delivery.isUrgent }}</td>
-          <td class="table-column">{{ delivery.name }}</td>
-          <td class="table-column">{{ delivery.id }}</td>
-          <th scope="row">{{ i + 1 }}</th>
-        </tr>
-      </tbody>
-    </table>
-    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
-
-    <div class="text-right">
-      <button type="submit" class="btn btn-primary" (click)="showTable = 'Couriers'">< חזור</button>
-    </div>
-  </div>

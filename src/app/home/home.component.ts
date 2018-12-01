@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   //  yearSelected: String;
     //monthSelected: String;
     deliveries: Delivery[] = [];//The courier's deliveries to show.
-    showTable: string = 'Menu';//Show couriers screen as defult.
+    showScreen: string = 'Menu';//Show couriers screen as defult.
     regionSelected: String;//Save the index of the region the user choose from the select box.
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     courierId: Number;//Save the courier ID after choosing to show his deliveries.
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         //Month.get_Instance(); //Singelton instance.
         this.loadAllCouriers();
+        this.loadAllRegions();
         //Month.currentMonthInYear = null;
         //this.years[0] = (new Date()).getFullYear();
         //for(var i=1;i<11;i++) {
@@ -39,6 +40,22 @@ export class HomeComponent implements OnInit {
         //}
     }
 
+    private loadAllRegions()
+    {
+        this.regionService.getAll().subscribe(regions => {
+          //  var allCouriers = [];
+            //for(var i = 0; i < users.length; i++){
+              //if(users[i].courier){
+            //    allCouriers.push(users[i]);
+              //}
+          //  }
+        //var allCouriers = [];
+        //for(var i = 0; i < couriers.length; i++){
+        //  allCouriers.push(couriers[i]);
+        //}
+            this.regions = regions;
+        });
+    }
     deleteCourier(id: number) {
        this.courierService.delete(id).subscribe(() => { this.loadAllCouriers() });
     }
@@ -67,7 +84,7 @@ export class HomeComponent implements OnInit {
     // Clicking on show courier's deliveries.
     showDeliveries(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
-      this.showTable = 'Deliveries';
+      this.showScreen = 'Deliveries';
       this.courierId = courierId;
       ///Load all courier's regions
       this.regionService.getRegionsByCourierId(courierId).subscribe(regions => {
@@ -94,10 +111,6 @@ export class HomeComponent implements OnInit {
         });
       }
 
-      showTableFun(showTable: String)
-      {
-        this.showTable = showTable;
-      }
     /*  if(this.yearSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
       }else{
