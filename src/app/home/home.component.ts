@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Courier, Delivery, Month, Salary} from '../_models/index';
+import { User, Courier, Delivery, Month, Salary, Region} from '../_models/index';
 import { UserService, CourierService, DeliveryService, SalaryService, RegionService } from '../_services/index';
 import { Router } from '@angular/router';
 
@@ -9,21 +9,21 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
-    currentUser: User;
-    couriers: Courier[] = [];
+    currentUser: User;//Current loged user.
+    couriers: Courier[] = [];//The list of couriers to show.
   //  months: String[] = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-    years: Number[] = [];
+    //years: Number[] = [];
   //  yearSelected: String;
     //monthSelected: String;
-    deliveries: Delivery[] = [];
-    showTable: string = 'Couriers';
-    regionSelected: String;
-    regions: Region[] = [];
-
+    deliveries: Delivery[] = [];//The courier's deliveries to show.
+    showTable: string = 'Couriers';//Show couriers screen as defult.
+    regionSelected: String;//Save the index of the region the user choose from the select box.
+    regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
+    courierId: Number;//Save the courier ID after choosing to show his deliveries.
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
-                private salaryService: SalaryService,
+                //private salaryService: SalaryService,
                 private regionService: RegionService,
                 private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -64,19 +64,35 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    // Deliveries functions
+    // Clicking on show courier's deliveries.
     showDeliveries(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showTable = 'Deliveries';
+      this.courierId = courierId;
       ///Load all courier's regions
       this.regionService.getRegionsByCourierId(courierId).subscribe(regions => {
         this.regions = regions;
-
       });
     }
 
-    regionSelect(regionSelected: number){
-      this.regionSelected = regionSelected.toString();
+    //Choosing region from select box.
+    regionSelect(regionSelected: String){
+      if(regionSelected == "")//Show deliveries from all regions.
+      {
+        this.deliveryService.getDeliveriesByCourier(this.courierId).subscribe(deliveries =>{
+          this.deliveries = deliveries;
+        });
+      }else
+      {
+        for(var i = 0; i < this.regions.length; i++)
+        {
+          if(this.regions[i].regionName == regionSelected)
+              var regionId = this.regions[i].id;
+        }
+        this.regionService.getCourierDeliveries(this.courierId , regionId).subscribe(deliveries =>{
+            this.deliveries = deliveries;
+        });
+      }
     /*  if(this.yearSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
       }else{

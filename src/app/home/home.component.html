@@ -23,7 +23,7 @@
         <tr>
           <th class="table-column"></th>
           <th class="table-column"></th>
-          <th class="table-column">שליחויות</th>
+          <th class="table-column">משלוחים</th>
         <!--  <th class="table-column">משכורת חודשית</th>-->
           <th class="table-column">PO</th>
           <th class="table-column">טלפון</th>
@@ -71,19 +71,23 @@
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
     </select>
   </div>
+  <th class="float-right">מציג טבלת משלוחים עבור מספר סוכן: {{courierId}}</th>
 
     <!--Deliveries table-->
+<div align="right">
+</div>
    <div *ngIf="showTable =='Deliveries'">
     <table class="table table-striped table-bordered" style="width:100%">
       <thead>
         <tr>
           <th class="table-column"></th>
           <th class="table-column"></th>
-          <th class="table-column">מספר סוכן</th>
-          <th class="table-column">שם</th>
+
           <th class="table-column">האם דחוף</th>
           <th class="table-column">latitude</th>
           <th class="table-column">longtitude</th>
+          <th class="table-column">שם</th>
+          <th class="table-column">מספר משלוח</th>
           <th class="table-column">#</th>
         </tr>
       </thead>
@@ -95,11 +99,11 @@
           <td class="table-column">
             <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
           </td>
-          <td class="table-column">{{ delivery.id }}</td>
-          <td class="table-column">{{ delivery.name }}</td>
           <td class="table-column">{{ delivery.isUrgent }}</td>
           <td class="table-column">{{ delivery.latitude }}</td>
           <td class="table-column">{{ delivery.longitude }}</td>
+          <td class="table-column">{{ delivery.name }}</td>
+          <td class="table-column">{{ delivery.id }}</td>
           <th scope="row">{{ i + 1 }}</th>
         </tr>
       </tbody>

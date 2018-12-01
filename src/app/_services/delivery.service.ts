@@ -15,7 +15,11 @@ export class DeliveryService {
         return this.http.get<Delivery[]>('http://localhost:8080/delivery/getAll');
     }
 
-    getById(id: number) {
+    getDeliveriesByCourier(courierId: number) {
+        return this.http.get<Delivery[]>('http://localhost:8080/courier/getDeliveries/' + courierId);
+    }
+
+    /*getById(id: number) {
         return this.http.get('/api/deliveries/' + id);
     }
 
@@ -28,6 +32,6 @@ export class DeliveryService {
     }
 
     delete(id: number) {
-        return this.http.delete('/api/deliveries/' + id);
+        return this.http.delete('/api/deliveries/' + id);*/
     }
 }
