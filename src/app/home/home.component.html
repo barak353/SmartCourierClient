@@ -1,7 +1,14 @@
+<!--Menu header-->
+<div *ngIf="showTable =='Menu'" class="main-header">
+  <button (click)="showTable ='Couriers'" type="submit" class="btn btn-primary">שליחים</button>
+  <button (click)="showTable ='Regions'" type="submit" class="btn btn-primary">אזורים</button>
+  <button (click)="showTable ='Deliveries'" type="submit" class="btn btn-primary">משלוחים</button>
+</div>
 <!--Couriers header-->
 <div *ngIf="showTable =='Couriers'" class="main-header">
   <img class="float-left" src="assets\img\logo.png">
   <p><a [routerLink]="['/login']">התנתקות</a></p>
+
   <!--<select class="select" id="monthSelectId" (change)="monthSelect($event.target.value)">
   <option value="" selected="selected">חודש</option>
   <option *ngFor="let c of months" [ngValue]="c">{{c}}</option>
@@ -51,6 +58,7 @@
         </tr>
       </tbody>
     </table>
+    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
   </div>
 
 <!--###################-Deliveries Section-##########################-->
@@ -71,7 +79,6 @@
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
     </select>
   </div>
-  <th class="float-right">מציג טבלת משלוחים עבור מספר סוכן: {{courierId}}</th>
 
     <!--Deliveries table-->
 <div align="right">
@@ -108,6 +115,38 @@
         </tr>
       </tbody>
     </table>
+    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+    <!--Regions table-->
+<div align="right">
+</div>
+   <div *ngIf="showTable =='Regions'">
+    <table class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th class="table-column"></th>
+          <th class="table-column"></th>
+          <th class="table-column">threshold</th>
+          <th class="table-column">שם אזור</th>
+          <th class="table-column">מספר אזור</th>
+          <th class="table-column">#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let delivery of deliveries; let i = index">
+          <td class="table-column">
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+          </td>
+          <td class="table-column">
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
+          </td>
+          <td class="table-column">{{ delivery.isUrgent }}</td>
+          <td class="table-column">{{ delivery.name }}</td>
+          <td class="table-column">{{ delivery.id }}</td>
+          <th scope="row">{{ i + 1 }}</th>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="showTable ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 
     <div class="text-right">
       <button type="submit" class="btn btn-primary" (click)="showTable = 'Couriers'">< חזור</button>

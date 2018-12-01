@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   //  yearSelected: String;
     //monthSelected: String;
     deliveries: Delivery[] = [];//The courier's deliveries to show.
-    showTable: string = 'Couriers';//Show couriers screen as defult.
+    showTable: string = 'Menu';//Show couriers screen as defult.
     regionSelected: String;//Save the index of the region the user choose from the select box.
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     courierId: Number;//Save the courier ID after choosing to show his deliveries.
@@ -92,6 +92,11 @@ export class HomeComponent implements OnInit {
         this.regionService.getCourierDeliveries(this.courierId , regionId).subscribe(deliveries =>{
             this.deliveries = deliveries;
         });
+      }
+
+      showTableFun(showTable: String)
+      {
+        this.showTable = showTable;
       }
     /*  if(this.yearSelected != null){
         this.updateTotalPaid(Month.monthMap.get(this.monthSelected.toString()) + this.yearSelected.toString());
