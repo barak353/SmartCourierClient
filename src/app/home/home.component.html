@@ -46,7 +46,7 @@
 <!--Delivery screen-->
 <div *ngIf="showScreen == 'DeliveryInRegion' || showScreen == 'DeliveryOfCourier'">
   <button *ngIf="showScreen == 'DeliveryInRegion'" type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
-  <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
+  <select *ngIf="showScreen == 'DeliveryOfCourier'" class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
   </select>

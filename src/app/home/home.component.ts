@@ -103,6 +103,8 @@ export class HomeComponent implements OnInit {
       this.deliveries = deliveries;
       this.showScreen = 'DeliveryInRegion';
       this.regionId = regionId;
+      ///Load all region's deliveries
+      this.deliveries = deliveries;
     }
 
     // Clicking on show courier's deliveries.
