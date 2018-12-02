@@ -33,5 +33,4 @@ export class DeliveryService {
 
     delete(id: number) {
         return this.http.delete('/api/deliveries/' + id);*/
-    }
 }

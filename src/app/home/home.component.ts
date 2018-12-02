@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     showScreen: string = 'Menu';//Show couriers screen as defult.
     regionSelected: String;//Save the index of the region the user choose from the select box.
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
-    courierId: Number;//Save the courier ID after choosing to show his deliveries.
+    courierId: number;//Save the courier ID after choosing to show his deliveries.
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
