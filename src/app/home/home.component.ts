@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
       }*/
     }
 
-    changeScreen(screen: String)
+    changeScreen(screen: string)
     {
       switch(screen){
         case 'Delivery':

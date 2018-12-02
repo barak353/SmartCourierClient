@@ -98,16 +98,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let delivery of deliveries; let i = index">
+      <tr *ngFor="let region of regions; let i = index">
         <td class="table-column">
           <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
         </td>
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
-        <td class="table-column">{{ regions.threshold }}</td>
-        <td class="table-column">{{ regions.regionName }}</td>
-        <td class="table-column">{{ regions.id }}</td>
+        <td class="table-column">{{ region.threshold }}</td>
+        <td class="table-column">{{ region.regionName }}</td>
+        <td class="table-column">{{ region.id }}</td>
         <th scope="row">{{ i + 1 }}</th>
       </tr>
     </tbody>
