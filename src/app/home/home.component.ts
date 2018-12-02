@@ -31,8 +31,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         //Month.get_Instance(); //Singelton instance.
-        this.loadAllCouriers();
-        this.loadAllRegions();
+
         //Month.currentMonthInYear = null;
         //this.years[0] = (new Date()).getFullYear();
         //for(var i=1;i<11;i++) {
@@ -119,6 +118,19 @@ export class HomeComponent implements OnInit {
           user.courier.currentTotalPaid = "";//clear previous input;
         }
       }*/
+    }
+
+    changeScreen(screen: String)
+    {
+      switch(screen){
+        case 'Delivery':
+          this.loadAllCouriers();
+          break;
+        case 'Region':
+          this.loadAllRegions();
+          break;
+        }
+        this.showScreen = screen;
     }
     /*yearSelect(yearSelected: number){
       this.yearSelected = yearSelected.toString();

@@ -5,9 +5,9 @@
 </div>
 <!--Menu screen-->
 <div *ngIf="showScreen =='Menu'" class="main-header">
-  <button (click)="showScreen ='Courier'" type="submit" class="btn btn-primary">שליחים</button>
-  <button (click)="showScreen ='Region'" type="submit" class="btn btn-primary">אזורים</button>
-  <button (click)="showScreen ='Delivery'" type="submit" class="btn btn-primary">משלוחים</button>
+  <button (click)="changeScreen('Courier')" type="submit" class="btn btn-primary">שליחים</button>
+  <button (click)="changeScreen('Region')" type="submit" class="btn btn-primary">אזורים</button>
+  <button (click)="changeScreen('Delivery')" type="submit" class="btn btn-primary">משלוחים</button>
 </div>
 <!--Courier screen-->
 <div *ngIf="showScreen =='Courier'">
@@ -42,11 +42,11 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="showScreen = 'Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+  <button (click)="changeScreen('Menu')" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
 <!--Delivery screen-->
 <div *ngIf="showScreen == 'Delivery' || showScreen == 'DeliveryOfCourier'">
-  <button type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
+  <button *ngIf="showScreen == 'Delivery'" type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
   <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
@@ -81,7 +81,8 @@
       </tr>
     </tbody>
   </table>
-  <button *ngIf="showScreen == 'DeliveryOfCourier'" (click)="showScreen ='Courier'" type="submit" class="btn btn-primary"><חזרה</button>
+  <button *ngIf="showScreen == 'DeliveryOfCourier'" (click)="changeScreen('Courier')" type="submit" class="btn btn-primary"><חזרה</button>
+  <button *ngIf="showScreen == 'Delivery'" (click)="changeScreen('Menu')" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
     <!--Regions table-->
 <div *ngIf="showScreen =='Region'">
@@ -111,5 +112,5 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="showScreen ='Menu'" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+  <button (click)="changeScreen('Menu')" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
