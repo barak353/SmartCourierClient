@@ -20,13 +20,17 @@ export class HomeComponent implements OnInit {
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
-                //private salaryService: SalaryService,
                 private regionService: RegionService,
                 private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
+        if(localStorage.getItem('choosedCourier') != null){//If we back from edit or create courier then there is a saved courier in local storage.
+          this.showScreen = 'Courier';
+          localStorage.setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
+          this.loadAllCouriers();
+        }
     }
 
     deleteCourier(id: number) {
@@ -37,9 +41,9 @@ export class HomeComponent implements OnInit {
        this.regionService.delete(id).subscribe(() => { this.loadAllRegions() });
     }
 
-    showEditScreen(user: User){
-        localStorage.setItem('choosedUser', JSON.stringify(user));
-        this.router.navigate(['/courier', user.id]);
+    showCourierEditScreen(courier: Courier){
+        localStorage.setItem('choosedCourier', JSON.stringify(courier));
+        this.router.navigate(['/courier', courier.id]);
     }
 
     //Choosing region from select box.

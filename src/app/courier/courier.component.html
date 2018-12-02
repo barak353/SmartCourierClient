@@ -1,7 +1,7 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <!-- Form for creating courier -->
-    <h2 *ngIf="choosedUserId < 0">צור סוכן חדש</h2>
-    <form *ngIf="choosedUserId < 0" name="form" (ngSubmit)="f.form.valid && createCourier()" #f="ngForm" novalidate>
+    <h2 *ngIf="choosedCourierId < 0">צור סוכן חדש</h2>
+    <form *ngIf="choosedCourierId < 0" name="form" (ngSubmit)="f.form.valid && createCourier()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username">שם משתמש</label>
             <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
@@ -47,8 +47,8 @@
             <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.courier.currentTotalPaid" #totalPaid="ngModel" />
         </div>
         <div class="form-group">
-            <button *ngIf="choosedUserId < 0" [disabled]="loading" class="btn btn-primary">צור סוכן</button>
-            <button *ngIf="choosedUserId > 0" [disabled]="loading" class="btn btn-primary">עידכון</button>
+            <button *ngIf="choosedCourierId < 0" [disabled]="loading" class="btn btn-primary">צור סוכן</button>
+            <button *ngIf="choosedCourierId > 0" [disabled]="loading" class="btn btn-primary">עידכון</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
         </div>
@@ -58,38 +58,22 @@
     </form>
 
     <!-- Form for update courier -->
-    <h2 *ngIf="choosedUserId > 0">עדכן נתוני סוכן</h2>
-    <form *ngIf="choosedUserId > 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="firstName">:שם פרטי</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
-            <div *ngIf="f.submitted && !firstName.valid" class="help-block">נדרש שם פרטי</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-            <label for="lastName">:שם משפחה</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
-            <div *ngIf="f.submitted && !lastName.valid" class="help-block">נדרש שם משפחה</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">:שם משתמש</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">נדרש שם משתמש</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">:סיסמא</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
-        </div>
-
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">:Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+    <h2 *ngIf="choosedCourier != 0">עדכן נתוני סוכן</h2>
+    <form *ngIf="choosedCourierId > 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+          <label for="email">:Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
+          <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+          <label for="password">:סיסמא</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+          <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="phone">:מספר טלפון</label>
             <input type="text" class="form-control" name="phone" [(ngModel)]="model.courier.phone" #phone="ngModel" />
-        </div>
+      </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="preferredArea">:אזור מועדף</label>
             <div class="dropdown">
@@ -109,13 +93,9 @@
             <label for="po">Po</label>
             <input type="text" class="form-control" name="po" [(ngModel)]="model.courier.po" #po="ngModel" />
         </div>
-        <div *ngIf="currentMonthInYear != null"  class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-              <label for="totalPaid">משכורת חודשית</label>
-            <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.courier.currentTotalPaid" #totalPaid="ngModel" />
-        </div>
         <div class="form-group">
-            <button *ngIf="choosedUserId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
-            <button *ngIf="choosedUserId > 0" [disabled]="loading" class="btn btn-primary">עדכן</button>
+            <button *ngIf="choosedCourierId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
+            <button *ngIf="choosedCourierId > 0" [disabled]="loading" class="btn btn-primary">עדכן</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
         </div>

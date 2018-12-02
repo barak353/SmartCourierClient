@@ -14,8 +14,9 @@ export class CourierComponent{
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
-    choosedUserId: number;//courier id of the user that choosed.
+    choosedCourierId: number;//The ID of the courier that choosed to be edit.
     currentMonthInYear: string;
+    courier: Courier;
     text: string;
     private sub: any;
 
@@ -30,29 +31,17 @@ export class CourierComponent{
 
 
     ngOnInit() {
-      this.currentMonthInYear = Month.currentMonthInYear;
-      if(this.currentMonthInYear != null){
-        let year = this.currentMonthInYear.substring(this.currentMonthInYear.length-4, this.currentMonthInYear.length);
-        let month = this.currentMonthInYear.substring(0, this.currentMonthInYear.length-4);
-        month = Month.monthMapInver.get(month);
-        this.text =month + 'וחודש ' + year + ' הכנס משכורת עבור שנת';
-        this.text =  'הכנסת משכורת עבור שנת ' + year + ' וחודש ' + month;
-      }
       this.sub = this.route.params.subscribe(params => {
-        let user = JSON.parse(localStorage.getItem('choosedUser'))
         let url = this.router.url;
-        let userId = url.split('/')[2];
-        if(userId != null){//it's update screen.
-          this.choosedUserId = parseInt(userId);
-          this.model.firstName = user.firstName;
-          this.model.lastName = user.lastName;
-          this.model.username = user.username;
-          this.model.password = user.password;
-          this.model.courier.Email = user.courier.Email;
-          this.model.courier.Phone = user.courier.Phone;
-          this.model.courier.preferredArea = user.courier.preferredArea;
-          this.model.courier.currentTotalPaid = user.courier.currentTotalPaid;
-          this.model.courier = user.courier;
+        let courierId = url.split('/')[2];//We can get the courier id from the URL.
+        if(courierId != null){//If courierId is exist in the URL then it's update screen.
+          let courier = JSON.parse(localStorage.getItem('choosedCourier'))//If the courierId is exist then its means that we saved the choosed courier in local storage.
+          this.choosedCourierId = parseInt(courierId);
+          this.courier = courier;
+          this.model.courier.Email = courier.Email;
+          this.model.courier.password = courier.password;
+          this.model.courier.Phone = courier.Phone;
+          this.model.courier.po = courier.po;
         }else{//it's create screen.
         this.model.courier = new Courier();
         this.model.firstName = null;
@@ -63,7 +52,6 @@ export class CourierComponent{
         this.model.courier.Phone = null;
         this.model.courier.preferredArea = null;
         this.model.courier.currentTotalPaid = null;
-        this.choosedUserId = -1; //'create' button was pressed because we don't have user id..
       }});
     }
 

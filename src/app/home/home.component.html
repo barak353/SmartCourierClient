@@ -30,7 +30,7 @@
           <button type="button" class="btn btn-danger" (click)="deleteCourier(courier.id)">מחיקה</button>
         </td>
         <td class="table-column">
-          <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
+          <button type="submit" class="btn btn-info" (click)="showCourierEditScreen(courier)" >עריכה</button>
         </td>
         <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
         <td class="table-column">{{ courier.po }}</td>
