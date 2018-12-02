@@ -7,7 +7,6 @@
 <div *ngIf="showScreen =='Menu'" class="main-header">
   <button (click)="changeScreen('Courier')" type="submit" class="btn btn-primary">שליחים</button>
   <button (click)="changeScreen('Region')" type="submit" class="btn btn-primary">אזורים</button>
-  <button (click)="changeScreen('Delivery')" type="submit" class="btn btn-primary">משלוחים</button>
 </div>
 <!--Courier screen-->
 <div *ngIf="showScreen =='Courier'">
@@ -33,7 +32,7 @@
         <td class="table-column">
           <button type="submit" class="btn btn-info" (click)="showEditScreen(courier)" >עריכה</button>
         </td>
-        <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveries(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveries(courier.id, courier.delivery)">אין משלוחים</a></div></td>
+        <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
         <td class="table-column">{{ courier.po }}</td>
         <td class="table-column">{{ courier.phone }}</td>
         <td class="table-column">{{ courier.email }}</td>
@@ -45,8 +44,8 @@
   <button (click)="changeScreen('Menu')" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
 </div>
 <!--Delivery screen-->
-<div *ngIf="showScreen == 'Delivery' || showScreen == 'DeliveryOfCourier'">
-  <button *ngIf="showScreen == 'Delivery'" type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
+<div *ngIf="showScreen == 'DeliveryInRegion' || showScreen == 'DeliveryOfCourier'">
+  <button *ngIf="showScreen == 'DeliveryInRegion'" type="submit" class="btn btn-primary pull-right" [routerLink]="['/delivery']">משלוח חדש</button>
   <select class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
@@ -82,7 +81,7 @@
     </tbody>
   </table>
   <button *ngIf="showScreen == 'DeliveryOfCourier'" (click)="changeScreen('Courier')" type="submit" class="btn btn-primary"><חזרה</button>
-  <button *ngIf="showScreen == 'Delivery'" (click)="changeScreen('Menu')" type="submit" class="btn btn-primary"><חזרה לתפריט</button>
+  <button *ngIf="showScreen == 'DeliveryInRegion'" (click)="changeScreen('Region')" type="submit" class="btn btn-primary"><חזרה</button>
 </div>
     <!--Regions table-->
 <div *ngIf="showScreen =='Region'">
@@ -105,6 +104,7 @@
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
+        <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region.id, region.delivery)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a  (click)="showDeliveriesInRegion(region.id, region.delivery)">אין משלוחים</a></div></td>
         <td class="table-column">{{ region.threshold }}</td>
         <td class="table-column">{{ region.regionName }}</td>
         <td class="table-column">{{ region.id }}</td>

@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     regionSelected: String;//Save the index of the region the user choose from the select box.
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     courierId: number;//Save the courier ID after choosing to show his deliveries.
+    regionId: number;//Save the region ID after choosing to show his deliveries.
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
@@ -42,26 +43,6 @@ export class HomeComponent implements OnInit {
       if(regionSelected == "")//Show deliveries from all regions.
       {
         this.deliveryService.getDeliveriesByCourier(this.courierId).subscribe(deliveries =>{
-          this.deliveries = deliveries;
-        });
-      }else
-      {
-        for(var i = 0; i < this.regions.length; i++)
-        {
-          if(this.regions[i].regionName == regionSelected)
-              var regionId = this.regions[i].id;
-        }
-        this.regionService.getCourierDeliveries(this.courierId , regionId).subscribe(deliveries =>{
-            this.deliveries = deliveries;
-        });
-      }
-    }
-
-    //Choosing region from select box.
-    regionSelect(regionSelected: String){
-      if(regionSelected == "")//Show deliveries from all regions.
-      {
-        this.deliveryService.getDeliveries().subscribe(deliveries =>{
           this.deliveries = deliveries;
         });
       }else
@@ -117,8 +98,15 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    // Clicking on show region's deliveries.
+    showDeliveriesInRegion(regionId: number, deliveries: Delivery[]) {
+      this.deliveries = deliveries;
+      this.showScreen = 'DeliveryInRegion';
+      this.regionId = regionId;
+    }
+
     // Clicking on show courier's deliveries.
-    showDeliveries(courierId: number, delivieris: Delivery[]) {
+    showDeliveriesOfCourier(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showScreen = 'DeliveryOfCourier';
       this.courierId = courierId;
