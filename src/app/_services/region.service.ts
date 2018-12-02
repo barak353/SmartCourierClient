@@ -18,4 +18,8 @@ export class RegionService {
     getCourierDeliveries(courierId : Number, regionId : Number) {
         return this.http.get<Delivery[]>( this.baseUrl + '/region/getDeliveries/' + regionId + '/' + courierId);
     }
+
+    delete(id: number) {
+      return this.http.delete(this.baseUrl + '/region/delete/' + id);
+    }
 }

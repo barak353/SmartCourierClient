@@ -66,7 +66,7 @@
     <tbody>
       <tr *ngFor="let delivery of deliveries; let i = index">
         <td class="table-column">
-          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+          <button type="button" class="btn btn-danger" (click)="deleteDelivery(i)">מחיקה</button>
         </td>
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
@@ -99,7 +99,7 @@
     <tbody>
       <tr *ngFor="let region of regions; let i = index">
         <td class="table-column">
-          <button type="button" class="btn btn-danger" (click)="onDelete(i)">מחיקה</button>
+          <button *ngIf="region.delivery.length <= 0" type="button" class="btn btn-danger" (click)="deleteRegion(region.id)">מחיקה</button>
         </td>
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>

@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
        this.courierService.delete(id).subscribe(() => { this.loadAllCouriers() });
     }
 
+    deleteRegion(id: number) {
+       this.regionService.delete(id).subscribe(() => { this.loadAllRegions() });
+    }
+
     showEditScreen(user: User){
         localStorage.setItem('choosedUser', JSON.stringify(user));
         this.router.navigate(['/courier', user.id]);
