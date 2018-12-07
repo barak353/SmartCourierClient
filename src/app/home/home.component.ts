@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     regionSelected: String;//Save the index of the region the user choose from the select box.
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     courierId: number;//Save the courier ID after choosing to show his deliveries.
-    regionId: number;//Save the region ID after choosing to show his deliveries.
+    region: Region;//Save the region after choosing to show his deliveries or couriers.
     constructor(private userService: UserService,
                 private courierService: CourierService,
                 private deliveryService: DeliveryService,
@@ -41,10 +41,10 @@ export class HomeComponent implements OnInit {
        this.regionService.delete(id).subscribe(() => { this.loadAllRegions() });
     }
 
-    showCourierEditScreen(courier: Courier, isEditScreen){
-      sessionStorage.setItem('choosedCourier', JSON.stringify(courier));
+    showCourierEditScreen(region: Region, isEditScreen){
+      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       sessionStorage.setItem('isEditScreen', isEditScreen);
-      this.router.navigate(['/courier', courier.id]);
+      this.router.navigate(['/courier', region.id]);
     }
 
     //Choosing region from select box.
@@ -108,17 +108,16 @@ export class HomeComponent implements OnInit {
     }
 
     // Clicking on show region's deliveries.
-    showDeliveriesInRegion(regionId: number, deliveries: Delivery[]) {
+    showDeliveriesInRegion(region: Region, deliveries: Delivery[]) {
       this.deliveries = deliveries;
       this.showScreen = 'DeliveryInRegion';
-      this.regionId = regionId;
+      this.region = region;
       ///Load all region's deliveries
-      this.deliveries = deliveries;
     }
 
-    showCouriersInRegion(regionId: number, couriers: Courier[]) {
-      this.showScreen = 'Courier';
-      this.regionId = regionId;
+    showCouriersInRegion(region: Region, couriers: Courier[]) {
+      this.showScreen = 'CourierInRegion';
+      this.region = region;
       //Load all region's deliveries
       this.couriers = couriers;
       //We want to see only deliveries from this region.

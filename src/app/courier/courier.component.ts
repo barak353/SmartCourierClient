@@ -14,14 +14,14 @@ export class CourierComponent{
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
-    choosedCourierId: number = -1 ;//The ID of the courier that choosed to be edit.
+    choosedRegionId: number = -1 ;//The ID of the region that we choosed to assign courier to him.
     currentMonthInYear: string;
-    courier: Courier;
+    region: Region;
     text: string;
     private sub: any;
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
-    dropDownChoosedRegionName: string = "לא נבחר אזור";
-    dropDownChoosedRegion: Region;
+    choosedCourierName: string = "לא נבחר שליח";
+    choosedCourier: Courier;
     isEditScreen: Number;
     //dropDownChoosedRegionName: string = "לא נבחר אזור";
     constructor(
@@ -38,13 +38,13 @@ export class CourierComponent{
     ngOnInit() {
       this.sub = this.route.params.subscribe(params => {
         let url = this.router.url;
-        let courierId = url.split('/')[2];//We can get the courier id from the URL.
-        if(courierId != null){//If courierId is exist in the URL then it's update screen.
-          let courier = JSON.parse(sessionStorage .getItem('choosedCourier'))//If the courierId is exist then its means that we saved the choosed courier in local storage.
+        let regionId = url.split('/')[2];//We can get the region id from the URL.
+        if(regionId != null){//If courierId is exist in the URL then it's update screen.
+          let region = JSON.parse(sessionStorage .getItem('choosedRegion'))//If the regionId is exist then its means that we saved the choosed region in local storage.
           this.isEditScreen = JSON.parse(sessionStorage .getItem('isEditScreen'));
-          this.choosedCourierId = parseInt(courierId);
-          this.courier = courier;
-          this.model.courier.Email = courier.Email;
+          this.choosedRegionId = parseInt(regionId);
+          this.region = region;
+          /*this.model.courier.Email = courier.Email;
           this.model.courier.password = courier.password;
           this.model.courier.Phone = courier.Phone;
           this.model.courier.po = courier.po;
@@ -57,16 +57,16 @@ export class CourierComponent{
         this.model.courier.Email = null;
         this.model.courier.Phone = null;
         this.model.courier.preferredArea = null;
-        this.model.courier.currentTotalPaid = null;
+        this.model.courier.currentTotalPaid = null;*/
       }});
-       this.regionService.getAll().subscribe(regions => {
-        this.regions = regions;
+       this.courierService.getAll().subscribe(couriers => {
+        this.couriers = couriers;
       });
     }
 
-    addRegionToCourier(){
-      if(this.dropDownChoosedRegionName != "לא נבחר אזור")
-        this.regionService.addCourierToRegion(this.dropDownChoosedRegion.id, this.choosedCourierId).subscribe(region => {
+    addCourierToRegion(){
+      if(this.choosedCourierName != "לא נבחר שליח")
+        this.regionService.addCourierToRegion(this.choosedRegionId, this.choosedCourier.id).subscribe(region => {
         });
     }
 
@@ -136,9 +136,9 @@ export class CourierComponent{
               });
     }
 
-    updateDropdownRegion(reigon: Region){
-        this.dropDownChoosedRegion = reigon;
-        this.dropDownChoosedRegionName = this.dropDownChoosedRegion.regionName;
+    updateDropdownCourier(courier: Courier){
+        this.choosedCourierName = courier.id + ' - ' + {{courier.email};
+        this.choosedCourier = courier;
     }
 
 
