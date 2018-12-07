@@ -18,7 +18,6 @@ For more information about Angular CLI check out the official website at https:/
 4.Install all required npm packages by running npm install from the command line in the project root folder (where the package.json is located).
  
 5.Start the application by running:
-cd C:\Users\barak\Documents\GitHub\SmartCourierClient
 ng serve —-ssl true
 from the command line in the project root folder.
  

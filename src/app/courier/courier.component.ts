@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, Courier, Month, Salary } from '../_models/index';
-import { AlertService, UserService, CourierService, SalaryService } from '../_services/index';
+import { User, Courier, Month, Salary, Region } from '../_models/index';
+import { AlertService, UserService, CourierService, SalaryService, RegionService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
 @Component({
@@ -14,18 +14,23 @@ export class CourierComponent{
     loading = false;
     areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
-    choosedCourierId: number;//The ID of the courier that choosed to be edit.
+    choosedCourierId: number = -1 ;//The ID of the courier that choosed to be edit.
     currentMonthInYear: string;
     courier: Courier;
     text: string;
     private sub: any;
-
+    regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
+    dropDownChoosedRegionName: string = "לא נבחר אזור";
+    dropDownChoosedRegion: Region;
+    isEditScreen: Number;
+    //dropDownChoosedRegionName: string = "לא נבחר אזור";
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private userService: UserService,
         private salaryService: SalaryService,
         private courierService: CourierService,
+        private regionService: RegionService,
         private alertService: AlertService) {
     }
 
@@ -35,7 +40,8 @@ export class CourierComponent{
         let url = this.router.url;
         let courierId = url.split('/')[2];//We can get the courier id from the URL.
         if(courierId != null){//If courierId is exist in the URL then it's update screen.
-          let courier = JSON.parse(localStorage.getItem('choosedCourier'))//If the courierId is exist then its means that we saved the choosed courier in local storage.
+          let courier = JSON.parse(sessionStorage .getItem('choosedCourier'))//If the courierId is exist then its means that we saved the choosed courier in local storage.
+          this.isEditScreen = JSON.parse(sessionStorage .getItem('isEditScreen'));
           this.choosedCourierId = parseInt(courierId);
           this.courier = courier;
           this.model.courier.Email = courier.Email;
@@ -53,6 +59,15 @@ export class CourierComponent{
         this.model.courier.preferredArea = null;
         this.model.courier.currentTotalPaid = null;
       }});
+       this.regionService.getAll().subscribe(regions => {
+        this.regions = regions;
+      });
+    }
+
+    addRegionToCourier(){
+      if(this.dropDownChoosedRegionName != "לא נבחר אזור")
+        this.regionService.addCourierToRegion(this.dropDownChoosedRegion.id, this.choosedCourierId).subscribe(region => {
+        });
     }
 
       createCourier() {
@@ -121,32 +136,10 @@ export class CourierComponent{
               });
     }
 
-    updateDropdownAreas(area){
-        switch (area) {
-      case 'A':
-        this.model.courier.preferredArea = "אין";
-          break;
-      case 'B':
-        this.model.courier.preferredArea = "מחוז הצפון";
-        break;
-      case 'C':
-        this.model.courier.preferredArea = "מחוז חיפה";
-        break;
-      case 'D':
-        this.model.courier.preferredArea = "מחוז תל אביב";
-        break;
-      case 'E':
-        this.model.courier.preferredArea = "מחוז המרכז";
-          break;
-      case 'F':
-        this.model.courier.preferredArea = "מחוז ירושלים";
-          break;
-      case 'G':
-        this.model.courier.preferredArea = "מחוז הדרום";
-          break;
-      default:
-      this.model.courier.preferredArea = "אין";
-  }
-      document.getElementById('areas-dropdown').innerHTML = this.model.courier.preferredArea;
+    updateDropdownRegion(reigon: Region){
+        this.dropDownChoosedRegion = reigon;
+        this.dropDownChoosedRegionName = this.dropDownChoosedRegion.regionName;
     }
+
+
 }

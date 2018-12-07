@@ -26,9 +26,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(localStorage.getItem('choosedCourier') != null){//If we back from edit or create courier then there is a saved courier in local storage.
+        if(sessionStorage .getItem('choosedCourier') != null){//If we back from edit or create courier then there is a saved courier in local storage.
           this.showScreen = 'Courier';
-          localStorage.setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
+          sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
           this.loadAllCouriers();
         }
     }
@@ -41,9 +41,10 @@ export class HomeComponent implements OnInit {
        this.regionService.delete(id).subscribe(() => { this.loadAllRegions() });
     }
 
-    showCourierEditScreen(courier: Courier){
-        localStorage.setItem('choosedCourier', JSON.stringify(courier));
-        this.router.navigate(['/courier', courier.id]);
+    showCourierEditScreen(courier: Courier, isEditScreen){
+      sessionStorage.setItem('choosedCourier', JSON.stringify(courier));
+      sessionStorage.setItem('isEditScreen', isEditScreen);
+      this.router.navigate(['/courier', courier.id]);
     }
 
     //Choosing region from select box.
@@ -115,14 +116,25 @@ export class HomeComponent implements OnInit {
       this.deliveries = deliveries;
     }
 
+    showCouriersInRegion(regionId: number, couriers: Courier[]) {
+      this.showScreen = 'Courier';
+      this.regionId = regionId;
+      //Load all region's deliveries
+      this.couriers = couriers;
+      //We want to see only deliveries from this region.
+    /*  for(let courier of this.couriers)
+      {
+        for(let region of courier.regions)
+        {
+          if(region.id != regionId)
+            this.couriers.regions = this.foo_objects.filter(obj => obj !== foo_object);
+        }*/
+    }
+
     // Clicking on show courier's deliveries.
     showDeliveriesOfCourier(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showScreen = 'DeliveryOfCourier';
       this.courierId = courierId;
-      ///Load all courier's regions
-      this.regionService.getRegionsByCourierId(courierId).subscribe(regions => {
-        this.regions = regions;
-      });
     }
 }

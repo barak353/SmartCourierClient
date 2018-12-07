@@ -1,6 +1,6 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <!-- Form for creating courier -->
-    <h2 *ngIf="choosedCourierId < 0">צור סוכן חדש</h2>
+    <!--<h2 *ngIf="choosedCourierId < 0">צור סוכן חדש</h2>
     <form *ngIf="choosedCourierId < 0" name="form" (ngSubmit)="f.form.valid && createCourier()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username">שם משתמש</label>
@@ -27,13 +27,13 @@
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >אין</div><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a (click)="updateDropdownAreas('A')" >אין</a></li>
-                <li><a (click)="updateDropdownAreas('B')" >מחוז הצפון</a></li>
-                <li><a (click)="updateDropdownAreas('C')" >מחוז חיפה</a></li>
-                <li><a (click)="updateDropdownAreas('D')" >מחוז תל אביב</a></li>
-                <li><a (click)="updateDropdownAreas('E')" >מחוז המרכז</a></li>
-                <li><a (click)="updateDropdownAreas('F')" >מחוז ירושלים</a></li>
-                <li><a (click)="updateDropdownAreas('G')" >מחוז הדרום</a></li>
+                  <li><a (click)="updateDropdownAreas('A')" >אין</a></li>
+                  <li><a (click)="updateDropdownAreas('B')" >מחוז הצפון</a></li>
+                  <li><a (click)="updateDropdownAreas('C')" >מחוז חיפה</a></li>
+                  <li><a (click)="updateDropdownAreas('D')" >מחוז תל אביב</a></li>
+                  <li><a (click)="updateDropdownAreas('E')" >מחוז המרכז</a></li>
+                  <li><a (click)="updateDropdownAreas('F')" >מחוז ירושלים</a></li>
+                  <li><a (click)="updateDropdownAreas('G')" >מחוז הדרום</a></li>
               </ul>
             </div>
         </div>
@@ -55,52 +55,98 @@
 
         <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.courier.preferredArea" #preferredArea="ngModel"  />
 
-    </form>
+    </form> -->
 
     <!-- Form for update courier -->
-    <h2 *ngIf="choosedCourier != 0">עדכן נתוני סוכן</h2>
-    <form *ngIf="choosedCourierId > 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-          <label for="email">:Email</label>
-          <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
-          <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <label for="password">:סיסמא</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="phone">:מספר טלפון</label>
-            <input type="text" class="form-control" name="phone" [(ngModel)]="model.courier.phone" #phone="ngModel" />
-      </div>
+    <div *ngIf="isEditScreen == 1">
+      <h2 *ngIf="choosedCourier != 0">עדכן נתוני סוכן</h2>
+      <form *ngIf="choosedCourierId > 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <label for="email">:Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password">:סיסמא</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
+        </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="preferredArea">:אזור מועדף</label>
+              <label for="phone">:מספר טלפון</label>
+              <input type="text" class="form-control" name="phone" [(ngModel)]="model.courier.phone" #phone="ngModel" />
+        </div>
+          <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+              <label for="po">Po</label>
+              <input type="text" class="form-control" name="po" [(ngModel)]="model.courier.po" #po="ngModel" />
+          </div>
+          <div class="form-group">
+              <button *ngIf="choosedCourierId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
+              <!--<a [routerLink]="['/']" class="btn btn-link">חזור</a>-->
+              <button *ngIf="choosedCourierId > 0" [disabled]="loading" class="btn btn-primary">עדכון נתונים שליח</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </div>
+      </form>
+    </div>
+
+
+        <div class="form-group" *ngIf="isEditScreen == 0">
+            <h2 *ngIf="choosedCourier != 0">הוסף אזור לסוכן</h2>
+            <label for="preferredArea">בחר אזור:</label>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >אין</div><span class="caret"></span></button>
+              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >{{dropDownChoosedRegionName}}</div><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a (click)="updateDropdownAreas('A')" >אין</a></li>
-                <li><a (click)="updateDropdownAreas('B')" >מחוז הצפון</a></li>
-                <li><a (click)="updateDropdownAreas('C')" >מחוז חיפה</a></li>
-                <li><a (click)="updateDropdownAreas('D')" >מחוז תל אביב</a></li>
-                <li><a (click)="updateDropdownAreas('E')" >מחוז המרכז</a></li>
-                <li><a (click)="updateDropdownAreas('F')" >מחוז ירושלים</a></li>
-                <li><a (click)="updateDropdownAreas('G')" >מחוז הדרום</a></li>
+                  <li *ngFor="let region of regions"><a (click)="updateDropdownRegion(region)" >{{region.regionName}}</a></li>
               </ul>
             </div>
+            <button *ngIf="choosedCourierId > 0" (click)="addRegionToCourier()" [disabled]="loading" class="btn btn-primary">הוסף אזור לסוכן</button>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="po">Po</label>
-            <input type="text" class="form-control" name="po" [(ngModel)]="model.courier.po" #po="ngModel" />
-        </div>
-        <div class="form-group">
-            <button *ngIf="choosedCourierId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
-            <button *ngIf="choosedCourierId > 0" [disabled]="loading" class="btn btn-primary">עדכן</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
+        <a [routerLink]="['/']" class="btn btn-link">חזור</a>
+      <!--  <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.courier.preferredArea" #preferredArea="ngModel"  />-->
+
+
+<!--
+<div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+    <label for="preferredArea">:אזור מועדף</label>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >אין</div><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <tr *ngFor="let region of regions; let i = index">
+          <li (click)="updateDropdownAreas('A')" >אין</li>
+          <li (click)="updateDropdownRegions(regionId)">{{region.regionName}}</li>
+        </tr>
+      </ul>
+    </div>
+</div>
+
+
+        <label for="preferredArea">בחר אזור:</label>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            ללא
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
         </div>
 
-        <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.courier.preferredArea" #preferredArea="ngModel"  />
 
     </form>
 </div>
+
+
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Link 1</a>
+    <a class="dropdown-item" href="#">Link 2</a>
+    <a class="dropdown-item" href="#">Link 3</a>
+  </div>
+</div>
+-->
