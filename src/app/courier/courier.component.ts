@@ -68,11 +68,11 @@ export class CourierComponent{
     addCourierToRegion(){
       if(this.choosedCourierName != "לא נבחר שליח")
         this.regionService.addCourierToRegion(this.choosedRegionId, this.choosedCourier.id).subscribe(region => {
+          this.region = region;
+          //We back from assign courier to region and not from edit courier screen, then change it.
+          sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
+          sessionStorage .setItem('choosedCourier', null)
         });
-        //We back from assign courier to region and not from edit courier screen, then change it.
-        sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
-        sessionStorage .setItem('choosedCourier', null)
-
     }
 
       createCourier() {
