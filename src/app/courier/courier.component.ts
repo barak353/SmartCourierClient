@@ -22,7 +22,6 @@ export class CourierComponent{
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     choosedCourierName: string = "לא נבחר שליח";
     choosedCourier: Courier;
-    isEditScreen: Number;
     couriers: Courier[];
     //dropDownChoosedRegionName: string = "לא נבחר אזור";
     constructor(
@@ -43,7 +42,7 @@ export class CourierComponent{
         let regionId = url.split('/')[2];//We can get the region id from the URL.
         if(regionId != null){//If courierId is exist in the URL then it's update screen.
           let region = JSON.parse(sessionStorage .getItem('choosedRegion'))//If the regionId is exist then its means that we saved the choosed region in local storage.
-          this.isEditScreen = JSON.parse(sessionStorage .getItem('isEditScreen'));
+          this.choosedCourier = JSON.parse(sessionStorage .getItem('choosedCourier'));
           this.choosedRegionId = parseInt(regionId);
           this.region = region;
           /*this.model.courier.Email = courier.Email;
