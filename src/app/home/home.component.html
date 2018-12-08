@@ -10,8 +10,10 @@
 </div>
 <!--Courier screen-->
 <div *ngIf="showScreen =='Courier' || showScreen == 'CourierInRegion'">
-  <button *ngIf="showScreen =='Courier'" type="submit" class="btn btn-primary" (click)="showCourierEditScreen(region , 0)">צור שליח</button>
-  <button *ngIf="showScreen == 'CourierInRegion'" type="submit" class="btn btn-primary" (click)="showCourierEditScreen(region , 0)">שייך שליח</button>
+  <div><button *ngIf="showScreen =='Courier'" type="submit" class="btn btn-primary pull-right" (click)="showCourierEditScreen(region , 0)">צור שליח</button>
+  <button *ngIf="showScreen == 'CourierInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCourierEditScreen(region , 0)">שייך שליח</button>
+  <label *ngIf="showScreen == 'CourierInRegion'">:מציג שליחים עבור אזור                     .</label>
+  <div><label *ngIf="showScreen == 'CourierInRegion'">{{region.regionName}}                                .</label></div></div>
   <table class="table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
@@ -47,7 +49,9 @@
 </div>
 <!--Delivery screen-->
 <div *ngIf="showScreen == 'DeliveryInRegion' || showScreen == 'DeliveryOfCourier'">
-  <button *ngIf="showScreen == 'DeliveryInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCreateDeliveryInRegionScreen(region)">משלוח חדש</button>
+  <div><button *ngIf="showScreen == 'DeliveryInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCreateDeliveryInRegionScreen(region)">משלוח חדש</button>
+  <label *ngIf="showScreen == 'DeliveryInRegion'">:מציג שליחים עבור אזור                     .</label>
+  <div><label *ngIf="showScreen == 'DeliveryInRegion'">{{region.regionName}}                     .</label></div></div>
   <select *ngIf="showScreen == 'DeliveryOfCourier'" class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
     <option *ngFor="let region of regions" [ngValue]="region">{{region.regionName}}</option>
@@ -57,6 +61,7 @@
       <tr>
         <th class="table-column"></th>
         <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
+        <th class="table-column">סוג</th>
         <th class="table-column">האם דחוף</th>
         <th class="table-column">latitude</th>
         <th class="table-column">longtitude</th>
@@ -73,6 +78,7 @@
         <td *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column">
           <button  type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
+        <td class="table-column">{{ delivery.type }}</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 1" >כן</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 0" >כן</td>
         <td class="table-column">{{ delivery.latitude }}</td>

@@ -37,6 +37,7 @@ export class CourierComponent{
 
 
     ngOnInit() {
+      this.loading = false;
       this.sub = this.route.params.subscribe(params => {
         let url = this.router.url;
         let regionId = url.split('/')[2];//We can get the region id from the URL.
@@ -72,7 +73,10 @@ export class CourierComponent{
           //We back from assign courier to region and not from edit courier screen, then change it.
           sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
           sessionStorage .setItem('choosedCourier', null)
+          this.loading = true;
         });
+        this.router.navigate(['/']);
+        this.alertService.success('שליח שוייך בהצלחה לאזור', true);
     }
 
       createCourier() {
