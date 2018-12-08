@@ -27,21 +27,21 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         let showscreen = sessionStorage.getItem('showScreen');
-        if( JSON.parse(sessionStorage.getItem('choosedCourier')) != null){//If we back from edit or create courier then there is a saved courier in local storage.
+        let choosedCourier = JSON.parse(sessionStorage.getItem('choosedCourier'));
+        let choosedRegion = JSON.parse(sessionStorage.getItem('choosedRegion'));
+        if( choosedCourier != null){//If we back from edit or create courier then there is a saved courier in local storage.
           this.showScreen = 'Courier';
           sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
           this.loadAllCouriers();
         }
-        if((sessionStorage.getItem('choosedRegion') != null) && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
+        if( choosedRegion != null && showscreen == 'DeliveryInRegion'){//If we back from creat new delivery to region screen then there is a saved region in local storage.
           this.showScreen = 'DeliveryInRegion';
-          let region = JSON.parse(sessionStorage .getItem('choosedRegion'));
-          this.showDeliveriesInRegion(region);
+          this.showDeliveriesInRegion(choosedRegion);
           sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
         }
-        if((JSON.parse(sessionStorage.getItem('choosedRegion'))!= null) && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
+        if( choosedRegion!= null && showscreen == 'CourierInRegion'){//If we back from assign courier to region screen then there is a saved region in local storage.
           this.showScreen = 'CourierInRegion';
-          let region = JSON.parse(sessionStorage .getItem('choosedRegion'));
-          this.showCouriersInRegion(region);
+          this.showCouriersInRegion(choosedRegion);
           sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
         }
     }
@@ -58,6 +58,13 @@ export class HomeComponent implements OnInit {
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       sessionStorage.setItem('isEditScreen', isEditScreen);
       this.router.navigate(['/courier', region.id]);
+    }
+
+    showCreateDeliveryInRegionScreen(region: Region)
+    {
+      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
+      this.router.navigate(['/delivery']);
+
     }
 
     //Choosing region from select box.
@@ -124,32 +131,23 @@ export class HomeComponent implements OnInit {
     showDeliveriesInRegion(region: Region) {
       this.deliveries = region.delivery;
       this.showScreen = 'DeliveryInRegion';
+      sessionStorage.setItem('showScreen', this.showScreen);
       this.region = region;
-      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
-      ///Load all region's deliveries
     }
 
+    // Clicking on show region's couriers.
     showCouriersInRegion(region: Region) {
-      this.showScreen = 'CourierInRegion';
-      this.region = region;
-      //Load all region's deliveries
       this.couriers = region.courier;
+      this.showScreen = 'CourierInRegion';
       sessionStorage.setItem('showScreen', this.showScreen);
-
-      //We want to see only deliveries from this region.
-    /*  for(let courier of this.couriers)
-      {
-        for(let region of courier.regions)
-        {
-          if(region.id != regionId)
-            this.couriers.regions = this.foo_objects.filter(obj => obj !== foo_object);
-        }*/
+      this.region = region;
     }
 
     // Clicking on show courier's deliveries.
     showDeliveriesOfCourier(courierId: number, delivieris: Delivery[]) {
       this.deliveries = delivieris;
       this.showScreen = 'DeliveryOfCourier';
+      sessionStorage.setItem('showScreen', this.showScreen);
       this.courierId = courierId;
     }
 }

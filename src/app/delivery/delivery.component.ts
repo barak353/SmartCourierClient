@@ -34,7 +34,10 @@ export class DeliveryComponent{
         private alertService: AlertService) {
     }
 
-
+    ngOnInit()
+    {
+        
+    }
     /*ngOnInit() {
       this.currentMonthInYear = Month.currentMonthInYear;
       if(this.currentMonthInYear != null){
