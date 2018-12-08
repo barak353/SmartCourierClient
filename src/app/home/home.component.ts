@@ -29,12 +29,12 @@ export class HomeComponent implements OnInit {
         let showscreen = sessionStorage.getItem('showScreen');
         let choosedCourier = sessionStorage.getItem('choosedCourier');
         let choosedRegion = sessionStorage.getItem('choosedRegion');
-        if( choosedCourier != null){//If we back from edit or create courier then there is a saved courier in local storage.
+        if( choosedCourier != "null"){//If we back from edit or create courier then there is a saved courier in local storage.
           this.showScreen = 'Courier';
           sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
           this.loadAllCouriers();
         }
-        if( choosedRegion != null && showscreen == 'DeliveryInRegion'){//If we back from creat new delivery to region screen then there is a saved region in local storage.
+        if( (choosedRegion != "null") && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
           let parsedChoosedRegion = JSON.parse(choosedRegion);
           this.showScreen = 'DeliveryInRegion';
           this.showDeliveriesInRegion(parsedChoosedRegion);
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
             this.couriers = this.region.courier;
           });
         }
-        if( choosedRegion!= null && showscreen == 'CourierInRegion'){//If we back from assign courier to region screen then there is a saved region in local storage.
+        if( (choosedRegion!= "null") && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
           let parsedChoosedRegion = JSON.parse(choosedRegion);
           this.showScreen = 'CourierInRegion';
           this.showCouriersInRegion(parsedChoosedRegion);
