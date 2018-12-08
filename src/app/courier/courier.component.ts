@@ -23,6 +23,7 @@ export class CourierComponent{
     choosedCourierName: string = "לא נבחר שליח";
     choosedCourier: Courier;
     isEditScreen: Number;
+    couriers: Courier[];
     //dropDownChoosedRegionName: string = "לא נבחר אזור";
     constructor(
         private route: ActivatedRoute,
@@ -68,6 +69,10 @@ export class CourierComponent{
       if(this.choosedCourierName != "לא נבחר שליח")
         this.regionService.addCourierToRegion(this.choosedRegionId, this.choosedCourier.id).subscribe(region => {
         });
+        //We back from assign courier to region and not from edit courier screen, then change it.
+        sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
+        sessionStorage .setItem('choosedCourier', null)
+
     }
 
       createCourier() {
@@ -137,7 +142,7 @@ export class CourierComponent{
     }
 
     updateDropdownCourier(courier: Courier){
-        this.choosedCourierName = courier.id + ' - ' + {{courier.email};
+        this.choosedCourierName = courier.id + ' - ' + courier.email;
         this.choosedCourier = courier;
     }
 

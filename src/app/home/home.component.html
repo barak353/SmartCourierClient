@@ -17,7 +17,7 @@
       <tr>
         <th class="table-column"></th>
         <th class="table-column"></th>
-        <th class="table-column"></th>
+        <th *ngIf="showScreen != 'CourierInRegion'" class="table-column"></th>
         <th class="table-column">PO</th>
         <th class="table-column">טלפון</th>
         <th class="table-column">אימייל</th>
@@ -33,7 +33,7 @@
         <td class="table-column">
           <button type="submit" class="btn btn-info" (click)="showCourierEditScreen(courier, 1)" >עריכה</button>
         </td>
-        <td class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
+        <td *ngIf="showScreen != 'CourierInRegion'" class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
         <td class="table-column">{{ courier.po }}</td>
         <td class="table-column">{{ courier.phone }}</td>
         <td class="table-column">{{ courier.email }}</td>
@@ -109,8 +109,8 @@
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
-        <td class="table-column">  <div *ngIf="region.courier.length > 0"><a  (click)="showCouriersInRegion(region, region.courier)">שליחים</a></div><div  *ngIf="region.courier.length <= 0"> <a>אין שליחים</a></div></td>
-        <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region, region.delivery)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a>אין משלוחים</a></div></td>
+        <td class="table-column">  <div *ngIf="region.courier.length > 0"><a  (click)="showCouriersInRegion(region)">שליחים</a></div><div  *ngIf="region.courier.length <= 0"> <a>אין שליחים</a></div></td>
+        <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a>אין משלוחים</a></div></td>
         <td class="table-column">{{ region.threshold }}</td>
         <td class="table-column">{{ region.regionName }}</td>
         <td class="table-column">{{ region.id }}</td>

@@ -26,10 +26,23 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(sessionStorage .getItem('choosedCourier') != null){//If we back from edit or create courier then there is a saved courier in local storage.
+        let showscreen = sessionStorage.getItem('showScreen');
+        if( JSON.parse(sessionStorage.getItem('choosedCourier')) != null){//If we back from edit or create courier then there is a saved courier in local storage.
           this.showScreen = 'Courier';
           sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
           this.loadAllCouriers();
+        }
+        if((sessionStorage.getItem('choosedRegion') != null) && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
+          this.showScreen = 'DeliveryInRegion';
+          let region = JSON.parse(sessionStorage .getItem('choosedRegion'));
+          this.showDeliveriesInRegion(region);
+          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
+        }
+        if((JSON.parse(sessionStorage.getItem('choosedRegion'))!= null) && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
+          this.showScreen = 'CourierInRegion';
+          let region = JSON.parse(sessionStorage .getItem('choosedRegion'));
+          this.showCouriersInRegion(region);
+          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
         }
     }
 
@@ -108,18 +121,21 @@ export class HomeComponent implements OnInit {
     }
 
     // Clicking on show region's deliveries.
-    showDeliveriesInRegion(region: Region, deliveries: Delivery[]) {
-      this.deliveries = deliveries;
+    showDeliveriesInRegion(region: Region) {
+      this.deliveries = region.delivery;
       this.showScreen = 'DeliveryInRegion';
       this.region = region;
+      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       ///Load all region's deliveries
     }
 
-    showCouriersInRegion(region: Region, couriers: Courier[]) {
+    showCouriersInRegion(region: Region) {
       this.showScreen = 'CourierInRegion';
       this.region = region;
       //Load all region's deliveries
-      this.couriers = couriers;
+      this.couriers = region.courier;
+      sessionStorage.setItem('showScreen', this.showScreen);
+
       //We want to see only deliveries from this region.
     /*  for(let courier of this.couriers)
       {
