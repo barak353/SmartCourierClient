@@ -15,6 +15,9 @@ export class RegionService {
       return this.http.get<Region[]>( this.baseUrl + '/region/getAll');
     }
 
+    getRegion(region: Region){
+      return this.http.get<Region>( this.baseUrl + '/region/get' + '/' + region.id);
+    }
     addCourierToRegion(regionId : Number, courierId : Number) {
         return this.http.get<Region>(this.baseUrl + '/region/update/' + regionId  + '/' + courierId);
     }

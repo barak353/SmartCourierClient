@@ -66,11 +66,11 @@ export class DeliveryComponent{
       delivery.latitude = this.model.latitude;
       delivery.longitude = this.model.longitude;
       this.regionService.createDeliveryInRegion(delivery, this.region.id)
-      .subscribe(
+     .subscribe(
             data => {
               this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
               this.router.navigate(['/']);
-          },
+
           error => {
               this.alertService.error(error);
               this.loading = false;

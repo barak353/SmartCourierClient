@@ -38,6 +38,11 @@ export class HomeComponent implements OnInit {
           this.showScreen = 'DeliveryInRegion';
           this.showDeliveriesInRegion(choosedRegion);
           sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
+          this.regionService.getRegion(this.region).subscribe(region => {
+            this.region = region;
+            this.deliveries = this.region.delivery;
+            this.couriers = this.region.courier;
+          });
         }
         if( choosedRegion!= null && showscreen == 'CourierInRegion'){//If we back from assign courier to region screen then there is a saved region in local storage.
           this.showScreen = 'CourierInRegion';
