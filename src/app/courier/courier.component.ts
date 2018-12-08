@@ -21,7 +21,8 @@ export class CourierComponent{
     private sub: any;
     regions: Region[] = [];//Save the courier regions after choosing to show his deliveries.
     choosedCourierName: string = "לא נבחר שליח";
-    choosedCourier: Courier;
+    choosedCourier: Courier;//Courier choosed to be edited.
+    dropdownCourier: Courier;//Courier chossed from dropdown.
     couriers: Courier[];
     //dropDownChoosedRegionName: string = "לא נבחר אזור";
     constructor(
@@ -67,15 +68,18 @@ export class CourierComponent{
 
     addCourierToRegion(){
       if(this.choosedCourierName != "לא נבחר שליח")
-        this.regionService.addCourierToRegion(this.choosedRegionId, this.choosedCourier.id).subscribe(region => {
+      {
+        this.regionService.assignCourierToRegion(this.choosedRegionId, this.dropdownCourier.id).subscribe(region => {
           this.region = region;
           //We back from assign courier to region and not from edit courier screen, then change it.
+          this.regionService.getRegion(this.region).subscribe(region => { this.region = region; this.couriers = region.courier; });
           sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
           sessionStorage .setItem('choosedCourier', null)
           this.loading = true;
         });
         this.router.navigate(['/']);
         this.alertService.success('שליח שוייך בהצלחה לאזור', true);
+      }
     }
 
       createCourier() {
@@ -146,7 +150,7 @@ export class CourierComponent{
 
     updateDropdownCourier(courier: Courier){
         this.choosedCourierName = courier.id + ' - ' + courier.email;
-        this.choosedCourier = courier;
+        this.dropdownCourier = courier;
     }
 
 

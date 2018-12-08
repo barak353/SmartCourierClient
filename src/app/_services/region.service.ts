@@ -19,8 +19,12 @@ export class RegionService {
       return this.http.get<Region>( this.baseUrl + '/region/get' + '/' + region.id);
     }
 
-    addCourierToRegion(regionId : Number, courierId : Number) {
-        return this.http.get<Region>(this.baseUrl + '/region/update/' + regionId  + '/' + courierId);
+    assignCourierToRegion(regionId : Number, courierId : Number) {
+        return this.http.get<Region>(this.baseUrl + '/region/assign/' + regionId  + '/' + courierId);
+    }
+
+    unassignCourierToRegion(regionId : Number, courierId : Number) {
+        return this.http.get<Region>(this.baseUrl + '/region/unassign/' + regionId  + '/' + courierId);
     }
 
     getRegionsByCourierId(courierId : Number) {

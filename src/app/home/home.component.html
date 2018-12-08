@@ -30,7 +30,7 @@
       <tr *ngFor="let courier of couriers; let i = index">
         <td class="table-column">
           <button *ngIf="showScreen != 'CourierInRegion'" type="button" class="btn btn-danger" (click)="deleteCourier(courier.id)">מחיקה</button>
-          <button *ngIf="showScreen == 'CourierInRegion'" type="button" class="btn btn-danger" (click)="unassignCourier(courier.id)">בטל שייוך</button>
+          <button *ngIf="showScreen == 'CourierInRegion'" type="button" class="btn btn-danger" (click)="unassignCourierToRegion(courier)">בטל שייוך</button>
         </td>
         <td class="table-column" *ngIf="showScreen != 'CourierInRegion'">
           <button type="submit" class="btn btn-info" (click)="showCourierCreateOrEditScreen(region , courier)" >עריכה</button>

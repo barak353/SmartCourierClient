@@ -67,6 +67,13 @@ export class HomeComponent implements OnInit {
       this.regionService.deleteDeliveryInRegion(this.region.id, deliveryId).subscribe(() =>{ this.loadAllDeliveries() });
     }
 
+    unassignCourierToRegion(courier: Courier)
+    {
+          this.regionService.unassignCourierToRegion(this.region.id, courier.id).subscribe(() =>{
+          this.regionService.getRegion(this.region).subscribe(region =>{ this.couriers = region.courier});
+          });
+    }
+
     showCourierCreateOrEditScreen(region: Region, courier :Courier){
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       sessionStorage.setItem('choosedCourier', JSON.stringify(courier);//If courier is null then it's create screen.
@@ -74,6 +81,7 @@ export class HomeComponent implements OnInit {
 
     showCourierAssignScreen(region: Region){
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
+      sessionStorage.setItem('choosedCourier', null);
       this.router.navigate(['/courier', region.id]);
     }
 
