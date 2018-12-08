@@ -59,6 +59,10 @@ export class HomeComponent implements OnInit {
        this.regionService.delete(id).subscribe(() => { this.loadAllRegions() });
     }
 
+    deleteDeliveryFromRegion(deliveryId){
+      this.regionService.deleteDeliveryInRegion<boolean>(this.region.id, deliveryId).subscribe(() =>{ this.loadAllDeliveries()});
+    }
+
     showCourierEditScreen(region: Region, isEditScreen){
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       sessionStorage.setItem('isEditScreen', isEditScreen);

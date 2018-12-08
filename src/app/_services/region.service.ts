@@ -18,6 +18,7 @@ export class RegionService {
     getRegion(region: Region){
       return this.http.get<Region>( this.baseUrl + '/region/get' + '/' + region.id);
     }
+
     addCourierToRegion(regionId : Number, courierId : Number) {
         return this.http.get<Region>(this.baseUrl + '/region/update/' + regionId  + '/' + courierId);
     }
@@ -32,6 +33,10 @@ export class RegionService {
 
     delete(id: number) {
       return this.http.delete(this.baseUrl + '/region/delete/' + id);
+    }
+
+    deleteDeliveryInRegion(regionId: number, deliveryId: number) {
+      return this.http.delete(this.baseUrl + '/region/delete/' + regionId + '/' + deliveryId);
     }
 
 }

@@ -68,7 +68,7 @@
     <tbody>
       <tr *ngFor="let delivery of deliveries; let i = index">
         <td class="table-column">
-          <button type="button" class="btn btn-danger" (click)="deleteDelivery(i)">מחיקה</button>
+          <button type="button" class="btn btn-danger" (click)="deleteDeliveryFromRegion(delivery.id)">מחיקה</button>
         </td>
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
