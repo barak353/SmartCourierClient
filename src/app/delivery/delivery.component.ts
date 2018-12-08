@@ -65,13 +65,12 @@ export class DeliveryComponent{
       delivery.isUrgent = this.model.isUrgent;
       delivery.latitude = this.model.latitude;
       delivery.longitude = this.model.longitude;
-      this.regionService.createDeliveryInRegion(delivery, this.region.id)
-     .subscribe(
+      this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
             data => {
               this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
               this.router.navigate(['/']);
-
-          error => {
+            }
+          ,error => {
               this.alertService.error(error);
               this.loading = false;
           });

@@ -56,7 +56,7 @@
     <thead>
       <tr>
         <th class="table-column"></th>
-        <th class="table-column"></th>
+        <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
         <th class="table-column">האם דחוף</th>
         <th class="table-column">latitude</th>
         <th class="table-column">longtitude</th>
@@ -70,8 +70,8 @@
         <td class="table-column">
           <button type="button" class="btn btn-danger" (click)="deleteDeliveryFromRegion(delivery.id)">מחיקה</button>
         </td>
-        <td class="table-column">
-          <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
+        <td *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column">
+          <button  type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 1" >כן</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 0" >כן</td>
