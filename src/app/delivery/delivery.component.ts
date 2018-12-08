@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-//import { User, Courier, Month, Salary } from '../_models/index';
-import { AlertService } from '../_services/index';
+import {  Courier, Region, Delivery } from '../_models/index';
+import { AlertService, RegionService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
 @Component({
@@ -16,18 +16,22 @@ import { HomeComponent } from '../home/index';
 * אז קיבלנו שני אפשרויות לשייוך שליחויות לסוכנים, אחד ידנית על ידי המזכירה והשני במסך אחר שנעשה על ידי הכנסת שליחויות באופן כללי ואז שהסרבר יריץ על כל השליחויות שבסרבר שלא משוייכים לסוכן וישייך את השליחויות שיצאו לסוכן שעליו הופעל האלגוריתם וזה יעשה על פי בקשה מהמזכירה להפעיל את האלגוריתם על סוכן מסויים.
 */
 export class DeliveryComponent{
-    /*model: any = {courier : Courier };
+    model: any = {delivery : Delivery };
     loading = false;
-    areas = ['None', 'North', 'South', 'Center'];
+    /*areas = ['None', 'North', 'South', 'Center'];
     userChoosed: User;//The user to be editing.
     choosedUserId: number;//courier id of the user that choosed.
     currentMonthInYear: string;
     text: string;
     private sub: any;*/
-
+    regions: Region[] = [];//Save all region for adding delivery to region.
+    region: Region = null;
+    choosedRegion: string = 'לא נבחר אזור';
+    delivery: Delivery = null;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private regionService: RegionService,
         //private userService: UserService,
         //private salaryService: SalaryService,
         //private courierService: CourierService,
@@ -36,7 +40,41 @@ export class DeliveryComponent{
 
     ngOnInit()
     {
-        
+      this.region = JSON.parse(sessionStorage.getItem('choosedRegion'));
+      this.loadAllRegions()
+      this.model.delivery = new Delivery();
+    }
+
+    private loadAllRegions()
+    {
+        this.regionService.getAll().subscribe(regions => {
+          this.regions = regions;
+        });
+    }
+
+    updateDropdownRegion(region: Region)
+    {
+      this.choosedRegion = region.regionName;
+    }
+
+    createDeliveryInRegion()
+    {
+      this.loading = true;
+      let delivery = new Delivery()
+      delivery.name = this.model.name;
+      delivery.isUrgent = this.model.isUrgent;
+      delivery.latitude = this.model.latitude;
+      delivery.longitude = this.model.longitude;
+      this.regionService.createDeliveryInRegion(delivery, this.region.id)
+      .subscribe(
+            data => {
+              this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
+              this.router.navigate(['/']);
+          },
+          error => {
+              this.alertService.error(error);
+              this.loading = false;
+          });
     }
     /*ngOnInit() {
       this.currentMonthInYear = Month.currentMonthInYear;

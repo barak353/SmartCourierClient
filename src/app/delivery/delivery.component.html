@@ -1,72 +1,43 @@
 ﻿<div class="col-md-6 col-md-offset-3">
-    <!-- Form for delivery courier -->
-    <h2 *ngIf="choosedUserId < 0">צור משלוח חדש</h2>
-    <form *ngIf="choosedUserId < 0" name="form" (ngSubmit)="f.form.valid && createCourier()" #f="ngForm" novalidate>
+    <!-- Form for creating delivery In Region -->
+    <h2 *ngIf="delivery == null">צור משלוח חדש</h2>
+    <form *ngIf="delivery == null" name="form" (ngSubmit)="f.form.valid && createDeliveryInRegion()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="firstName">שם פרטי</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
-            <div *ngIf="f.submitted && !firstName.valid" class="help-block">נדרש שם פרטי</div>
+            <label for="firstName">שם</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.name" #firstName="ngModel" required />
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-            <label for="lastName">שם משפחה</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
-            <div *ngIf="f.submitted && !lastName.valid" class="help-block">נדרש שם משפחה</div>
+            <label for="lastName">אנה בחר האם המשלוח דחוף</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.isUrgent" #lastName="ngModel" required />
+            <div *ngIf="f.submitted && !lastName.valid" class="help-block">אנה בחר האם המשלוח דחוף</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">שם משתמש</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">נדרש שם משתמש</div>
+            <label for="username">latitude</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="model.latitude" #username="ngModel" required />
+            <div *ngIf="f.submitted && !username.valid" class="help-block">אנה בחר את מיקום המשלוח</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">סיסמא</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
-        </div>
-
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">אימייל</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
+            <label for="password">longitude</label>
+            <input type="text" class="form-control" name="longitude" [(ngModel)]="model.longitude" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">אנה בחר את מיקום המשלוח</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="phone">טלפון</label>
-            <input type="text" class="form-control" name="phone" [(ngModel)]="model.courier.phone" #phone="ngModel" />
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="preferredArea">אזור מועדף</label>
+            <label for="preferredArea">בחר את אזור המשלוח</label>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >אין</div><span class="caret"></span></button>
+              <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >{{choosedRegion}}</div><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a (click)="updateDropdownAreas('A')" >אין</a></li>
-                <li><a (click)="updateDropdownAreas('B')" >מחוז הצפון</a></li>
-                <li><a (click)="updateDropdownAreas('C')" >מחוז חיפה</a></li>
-                <li><a (click)="updateDropdownAreas('D')" >מחוז תל אביב</a></li>
-                <li><a (click)="updateDropdownAreas('E')" >מחוז המרכז</a></li>
-                <li><a (click)="updateDropdownAreas('F')" >מחוז ירושלים</a></li>
-                <li><a (click)="updateDropdownAreas('G')" >מחוז הדרום</a></li>
+                <li *ngFor="let region of regions"><a (click)="updateDropdownRegion(region)" >{{region.regionName}}</a></li>
               </ul>
             </div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-            <label for="po">Po</label>
-            <input type="text" class="form-control" name="po" [(ngModel)]="model.courier.po" #po="ngModel" />
-        </div>
-        <div *ngIf="currentMonthInYear != null" class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-          <p class="to_right"><font size="3">{{text}}</font></p>
-            <label for="totalPaid">משכורת חודשית</label>
-            <input type="text" class="form-control" name="totalPaid" [(ngModel)]="model.courier.currentTotalPaid" #totalPaid="ngModel" />
+            <div *ngIf="f.submitted && choosedRegion == 'לא נבחר אזור'" class="help-block">אנה בחר את אזור המשלוח</div>
         </div>
         <div class="form-group">
-            <button *ngIf="choosedUserId < 0" [disabled]="loading" class="btn btn-primary">צור סוכן</button>
-            <button *ngIf="choosedUserId > 0" [disabled]="loading" class="btn btn-primary">עידכון</button>
+            <button *ngIf="delivery == null" [disabled]="loading" class="btn btn-primary">צור משלוח</button>
+            <button *ngIf="delivery != null" [disabled]="loading" class="btn btn-primary">עידכון</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
         </div>
-
-        <input type="text" class="form-control dropdown-input" name="preferredArea" [(ngModel)]="model.courier.preferredArea" #preferredArea="ngModel"  />
-
     </form>
-    <a [routerLink]="['/']" class="btn btn-link">ביטול</a>
+    <a *ngIf="delivery == null" [routerLink]="['/']" class="btn btn-link">ביטול</a>
 
     <!-- Form for update courier -->
     <!--<h2 *ngIf="choosedUserId > 0">עדכן נתוני סוכן</h2>

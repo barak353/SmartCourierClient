@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
     {
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       this.router.navigate(['/delivery']);
-
     }
 
     //Choosing region from select box.

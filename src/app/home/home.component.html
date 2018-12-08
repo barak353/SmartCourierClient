@@ -104,12 +104,12 @@
     <tbody>
       <tr *ngFor="let region of regions; let i = index">
         <td class="table-column">
-          <button *ngIf="(region != null) && (region.delivery != null) && (region.delivery.length <= 0)" type="button" class="btn btn-danger" (click)="deleteRegion(region.id)">מחיקה</button>
+          <button *ngIf="(region.delivery.length <= 0) && (region.courier.length <= 0)" type="button" class="btn btn-danger" (click)="deleteRegion(region.id)">מחיקה</button>
         </td>
         <td class="table-column">
           <button type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
-        <td class="table-column">  <div *ngIf="region.courier.length > 0"><a  (click)="showCouriersInRegion(region)">שליחים</a></div><div  *ngIf="region.courier.length <= 0"> <a>אין שליחים</a></div></td>
+        <td class="table-column">  <div *ngIf="region.courier.length > 0"><a  (click)="showCouriersInRegion(region)">שליחים</a></div><div  *ngIf="region.courier.length <= 0"> <a (click)="showCouriersInRegion(region)">אין שליחים</a></div></td>
         <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a>אין משלוחים</a></div></td>
         <td class="table-column">{{ region.threshold }}</td>
         <td class="table-column">{{ region.regionName }}</td>

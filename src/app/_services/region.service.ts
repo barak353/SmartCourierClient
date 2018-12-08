@@ -7,6 +7,10 @@ export class RegionService {
     constructor(private http: HttpClient) { }
     baseUrl = 'http://localhost:8080';
 
+    createDeliveryInRegion(delivery: Delivery, regionId: Number){
+      return this.http.put<Region>( this.baseUrl + '/region/update/' + regionId, delivery);
+    }
+
     getAll(){
       return this.http.get<Region[]>( this.baseUrl + '/region/getAll');
     }
@@ -26,4 +30,5 @@ export class RegionService {
     delete(id: number) {
       return this.http.delete(this.baseUrl + '/region/delete/' + id);
     }
+
 }
