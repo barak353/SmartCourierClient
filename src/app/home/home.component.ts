@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
 
     showCourierCreateOrEditScreen(region: Region, courier :Courier){
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
-      sessionStorage.setItem('choosedCourier', JSON.stringify(courier);//If courier is null then it's create screen.
+      sessionStorage.setItem('choosedCourier', JSON.stringify(courier));//If courier is null then it's create screen.
     }
 
     showCourierAssignScreen(region: Region){
@@ -89,6 +89,16 @@ export class HomeComponent implements OnInit {
     {
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
       this.router.navigate(['/delivery']);
+    }
+
+    showCreateNewRegion()
+    {
+      this.router.navigate(['/region']);
+    }
+
+    showEditRegion(region: Region)
+    {
+      this.router.navigate(['/region', JSON.stringify(region)]);
     }
 
     //Choosing region from select box.

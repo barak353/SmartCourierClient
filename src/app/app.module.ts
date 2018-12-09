@@ -18,6 +18,7 @@ import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { CourierComponent } from './courier/index';
 import { DeliveryComponent } from './delivery/index';
+import { RegionComponent } from './region/index';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { DeliveryComponent } from './delivery/index';
         LoginComponent,
         RegisterComponent,
         CourierComponent,
-        DeliveryComponent
+        DeliveryComponent,
+        RegionComponent
     ],
     providers: [
         AuthGuard,
