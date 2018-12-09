@@ -10,8 +10,8 @@
 </div>
 <!--Courier screen-->
 <div *ngIf="showScreen =='Courier' || showScreen == 'CourierInRegion'">
-  <div><button *ngIf="showScreen =='Courier'" type="submit" class="btn btn-primary pull-right" (click)="showCourierCreateOrEditScreen(region , null)">צור שליח</button>
-  <button *ngIf="showScreen == 'CourierInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCourierAssignScreen(region)">שייך שליח</button>
+  <div><button *ngIf="showScreen =='Courier'" type="submit" class="btn btn-primary pull-right" (click)="showCourierCreateForm()">צור שליח</button>
+  <button *ngIf="showScreen == 'CourierInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCourierAssignForm(region)">שייך שליח</button>
   <label *ngIf="showScreen == 'CourierInRegion'">:מציג שליחים עבור אזור                     .</label>
   <div><label *ngIf="showScreen == 'CourierInRegion'">{{region.regionName}}                                .</label></div></div>
   <table class="table table-striped table-bordered" style="width:100%">
@@ -33,7 +33,7 @@
           <button *ngIf="showScreen == 'CourierInRegion'" type="button" class="btn btn-danger" (click)="unassignCourierToRegion(courier)">בטל שייוך</button>
         </td>
         <td class="table-column" *ngIf="showScreen != 'CourierInRegion'">
-          <button type="submit" class="btn btn-info" (click)="showCourierCreateOrEditScreen(region , courier)" >עריכה</button>
+          <button type="submit" class="btn btn-info" (click)="showCourierEditForm(courier)" >עריכה</button>
         </td>
         <td *ngIf="showScreen != 'CourierInRegion'" class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
         <td class="table-column">{{ courier.po }}</td>
@@ -92,7 +92,7 @@
   <button *ngIf="showScreen == 'DeliveryOfCourier'" (click)="changeScreen('Courier')" type="submit" class="btn btn-primary"><חזרה</button>
   <button *ngIf="showScreen == 'DeliveryInRegion'" (click)="changeScreen('Region')" type="submit" class="btn btn-primary"><חזרה</button>
 </div>
-    <!--Regions table-->
+<!--Region screen-->
 <div><button *ngIf="showScreen == 'Region'" type="submit" class="btn btn-primary pull-right" (click)="showCreateNewRegion()">צור אזור חדש</button></div>
 <div *ngIf="showScreen =='Region'">
   <table class="table table-striped table-bordered" style="width:100%">

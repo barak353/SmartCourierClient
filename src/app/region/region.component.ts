@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, Courier, Month, Salary, Region } from '../_models/index';
-import { AlertService, UserService, CourierService, SalaryService, RegionService } from '../_services/index';
+import { Courier, Region } from '../_models/index';
+import { AlertService, CourierService, RegionService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
 @Component({
@@ -52,5 +52,10 @@ export class RegionComponent{
               this.alertService.error(error);
               this.loading = false;
           });
+    }
+
+    back(){
+      sessionStorage.setItem('showScreen', 'Region');
+      this.router.navigate(['/']);
     }
 }

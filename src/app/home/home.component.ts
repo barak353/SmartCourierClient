@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Courier, Delivery, Month, Salary, Region} from '../_models/index';
-import { UserService, CourierService, DeliveryService, SalaryService, RegionService } from '../_services/index';
+import { User, Courier, Delivery, Region} from '../_models/index';
+import { UserService, CourierService, DeliveryService, RegionService } from '../_services/index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,34 +26,41 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        let showscreen = sessionStorage.getItem('showScreen');
-       let choosedCourier = null;
+        let choosedCourier = null;
         let choosedRegion = null;
         choosedCourier = sessionStorage.getItem('choosedCourier');
         choosedRegion = sessionStorage.getItem('choosedRegion');
-        if( (choosedCourier != "undefined") && (choosedCourier != "null") ){//If we back from edit or create courier then there is a saved courier in local storage.
-          this.showScreen = 'Courier';
-          sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
-          this.loadAllCouriers();
-        }else if( (choosedRegion != "undefined") && (choosedRegion != "null") && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
-          let parsedChoosedRegion = JSON.parse(choosedRegion);
-          this.showScreen = 'DeliveryInRegion';
-          this.showDeliveriesInRegion(parsedChoosedRegion);
-          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
-          this.regionService.getRegion(this.region).subscribe(region => {
-            this.region = region;
-            this.deliveries = this.region.delivery;
-            this.couriers = this.region.courier;
-          });
-        }else if(  (choosedRegion != "undefined") && (choosedRegion!= "null") && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
-          let parsedChoosedRegion = JSON.parse(choosedRegion);
-          this.showScreen = 'CourierInRegion';
-          this.showCouriersInRegion(parsedChoosedRegion);
-          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
-        }else if(showscreen == 'Region'){//If we back from assign courier to region screen then there is a saved region in local storage.
-          this.showScreen = 'Region';
-          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
-          this.loadAllRegions()
+        let showScreen = sessionStorage.getItem('showScreen');
+        if(showScreen == "null" || showScreen == "undefined"){
+          showScreen = "menu";
+        }
+        switch(showScreen){
+          case '':
+            this.showScreen = 'Courier';
+            this.loadAllCouriers();
+          break;
+          case 'DeliveryInRegion':
+            this.showScreen = 'DeliveryInRegion';
+            let parsedChoosedRegion = JSON.parse(choosedRegion);
+            this.showDeliveriesInRegion(parsedChoosedRegion);
+            this.regionService.getRegion(this.region).subscribe(region => {
+              this.region = region;
+              this.deliveries = this.region.delivery;
+              this.couriers = this.region.courier;
+            });
+          break;
+          case 'CourierInRegion':
+            this.showScreen = 'CourierInRegion';
+            let parsedChoosedRegion2 = JSON.parse(choosedRegion);
+            this.showCouriersInRegion(parsedChoosedRegion2);
+          break;
+          case 'Region':
+            this.showScreen = 'Region';
+            this.loadAllRegions();
+          break;
+          case 'Menu':
+          this.showScreen = 'Menu';
+          break;
         }
     }
 
@@ -76,14 +83,20 @@ export class HomeComponent implements OnInit {
           });
     }
 
-    showCourierCreateOrEditScreen(region: Region, courier :Courier){
-      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
-      sessionStorage.setItem('choosedCourier', JSON.stringify(courier));//If courier is null then it's create screen.
+    showCourierCreateForm(){
+      sessionStorage.setItem('formType', 'createCourier');
+      this.router.navigate(['/courier']);
     }
 
-    showCourierAssignScreen(region: Region){
+    showCourierEditForm(courier :Courier){
+      sessionStorage.setItem('formType', 'updateCourier');
+      sessionStorage.setItem('choosedCourier', JSON.stringify(courier));
+      this.router.navigate(['/courier']);
+    }
+
+    showCourierAssignForm(region: Region){
+      sessionStorage.setItem('formType', 'assignCourier');
       sessionStorage.setItem('choosedRegion', JSON.stringify(region));
-      sessionStorage.setItem('choosedCourier', null);
       this.router.navigate(['/courier', region.id]);
     }
 
@@ -93,6 +106,12 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/delivery']);
     }
 
+    /*showCreateEditDeliveryInRegionScreen(region: Region)
+    {
+      sessionStorage.setItem('choosedRegion', JSON.stringify(region));
+      this.router.navigate(['/delivery']);
+    }*/
+
     showCreateNewRegion()
     {
       this.router.navigate(['/region']);
@@ -100,7 +119,7 @@ export class HomeComponent implements OnInit {
 
     showEditRegion(region: Region)
     {
-      this.router.navigate(['/region', JSON.stringify(region)]);
+      this.router.navigate(['/region', region.id]);
     }
 
     //Choosing region from select box.
