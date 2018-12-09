@@ -26,10 +26,8 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        let choosedCourier = null;
         let choosedRegion = null;
-        choosedCourier = sessionStorage.getItem('choosedCourier');
-        choosedRegion = sessionStorage.getItem('choosedRegion');
+        let parsedChoosedRegion = null;
         let showScreen = sessionStorage.getItem('showScreen');
         if(showScreen == "null" || showScreen == "undefined"){
           showScreen = "menu";
@@ -41,7 +39,8 @@ export class HomeComponent implements OnInit {
           break;
           case 'DeliveryInRegion':
             this.showScreen = 'DeliveryInRegion';
-            let parsedChoosedRegion = JSON.parse(choosedRegion);
+            choosedRegion = sessionStorage.getItem('choosedRegion');
+            parsedChoosedRegion = JSON.parse(choosedRegion);
             this.showDeliveriesInRegion(parsedChoosedRegion);
             this.regionService.getRegion(this.region).subscribe(region => {
               this.region = region;
@@ -51,12 +50,17 @@ export class HomeComponent implements OnInit {
           break;
           case 'CourierInRegion':
             this.showScreen = 'CourierInRegion';
-            let parsedChoosedRegion2 = JSON.parse(choosedRegion);
-            this.showCouriersInRegion(parsedChoosedRegion2);
+            choosedRegion = sessionStorage.getItem('choosedRegion');
+            parsedChoosedRegion = JSON.parse(choosedRegion);
+            this.showCouriersInRegion(parsedChoosedRegion);
           break;
           case 'Region':
             this.showScreen = 'Region';
             this.loadAllRegions();
+          break;
+          case 'Courier':
+            this.showScreen = 'Courier';
+            this.loadAllCouriers();
           break;
           case 'Menu':
           this.showScreen = 'Menu';

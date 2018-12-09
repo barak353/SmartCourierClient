@@ -4,7 +4,7 @@ export class Courier {
     id: number;
     email: string;
     phone: string;
-    preferredArea: string;
+    password: string;
     po: string;
     delivery: Delivery[];
   //  currentTotalPaid: string;//this field is not exist in data base, so don't send it to DB.

@@ -9,10 +9,6 @@ export class CourierService {
 
     baseUrl = 'http://localhost:8080';
 
-    // getAll() {
-    //     return this.http.get<Courier[]>('/api/couriers');
-    // }
-
     getAll() {
         return this.http.get<Courier[]>(this.baseUrl + '/courier/getAll');
     }
@@ -21,9 +17,9 @@ export class CourierService {
         return this.http.get(this.baseUrl + '/courier/' + id);
     }
 
-    /*create(courier: Courier) {
-        return this.http.post(this.baseUrl + '/courier/getAll', courier);
-    }Not exist yet..*/
+    create(courier: Courier) {
+        return this.http.put(this.baseUrl + '/courier/create', courier);
+    }
 
     update(courier: Courier) {
         return this.http.put(this.baseUrl + '/courier/update/' + courier.id, courier);

@@ -42,42 +42,71 @@ export class CourierComponent{
         break;
         case 'assignCourier':
         this.formType = formType;
-        this.region = JSON.parse(sessionStorage .getItem('choosedRegion'))
+        this.region = JSON.parse(sessionStorage .getItem('choosedRegion'));
+        this.loadAllCouriers();
         break;
       }
     }
 
-    addCourierToRegion(){
+    assignCourierToRegion(){
       if(this.choosedCourierName != "לא נבחר שליח")
       {
-        this.regionService.assignCourierToRegion(this.choosedRegionId, this.dropdownCourier.id).subscribe(region => {
+        this.regionService.assignCourierToRegion(this.region.id, this.dropdownCourier.id).subscribe(region => {
           this.region = region;
           //We back from assign courier to region and not from edit courier screen, then change it.
           this.regionService.getRegion(this.region).subscribe(region => { this.region = region; this.couriers = region.courier; });
           sessionStorage .setItem('choosedRegion', JSON.stringify(this.region))
           sessionStorage .setItem('choosedCourier', null)
-          this.loading = true;
+          this.alertService.success('שליח שוייך בהצלחה לאזור', true);
+          this.loading = false;
+        }
+        ,error => {
+            this.alertService.error('!אירעה שגיאה: שליח לא שוייך לאזור');
+            this.loading = false;
         });
-        this.router.navigate(['/']);
-        this.alertService.success('שליח שוייך בהצלחה לאזור', true);
       }
     }
 
 
-    backFromAssignForm()
-    {
-      sessionStorage .setItem('showScreen', 'CourierInRegion')
-      this.router.navigate(['/']);
-
-
+    createCourier() {
+      this.loading = true;
+      let courier = new Courier()
+      courier.email = this.model.email;
+      courier.phone = this.model.phone;
+      courier.password = this.model.password;
+      courier.po = this.model.po;
+      this.courierService.create(courier).subscribe(
+            data => {
+              this.alertService.success('יצירת שליח חדש בוצעה בהצלחה', true);
+              this.loading = false;
+            }
+          ,error => {
+              this.alertService.error(error);
+              this.loading = false;
+          });
+          sessionStorage .setItem('showScreen', 'Courier')
+          this.router.navigate(['/']);
     }
-
-      createCourier() {
-
-      }
 
     updateDropdownCourier(courier: Courier){
         this.choosedCourierName = courier.id + ' - ' + courier.email;
         this.dropdownCourier = courier;
     }
+        backFromCourierForm()
+        {
+          sessionStorage .setItem('showScreen', 'Courier')
+          this.router.navigate(['/']);
+        }
+
+        backFromAssignCourier()
+        {
+          sessionStorage .setItem('showScreen', 'CourierInRegion')
+          this.router.navigate(['/']);
+        }
+
+        loadAllCouriers() {
+            this.courierService.getAll().subscribe(couriers => {
+              this.couriers = couriers;
+            });
+        }
 }

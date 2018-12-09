@@ -47,7 +47,7 @@ export class DeliveryComponent{
       this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
             data => {
               this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
-              this.router.navigate(['/']);
+              this.loading = false;
             }
           ,error => {
               this.alertService.error(error);
