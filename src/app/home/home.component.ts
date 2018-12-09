@@ -35,23 +35,25 @@ export class HomeComponent implements OnInit {
           this.showScreen = 'Courier';
           sessionStorage .setItem('choosedCourier', null);//We are now in home screen then initalize choosed courier.
           this.loadAllCouriers();
-        }
-        if( (choosedRegion != "undefined") && (choosedRegion != "null") && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
+        }else if( (choosedRegion != "undefined") && (choosedRegion != "null") && (showscreen == 'DeliveryInRegion')){//If we back from creat new delivery to region screen then there is a saved region in local storage.
           let parsedChoosedRegion = JSON.parse(choosedRegion);
           this.showScreen = 'DeliveryInRegion';
           this.showDeliveriesInRegion(parsedChoosedRegion);
-          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
+          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
           this.regionService.getRegion(this.region).subscribe(region => {
             this.region = region;
             this.deliveries = this.region.delivery;
             this.couriers = this.region.courier;
           });
-        }
-        if(  (choosedRegion != "undefined") && (choosedRegion!= "null") && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
+        }else if(  (choosedRegion != "undefined") && (choosedRegion!= "null") && (showscreen == 'CourierInRegion')){//If we back from assign courier to region screen then there is a saved region in local storage.
           let parsedChoosedRegion = JSON.parse(choosedRegion);
           this.showScreen = 'CourierInRegion';
           this.showCouriersInRegion(parsedChoosedRegion);
-          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed courier.
+          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
+        }else if(showscreen == 'Region'){//If we back from assign courier to region screen then there is a saved region in local storage.
+          this.showScreen = 'Region';
+          sessionStorage.setItem('choosedRegion', null);//We are now in home screen then initalize choosed region.
+          this.loadAllRegions()
         }
     }
 

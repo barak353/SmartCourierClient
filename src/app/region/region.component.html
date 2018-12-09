@@ -1,30 +1,23 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <!-- Form for create or update region -->
-    <div *ngIf="choosedCourier != null">
-      <h2>עדכן נתוני סוכן</h2>
-      <form *ngIf="choosedCourierId > 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
+    <div *ngIf="choosedRegionId < 0">
+      <h2>צור אזור חדש</h2>
+      <form *ngIf="choosedRegionId < 0" name="form" (ngSubmit)="f.form.valid && updateCourier()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">:Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="model.courier.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">נדרש אימייל</div>
+            <label for="regionName">:שם אזור</label>
+            <input type="text" class="form-control" name="regionName" [(ngModel)]="model.region.regionName" #email="ngModel" required />
+            <div *ngIf="f.submitted && !regionName.valid" class="help-block">נדרש שם אזור</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">:סיסמא</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">נדרש סיסמא</div>
+            <label for="threshold">:סף מספר השליחויות החדשות עד להפצה</label>
+            <input type="text" class="form-control" name="threshold" [(ngModel)]="model.region.threshold" #password="ngModel" required />
+            <div *ngIf="f.submitted && !threshold.valid" class="help-block">נדרש מספר סף</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-              <label for="phone">:מספר טלפון</label>
-              <input type="text" class="form-control" name="phone" [(ngModel)]="model.courier.phone" #phone="ngModel" />
-        </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-              <label for="po">Po</label>
-              <input type="text" class="form-control" name="po" [(ngModel)]="model.courier.po" #po="ngModel" />
-          </div>
           <div class="form-group">
-              <button *ngIf="choosedCourierId < 0" [disabled]="loading" class="btn btn-primary">צור</button>
-              <!--<a [routerLink]="['/']" class="btn btn-link">חזור</a>-->
-              <button *ngIf="choosedCourierId > 0" [disabled]="loading" class="btn btn-primary">עדכון נתונים שליח</button>
+              <a *ngIf="choosedRegionId < 0" [routerLink]="['/']" class="btn btn-link">חזור</a>
+              <button *ngIf="choosedRegionId < 0" [disabled]="loading" class="btn btn-primary">צור אזור</button>
+              <a *ngIf="choosedRegionId >= 0" [routerLink]="['/']" class="btn btn-link">חזור</a>
+              <button *ngIf="choosedRegionId >= 0" [disabled]="loading" class="btn btn-primary">עדכן נתוני אזור</button>
               <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           </div>
       </form>
