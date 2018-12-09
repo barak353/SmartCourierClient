@@ -117,7 +117,7 @@
           <button type="button" class="btn btn-info" (click)="showEditRegion(region)">עריכה</button>
         </td>
         <td class="table-column">  <div *ngIf="region.courier.length > 0"><a  (click)="showCouriersInRegion(region)">שליחים</a></div><div  *ngIf="region.courier.length <= 0"> <a (click)="showCouriersInRegion(region)">אין שליחים</a></div></td>
-        <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a>אין משלוחים</a></div></td>
+        <td class="table-column">  <div *ngIf="region.delivery.length > 0"><a  (click)="showDeliveriesInRegion(region)">משלוחים</a></div><div  *ngIf="region.delivery.length <= 0"> <a (click)="showDeliveriesInRegion(region)">אין משלוחים</a></div></td>
         <td class="table-column">{{ region.threshold }}</td>
         <td class="table-column">{{ region.regionName }}</td>
         <td class="table-column">{{ region.id }}</td>

@@ -25,7 +25,6 @@ export class RegionComponent{
 
     ngOnInit() {
       this.loading = false;
-      sessionStorage.setItem('showScreen', 'Region');//We are now in home screen then initalize choosed region.
       this.route.params.subscribe(params => {
         let url = this.router.url;
         let regionId = url.split('/')[2];//We can get the region id from the URL.
@@ -36,5 +35,22 @@ export class RegionComponent{
           this.choosedRegionId = -1;
         }
       });
+    }
+
+    createRegion(){
+      this.loading = true;
+      let region = new Region()
+      region.regionName = this.model.regionName;
+      region.threshold = this.model.threshold;
+      this.regionService.createRegion(region).subscribe(
+            data => {
+              this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
+              sessionStorage.setItem('showScreen', 'Region');//We want to back to home screen then initalize choosed region.
+              this.router.navigate(['/']);
+            }
+          ,error => {
+              this.alertService.error(error);
+              this.loading = false;
+          });
     }
 }
