@@ -17,10 +17,14 @@
               <label for="phone">:מספר טלפון</label>
               <input type="text" class="form-control" name="phone" [(ngModel)]="model.phone" #phone="ngModel" />
         </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-              <label for="po">:Po</label>
-              <input type="text" class="form-control" name="po" [(ngModel)]="model.po" #po="ngModel" />
-          </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+            <label for="firstName">:שם פרטי</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #po="ngModel" />
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+            <label for="lastName">:שם משפחה</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #po="ngModel" />
+        </div>
           <div class="form-group">
               <a (click)=backFromCourierForm() class="btn btn-link">חזור</a>
               <button *ngIf="formType == 'createCourier'" [disabled]="loading" class="btn btn-primary">צור</button>

@@ -74,7 +74,8 @@ export class CourierComponent{
       courier.email = this.model.email;
       courier.phone = this.model.phone;
       courier.password = this.model.password;
-      courier.po = this.model.po;
+      courier.firstName = this.model.firstName;
+      courier.lastName = this.model.lastName;
       this.courierService.create(courier).subscribe(
             data => {
               this.alertService.success('יצירת שליח חדש בוצעה בהצלחה', true);

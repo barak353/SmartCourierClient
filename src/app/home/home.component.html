@@ -20,7 +20,8 @@
         <th *ngIf="showScreen != 'CourierInRegion'" class="table-column"></th>
         <th class="table-column"></th>
         <th *ngIf="showScreen != 'CourierInRegion'" class="table-column"></th>
-        <th class="table-column">PO</th>
+        <th class="table-column">שם משפחה</th>
+        <th class="table-column">שם פרטי</th>
         <th class="table-column">טלפון</th>
         <th class="table-column">אימייל</th>
         <th class="table-column">מספר סוכן</th>
@@ -37,7 +38,8 @@
           <button type="submit" class="btn btn-info" (click)="showCourierEditForm(courier)" >עריכה</button>
         </td>
         <td *ngIf="showScreen != 'CourierInRegion'" class="table-column">  <div *ngIf="courier.delivery.length > 0"><a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">משלוחים</a></div><div  *ngIf="courier.delivery.length <= 0"> <a  (click)="showDeliveriesOfCourier(courier.id, courier.delivery)">אין משלוחים</a></div></td>
-        <td class="table-column">{{ courier.po }}</td>
+        <td class="table-column">{{ courier.firstName }}</td>
+        <td class="table-column">{{ courier.lastName }}</td>
         <td class="table-column">{{ courier.phone }}</td>
         <td class="table-column">{{ courier.email }}</td>
         <td class="table-column">{{ courier.id }}</td>
