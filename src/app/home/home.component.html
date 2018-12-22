@@ -62,7 +62,7 @@
   <table class="table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
-        <th class="table-column"></th>
+        <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
         <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
         <th class="table-column">סוג</th>
         <th class="table-column">האם דחוף</th>
@@ -75,7 +75,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let delivery of deliveries; let i = index">
-        <td class="table-column">
+        <td *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column">
           <button type="button" class="btn btn-danger" (click)="deleteDeliveryFromRegion(delivery.id)">מחיקה</button>
         </td>
         <td *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column">
