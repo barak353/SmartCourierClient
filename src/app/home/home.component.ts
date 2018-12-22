@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
     }
 
     deleteDeliveryFromRegion(deliveryId: number){
-      this.regionService.deleteDeliveryInRegion(this.region.id, deliveryId).subscribe(() =>{ this.loadAllDeliveries() });
+      this.regionService.deleteDeliveryInRegion(this.region.id, deliveryId).subscribe(() =>{ this.loadDeliveriesInRegion(this.region); });
     }
 
     unassignCourierToRegion(courier: Courier)
@@ -183,6 +183,14 @@ export class HomeComponent implements OnInit {
     {
         this.deliveryService.getAll().subscribe(deliveries => {
           this.deliveries = deliveries;
+        });
+    }
+
+    private loadDeliveriesInRegion(Region region)
+    {
+        this.regionService.getRegion(this.region).subscribe(region => {
+          this.region = region
+          this.deliveries = region.delivery;
         });
     }
 
