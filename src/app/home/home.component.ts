@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    private loadDeliveriesInRegion(Region region)
+    private loadDeliveriesInRegion(region: Region)
     {
         this.regionService.getRegion(this.region).subscribe(region => {
           this.region = region
