@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Courier, Region, Delivery } from '../_models/index';
-import { AlertService, RegionService, AuthenticationService } from '../_services/index';
+import { AlertService, RegionService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 
 @Component({
@@ -16,7 +16,6 @@ export class DeliveryComponent{
     region: Region = null;
     delivery: Delivery = null;
     constructor(
-        private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
         private router: Router,
         private regionService: RegionService,
@@ -37,23 +36,15 @@ export class DeliveryComponent{
         });
     }
 
-    fromAdressToLanAndAtt(){
-      let adress = this.model.adress;
-      latLng = this.authenticationService.getLanAtt(adress);
-      alert(latLng);
-    }
-
-
     createDeliveryInRegion()
     {
-      this.fromAdressToLanAndAtt();
       this.loading = true;
       let delivery = new Delivery()
       delivery.name = this.model.name;
       delivery.isUrgent = this.model.isUrgent;
       delivery.latitude = this.model.latitude;
       delivery.longitude = this.model.longitude;
-      /*this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
+      this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
             data => {
               this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
               this.loading = false;
@@ -61,6 +52,6 @@ export class DeliveryComponent{
           ,error => {
               this.alertService.error(error);
               this.loading = false;
-          });*/
+          });
     }
   }

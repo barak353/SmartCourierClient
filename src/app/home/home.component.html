@@ -53,7 +53,7 @@
 <!--Delivery screen-->
 <div *ngIf="showScreen == 'DeliveryInRegion' || showScreen == 'DeliveryOfCourier'">
   <div><button *ngIf="showScreen == 'DeliveryInRegion'" type="submit" class="btn btn-primary pull-right" (click)="showCreateDeliveryInRegionScreen(region)">משלוח חדש</button>
-  <label *ngIf="showScreen == 'DeliveryInRegion'">:מציג משלוחים עבור אזור                    .</label>
+  <label *ngIf="showScreen == 'DeliveryInRegion'">:מציג שליחים עבור אזור                     .</label>
   <div><label *ngIf="showScreen == 'DeliveryInRegion'">{{region.regionName}}                     .</label></div></div>
   <select *ngIf="showScreen == 'DeliveryOfCourier'" class="select" id="regionSelected" (change)="regionSelect($event.target.value)">
     <option value="" selected="selected">כל האזורים</option>
