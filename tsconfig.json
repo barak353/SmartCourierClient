@@ -1,6 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // other options
+    "types": [
+      "node"
+    ],
+    "types": [
+      "webpack-env"
+    ],
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

@@ -11,16 +11,11 @@
             <input type="text" class="form-control" name="isUrgent" [(ngModel)]="model.isUrgent" #isUrgent="ngModel" required />
             <div *ngIf="f.submitted && !isUrgent.valid" class="help-block">אנה בחר האם המשלוח דחוף</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !latitude.valid }">
-            <label for="latitude">latitude</label>
-            <input type="text" class="form-control" name="latitude" [(ngModel)]="model.latitude" #latitude="ngModel" required />
-            <div *ngIf="f.submitted && !latitude.valid" class="help-block">אנה בחר את מיקום המשלוח</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !longitude.valid }">
-            <label for="longitude">longitude</label>
-            <input type="text" class="form-control" name="longitude" [(ngModel)]="model.longitude" #longitude="ngModel" required />
-            <div *ngIf="f.submitted && !longitude.valid" class="help-block">אנה בחר את מיקום המשלוח</div>
-        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !adress.valid }">
+          <label for="adress">:הכנס כתובת למשלוח</label>
+          <input type="text" class="form-control" name="adress" [(ngModel)]="model.adress" #adress="ngModel" required />
+          <div *ngIf="f.submitted && !adress.valid" class="help-block">אנא אזן את כתובת המשלוח</div>
+      </div>
         <div class="form-group">
             <button *ngIf="delivery == null" [disabled]="loading" class="btn btn-primary">צור משלוח</button>
             <button *ngIf="delivery != null" [disabled]="loading" class="btn btn-primary">עידכון</button>

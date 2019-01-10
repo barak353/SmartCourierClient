@@ -1,9 +1,23 @@
-﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+//declare var require: any;
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Delivery } from '../_models/index';
+
+//declare var require: any;
+
+
+/*const httpOptions = {
+  headers: new HttpHeaders({
+    'Access-Control-Request-Method':  '*'
+    //'Access-Control-Request-Headers': 'origin, x-requested-with'
+
+  })
+};*/
 
 @Injectable()
 export class DeliveryService {
+    //latLng: any;
+    //require: any;
     constructor(private http: HttpClient) { }
 
     getAll() {
@@ -28,4 +42,6 @@ export class DeliveryService {
 
     delete(id: number) {
         return this.http.delete('/api/deliveries/' + id);*/
+
+
 }
