@@ -1,8 +1,10 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Courier, Region } from '../_models/index';
 import { AlertService, CourierService, RegionService } from '../_services/index';
 import { HomeComponent } from '../home/index';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
     moduleId: module.id.toString(),
@@ -10,20 +12,41 @@ import { HomeComponent } from '../home/index';
 })
 
 export class RegionComponent{
+    private _jsonURL = 'assets/israel-cities.json';
+
     model: any = {region : Region };
     loading = false;
     choosedRegionId: number = -1 ;//The ID of the region that we choosed to assign courier to him.
-
+    //cities: string[];
+    cities: any = ['חיפה'];
     constructor(
+        private http: HttpClient,
         private route: ActivatedRoute,
         private router: Router,
         private courierService: CourierService,
         private regionService: RegionService,
         private alertService: AlertService) {
+
     }
 
+    public getJSON(): Observable<any> {
+      return this.http.get(this._jsonURL);
+    }
+
+    createCitiesList(){
+      this.getJSON().subscribe(data => {
+        let cities = []
+
+      data.forEach(function (value) {
+        //console.log(value);
+        cities.push(value.name);
+      });
+      this.cities = cities;
+      });
+    }
 
     ngOnInit() {
+      this.createCitiesList();
       this.loading = false;
       this.route.params.subscribe(params => {
         let url = this.router.url;
@@ -38,6 +61,13 @@ export class RegionComponent{
     }
 
     createRegion(){
+      let html = <HTMLInputElement>document.getElementById('cities');
+      this.model.regionName = html.value;
+      let foundCity = this.cities.filter(x => x == this.model.regionName)[0];
+      if(this.model.regionName != foundCity){
+        this.alertService.error('בבקשה הזן שם  עיר תקין');
+        return;
+      }
       this.loading = true;
       let region = new Region()
       region.regionName = this.model.regionName;
@@ -52,6 +82,7 @@ export class RegionComponent{
               this.alertService.error(error);
               this.loading = false;
           });
+
     }
 
     back(){

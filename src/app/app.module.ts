@@ -19,9 +19,11 @@ import { RegisterComponent } from './register/index';
 import { CourierComponent } from './courier/index';
 import { DeliveryComponent } from './delivery/index';
 import { RegionComponent } from './region/index';
+import { AutoCompleteModule } from 'ng5-auto-complete';
 
 @NgModule({
     imports: [
+        AutoCompleteModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,
