@@ -24,7 +24,7 @@ import {AgmCoreModule } from '@agm/core';
 @NgModule({
     imports: [
         AgmCoreModule.forRoot({
-          apiKey:'AIzaSyAxgc_iZrKSLgbujNguGPPmwboL3cq3HLA',
+          apiKey:'insert-key-here',
           libraries: ['places']
         }),
         FormsModule,
