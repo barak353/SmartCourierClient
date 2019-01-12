@@ -1,4 +1,7 @@
-﻿<div class="col-md-6 col-md-offset-3">
+
+
+
+<div class="col-md-6 col-md-offset-3">
     <!-- Form for creating delivery In Region -->
     <h2 *ngIf="delivery == null">צור משלוח חדש</h2>
     <form *ngIf="delivery == null" name="form" (ngSubmit)="f.form.valid && createDeliveryInRegion()" #f="ngForm" novalidate>
@@ -11,11 +14,18 @@
             <input type="text" class="form-control" name="isUrgent" [(ngModel)]="model.isUrgent" #isUrgent="ngModel" required />
             <div *ngIf="f.submitted && !isUrgent.valid" class="help-block">אנה בחר האם המשלוח דחוף</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !adress.valid }">
-          <label for="adress">:הכנס כתובת למשלוח</label>
-          <input type="text" class="form-control" name="adress" [(ngModel)]="model.adress" #adress="ngModel" required />
-          <div *ngIf="f.submitted && !adress.valid" class="help-block">אנא אזן את כתובת המשלוח</div>
+          <div class="form-group" >
+              <label for="address">הזן כתובת תחת האזור הנבחר</label>
+              <input type="text" class="form-control" id="address" name="address" [(ngModel)]="model.address" #search >
       </div>
+      <div class="row">
+        <div clas="col-md-12">
+          <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" style="height: 500px;">
+            <agm-marker *ngFor="let latlng of latlongs" [latitude]="latlng.latitude" [longitude]="latlng.longitude"></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+
         <div class="form-group">
             <button *ngIf="delivery == null" [disabled]="loading" class="btn btn-primary">צור משלוח</button>
             <button *ngIf="delivery != null" [disabled]="loading" class="btn btn-primary">עידכון</button>
@@ -24,3 +34,5 @@
     </form>
     <a *ngIf="delivery == null" [routerLink]="['/']" class="btn btn-link">חזור</a>
 </div>
+<!--(onAddressChange)="handleAddressChange($event)"-->
+<!--[options]='options'-->

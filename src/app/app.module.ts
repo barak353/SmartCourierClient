@@ -1,6 +1,6 @@
 ﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
@@ -20,9 +20,15 @@ import { CourierComponent } from './courier/index';
 import { DeliveryComponent } from './delivery/index';
 import { RegionComponent } from './region/index';
 import { AutoCompleteModule } from 'ng5-auto-complete';
-
+import {AgmCoreModule } from '@agm/core';
 @NgModule({
     imports: [
+        AgmCoreModule.forRoot({
+          apiKey:'AIzaSyAxgc_iZrKSLgbujNguGPPmwboL3cq3HLA',
+          libraries: ['places']
+        }),
+        FormsModule,
+        ReactiveFormsModule,
         AutoCompleteModule,
         BrowserModule,
         FormsModule,

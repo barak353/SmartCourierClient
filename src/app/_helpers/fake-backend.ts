@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from  'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';

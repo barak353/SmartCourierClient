@@ -66,8 +66,7 @@
         <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
         <th class="table-column">סוג</th>
         <th class="table-column">האם דחוף</th>
-        <th class="table-column">latitude</th>
-        <th class="table-column">longtitude</th>
+        <th class="table-column">כתובת</th>
         <th class="table-column">שם</th>
         <th class="table-column">מספר משלוח</th>
         <th class="table-column">#</th>
@@ -81,11 +80,13 @@
         <td *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column">
           <button  type="button" class="btn btn-info" (click)="onEdit(i)">עריכה</button>
         </td>
-        <td class="table-column">{{ delivery.type }}</td>
+        <td class="table-column"  *ngIf="delivery.type == 0" >לא שוייך לשליח</td>
+        <td class="table-column"  *ngIf="delivery.type == 1" >שוייך לשליח</td>
+        <td class="table-column"  *ngIf="delivery.type == 2" >בדרך ליעד</td>
+        <td class="table-column"  *ngIf="delivery.type == 3" >הגיע ליעד</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 1" >כן</td>
-        <td class="table-column"  *ngIf="delivery.isUrgent == 0" >כן</td>
-        <td class="table-column">{{ delivery.latitude }}</td>
-        <td class="table-column">{{ delivery.longitude }}</td>
+        <td class="table-column"  *ngIf="delivery.isUrgent == 0" >לא</td>
+        <td class="table-column">{{ delivery.address }}</td>
         <td class="table-column">{{ delivery.name }}</td>
         <td class="table-column">{{ delivery.id }}</td>
         <th scope="row">{{ i + 1 }}</th>

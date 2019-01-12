@@ -1,12 +1,13 @@
 declare var require: any;
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Courier, Region, Delivery } from '../_models/index';
 import { AlertService, RegionService, DeliveryService } from '../_services/index';
 import { HomeComponent } from '../home/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-
+import {} from 'googlemaps';
+import { FormControl} from '@angular/forms'
+import {MapsAPILoader} from '@agm/core';
 const httpOptions = {
   headers: new HttpHeaders({
     'Access-Control-Request-Method':  '*'
@@ -17,10 +18,21 @@ const httpOptions = {
 
 @Component({
     moduleId: module.id.toString(),
-    templateUrl: 'delivery.component.html'
+    templateUrl: 'delivery.component.html',
+    styleUrls: ['delivery.component.css']
+
 })
 
-export class DeliveryComponent{
+export class DeliveryComponent implements OnInit {
+  title ='app'
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  public zoom: number;
+  public latitude: Number;
+  public longitude: Number;
+  public latlongs: any = [];
+  public latlong: any = {};
+  public searchControl: FormControl;
     model: any = {delivery : Delivery };
     loading = false;
     regions: Region[] = [];//Save all region for adding delivery to region.
@@ -28,7 +40,9 @@ export class DeliveryComponent{
     delivery: Delivery = null;
     latLng: any = {lat: Number, lng: Number};
     constructor(
-      private deliveryService: DeliveryService,
+        private ngZone: NgZone,
+        private mapsAPILoader: MapsAPILoader,
+        private deliveryService: DeliveryService,
         private route: ActivatedRoute,
         private router: Router,
         private regionService: RegionService,
@@ -37,9 +51,48 @@ export class DeliveryComponent{
 
     ngOnInit()
     {
+      this.zoom = 8;
+      this.latitude = 32.0775274495921;
+      this.longitude = 34.77996826171876;
+      this.searchControl = new FormControl();
+      this.setCurrentPosition();
+      this.mapsAPILoader.load().then(() => {
+        const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+          types: [],
+          componentRestrictions: {'country': 'IL'}
+        });
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            if( place.geometry === undefined || place.geometry === null){
+              return;
+            }
+
+            const latlong = {
+              latitude : place.geometry.location.lat(),
+               longitude : place.geometry.location.lng()
+            };
+          this.latlongs = [];
+          this.latlongs.push(latlong);
+          this.searchControl.reset();
+
+          });
+        });
+      });
+
       this.region = JSON.parse(sessionStorage.getItem('choosedRegion'));
       this.loadAllRegions()
       this.model.delivery = new Delivery();
+    }
+
+    private setCurrentPosition(){
+      if('geolocation' in navigator){
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;
+          this.zoom = 8;
+        });
+      }
     }
 
     private loadAllRegions()
@@ -58,7 +111,8 @@ export class DeliveryComponent{
       delivery.isUrgent = this.model.isUrgent;
       delivery.latitude = this.model.latitude;
       delivery.longitude = this.model.longitude;
-      delivery.adress = this.model.adress;
+      let html = <HTMLInputElement>document.getElementById('address');
+      delivery.address = html.value;
       this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
             data => {
               this.alertService.success('הוספת משלוח בוצעה בהצלחה', true);
@@ -72,11 +126,16 @@ export class DeliveryComponent{
 
     createDeliveryInRegion()
     {
-      this.fromAdressToLanAndAtt();
-
+      if( this.latlongs.length < 1)  this.alertService.error('בבקשה הזן כתובת בתוך האזור שנבחר');
+      else{
+      this.model.latitude = String(this.latlongs[0]['latitude']);
+      this.model.longitude = String(this.latlongs[0]['longitude']);
+      this.sendDeliveryToServer();
+      }
+      //this.fromAdressToLanAndAtt();
     }
 
-    fromAdressToLanAndAtt(){
+    /*fromAdressToLanAndAtt(){
       let address = this.model.adress;
       let googleMapsUrl = 'https://maps.googleapis.com/maps/api/';
       let apiKey = 'insert-api-key';
@@ -119,6 +178,6 @@ export class DeliveryComponent{
         }).on("error", (err) => {
           console.log("Error: " + err.message);
         });
-    }
+    }*/
 
   }
