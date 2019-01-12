@@ -33,6 +33,8 @@ export class DeliveryComponent implements OnInit {
   public latlongs: any = [];
   public latlong: any = {};
   public searchControl: FormControl;
+  public options: any = ['לא','כן'];
+  public choosedOption: String = 'לא';
     model: any = {delivery : Delivery };
     loading = false;
     regions: Region[] = [];//Save all region for adding delivery to region.
@@ -51,6 +53,7 @@ export class DeliveryComponent implements OnInit {
 
     ngOnInit()
     {
+      this.model.isUrgent = 0;
       this.zoom = 8;
       this.latitude = 32.0775274495921;
       this.longitude = 34.77996826171876;
@@ -102,6 +105,14 @@ export class DeliveryComponent implements OnInit {
         });
     }
 
+
+    updateDropdownIsUrgent(option: String){
+      this.choosedOption = option;
+      if(option == 'כן')
+        this.model.isUrgent = 1;
+      else
+        this.model.isUrgent = 0;
+    }
 
     sendDeliveryToServer()
     {

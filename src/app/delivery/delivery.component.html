@@ -5,14 +5,20 @@
     <!-- Form for creating delivery In Region -->
     <h2 *ngIf="delivery == null">צור משלוח חדש</h2>
     <form *ngIf="delivery == null" name="form" (ngSubmit)="f.form.valid && createDeliveryInRegion()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+        <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
             <label for="name">שם</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isUrgent.valid }">
+        </div>-->
+       <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isUrgent.valid }">
             <label for="isUrgent">אנה בחר האם המשלוח דחוף</label>
             <input type="text" class="form-control" name="isUrgent" [(ngModel)]="model.isUrgent" #isUrgent="ngModel" required />
             <div *ngIf="f.submitted && !isUrgent.valid" class="help-block">אנה בחר האם המשלוח דחוף</div>
+        </div>-->
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle btn-primary-custom" type="button" data-toggle="dropdown"><div id="areas-dropdown" >{{choosedOption}}</div><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+              <li *ngFor="let option of options"><a (click)="updateDropdownIsUrgent(option)" >{{option}}</a></li>
+          </ul>
         </div>
           <div class="form-group" >
               <label for="address">הזן כתובת תחת האזור הנבחר</label>
