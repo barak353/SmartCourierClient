@@ -66,8 +66,12 @@
         <th *ngIf="showScreen != 'DeliveryOfCourier'" class="table-column"></th>
         <th class="table-column">סוג</th>
         <th class="table-column">האם דחוף</th>
+        <th class="table-column">תיבה</th>
+        <th class="table-column">קומה</th>
+        <th class="table-column">כניסה</th>
+        <th class="table-column">דורש המשלוח</th>
+        <th class="table-column">טלפון</th>
         <th class="table-column">כתובת</th>
-        <th class="table-column">שם</th>
         <th class="table-column">מספר משלוח</th>
         <th class="table-column">#</th>
       </tr>
@@ -86,8 +90,12 @@
         <td class="table-column"  *ngIf="delivery.type == 3" >הגיע ליעד</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 1" >כן</td>
         <td class="table-column"  *ngIf="delivery.isUrgent == 0" >לא</td>
+        <td class="table-column">{{ delivery.box }}</td>
+        <td class="table-column">{{ delivery.floor }}</td>
+        <td class="table-column">{{ delivery.entrance }}</td>
+        <td class="table-column">{{ delivery.claimant }}</td>
+        <td class="table-column">{{ delivery.phone }}</td>
         <td class="table-column">{{ delivery.address }}</td>
-        <td class="table-column">{{ delivery.name }}</td>
         <td class="table-column">{{ delivery.id }}</td>
         <th scope="row">{{ i + 1 }}</th>
       </tr>

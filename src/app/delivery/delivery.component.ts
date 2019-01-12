@@ -122,6 +122,11 @@ export class DeliveryComponent implements OnInit {
       delivery.isUrgent = this.model.isUrgent;
       delivery.latitude = this.model.latitude;
       delivery.longitude = this.model.longitude;
+      delivery.phone = this.model.phone;
+      delivery.claimant = this.model.claimant;
+      delivery.entrance = this.model.entrance;
+      delivery.floor = this.model.floor;
+      delivery.box = this.model.box;
       let html = <HTMLInputElement>document.getElementById('address');
       delivery.address = html.value;
       this.regionService.createDeliveryInRegion(delivery, this.region.id).subscribe(
